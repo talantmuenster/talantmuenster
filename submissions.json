@@ -1,0 +1,23 @@
+{
+  "submissions": [
+    {
+      "id": 1,
+      "chatId": null,
+      "text": "🎄 <b>Новая заявка на конкурс новогодних игрушек-2025</b>\n\n👤 <b>ФИО:</b> ас\n🎂 <b>Возраст:</b> 23\n📍 <b>Населённый пункт, страна:</b> вмы\n🏷 <b>Номинация:</b> ивп\n🎨 <b>Название работы:</b> аупа\n✉️ <b>Email для связи:</b> denik1902@inbox.lv",
+      "photo": "AgACAgQAAxkDAAMnaTmpn2oY3tz5Lj2q0quciJ__0NwAAnYMaxt778hRUAiqQCZg_8oBAAMCAAN5AAM2BA",
+      "favorite": false,
+      "selected": false,
+      "createdAt": 1765392709834
+    },
+    {
+      "id": 2,
+      "chatId": null,
+      "text": "🎄 <b>Новая заявка на конкурс новогодних игрушек-2025</b>\n\n👤 <b>ФИО:</b> ецеотр\n🎂 <b>Возраст:</b> 23\n📍 <b>Населённый пункт, страна:</b> кпм\n🏷 <b>Номинация:</b> крпа\n🎨 <b>Название работы:</b> уцав\n✉️ <b>Email для связи:</b> denik1902@inbox.lv",
+      "photo": "AgACAgQAAxkDAAMnaTmpn2oY3tz5Lj2q0quciJ__0NwAAnYMaxt778hRUAiqQCZg_8oBAAMCAAN5AAM2BA",
+      "favorite": false,
+      "selected": false,
+      "createdAt": 1765392879463
+    }
+  ],
+  "lastId": 2
+}
