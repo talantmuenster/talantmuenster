@@ -21,6 +21,8 @@ export default function NewYearPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [agree, setAgree] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
 
 
   // очищаем URL’ы
@@ -92,8 +94,8 @@ export default function NewYearPage() {
         const data = await res.json().catch(() => ({}));
         throw new Error(data.message || 'Ошибка при отправке');
       }
+      setIsSubmitted(true);
 
-      setStatus('Заявка отправлена! Спасибо 💚');
       setFullName('');
       setAge('');
       setCity('');
@@ -242,14 +244,21 @@ export default function NewYearPage() {
 				</a>
 			</span>
 			</label>
+          {isSubmitted ? (
+            <div className={styles.submitted}>
+              ✅ Заявка отправлена
+            </div>
+          ) : (
+            <button
+              className={styles.submit}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Отправляем…' : 'Отправить заявку'}
+            </button>
+          )}
 
-          <button
-            className={styles.submit}
-            type="submit"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Отправляем…' : 'Отправить заявку'}
-          </button>
+
         </form>
       </div>
     </div>

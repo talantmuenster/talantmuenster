@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       to: process.env.EMAIL_TO!,
       subject: "Новая заявка — Конкурс Новогодних Игрушек 2025",
       html,
-      attachments, // <<< отправляем вложения
+
     });
 
     return NextResponse.json({ ok: true });
