@@ -1,95 +1,42 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
-const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN!;
-const CHAT_ID = process.env.TELEGRAM_CHAT_ID!;
-const SAVE_API_URL = 'http://localhost:3001/save-submission'; // 🚨 Бэкэнд-бот Express
+export const runtime = "nodejs";
 
-export const dynamic = 'force-dynamic';
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
     const form = await req.formData();
 
-    const fio = String(form.get('fullName') ?? '');
-    const age = String(form.get('age') ?? '');
-    const city = String(form.get('city') ?? '');
-    const nomination = String(form.get('nomination') ?? '');
-    const workTitle = String(form.get('workTitle') ?? '');
-    const email = String(form.get('email') ?? '');
-    const files = form.getAll('files') as File[];
+    const fullName = form.get("fullName")?.toString() || "";
+    const age = form.get("age")?.toString() || "";
+    const city = form.get("city")?.toString() || "";
+    const nomination = form.get("nomination")?.toString() || "";
+    const workTitle = form.get("workTitle")?.toString() || "";
+    const email = form.get("email")?.toString() || "";
 
-    // ===== 1. Собираем текст заявки =====
-    const text = [
-      '🎄 <b>Новая заявка на конкурс новогодних игрушек-2025</b>',
-      '',
-      `👤 <b>ФИО:</b> ${fio}`,
-      `🎂 <b>Возраст:</b> ${age}`,
-      `📍 <b>Населённый пункт, страна:</b> ${city}`,
-      `🏷 <b>Номинация:</b> ${nomination}`,
-      `🎨 <b>Название работы:</b> ${workTitle}`,
-      `✉️ <b>Email для связи:</b> ${email}`,
-    ].join('\n');
+    const html = `
+      <h2>Новая заявка на конкурс!</h2>
 
-    // ===== 2. Отправляем текст в Telegram =====
-    const textRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text,
-        parse_mode: 'HTML',
-      }),
+      <p><b>ФИО:</b> ${fullName}</p>
+      <p><b>Возраст:</b> ${age}</p>
+      <p><b>Город:</b> ${city}</p>
+      <p><b>Номинация:</b> ${nomination}</p>
+      <p><b>Название работы:</b> ${workTitle}</p>
+      <p><b>Email для связи:</b> ${email}</p>
+    `;
+
+    await resend.emails.send({
+      from: process.env.EMAIL_FROM!,
+      to: process.env.EMAIL_TO!,
+      subject: "Новая заявка — Конкурс Новогодних Игрушек 2025",
+      html,
     });
-
-    if (!textRes.ok) {
-      const errText = await textRes.text();
-      console.error('❌ sendMessage error:', errText);
-      return NextResponse.json({ ok: false, error: 'TEXT_SEND_FAILED', details: errText }, { status: 500 });
-    }
-
-    // ===== 3. Отправляем фото (если есть) и сохраняем file_id =====
-    let fileIdFromTelegram: string | null = null;
-
-    if (files.length > 0) {
-      const file = files[0]; // можно расширить на sendMediaGroup позже
-      const fd = new FormData();
-      fd.append('chat_id', CHAT_ID);
-      fd.append('photo', file, file.name);
-
-      const photoRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
-        method: 'POST',
-        body: fd as any,
-      });
-
-      const json = await photoRes.json();
-
-      if (!photoRes.ok || !json.ok) {
-        console.error('❌ sendPhoto error:', json);
-        return NextResponse.json({ ok: false, error: 'PHOTO_SEND_FAILED' }, { status: 500 });
-      }
-
-      fileIdFromTelegram = json.result.photo.at(-1).file_id;
-    }
-
-    // ===== 4. Сохраняем в submissions.json через API бота =====
-    const saveRes = await fetch(SAVE_API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        text,
-        photo: fileIdFromTelegram,
-      }),
-    });
-
-    if (!saveRes.ok) {
-      const errText = await saveRes.text();
-      console.error('❌ save-submission error:', errText);
-      return NextResponse.json({ ok: false, error: 'SAVE_FAILED', details: errText }, { status: 500 });
-    }
 
     return NextResponse.json({ ok: true });
-  } catch (e) {
-    console.error('API /newyear/submit error:', e);
-    return NextResponse.json({ ok: false, error: 'SERVER_ERROR' }, { status: 500 });
+  } catch (error: any) {
+    console.error("Email sending error:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
