@@ -16,22 +16,40 @@ export async function POST(req: Request) {
     const workTitle = form.get("workTitle")?.toString() || "";
     const email = form.get("email")?.toString() || "";
 
-    const html = `
-      <h2>Новая заявка на конкурс!</h2>
+    const files = form.getAll("files") as File[];
 
+    // ====== 1. Превращаем файлы в Base64 вложения ======
+    const attachments = [];
+
+    for (const file of files) {
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const base64 = buffer.toString("base64");
+
+      attachments.push({
+        filename: file.name,
+        content: base64,
+      });
+    }
+
+    // ====== 2. HTML письма ======
+    const html = `
+      <h2>Новая заявка на конкурс</h2>
       <p><b>ФИО:</b> ${fullName}</p>
       <p><b>Возраст:</b> ${age}</p>
       <p><b>Город:</b> ${city}</p>
       <p><b>Номинация:</b> ${nomination}</p>
       <p><b>Название работы:</b> ${workTitle}</p>
-      <p><b>Email для связи:</b> ${email}</p>
+      <p><b>Email:</b> ${email}</p>
+      <p><b>Количество фото:</b> ${files.length}</p>
     `;
 
+    // ====== 3. Отправка письма ======
     await resend.emails.send({
       from: process.env.EMAIL_FROM!,
       to: process.env.EMAIL_TO!,
       subject: "Новая заявка — Конкурс Новогодних Игрушек 2025",
       html,
+      attachments, // <<< отправляем вложения
     });
 
     return NextResponse.json({ ok: true });

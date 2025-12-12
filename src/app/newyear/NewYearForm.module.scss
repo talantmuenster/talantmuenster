@@ -1,3 +1,4 @@
+/* === Layout === */
 .page {
   min-height: 100vh;
   display: flex;
@@ -6,6 +7,11 @@
   padding: 24px 12px;
   background: url('/newyear-bg.png') no-repeat center top / cover;
   position: relative;
+  color: #000;
+
+  @media (min-width: 768px) {
+    align-items: center;
+  }
 }
 
 .overlay {
@@ -25,8 +31,13 @@
   border-radius: 24px;
   padding: 20px 18px 24px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+
+  @media (min-width: 768px) {
+    max-width: 540px;
+  }
 }
 
+/* === Title === */
 .title {
   text-align: center;
   font-size: 20px;
@@ -34,6 +45,7 @@
   margin-bottom: 16px;
 }
 
+/* === Form === */
 .form {
   display: flex;
   flex-direction: column;
@@ -64,6 +76,7 @@
   }
 }
 
+/* === Upload === */
 .uploadBtn {
   margin-top: 4px;
   display: inline-flex;
@@ -102,6 +115,7 @@
   display: inline-block;
 }
 
+/* === Preview === */
 .previews {
   margin-top: 8px;
   display: flex;
@@ -138,12 +152,7 @@
   }
 }
 
-.status {
-  margin-top: 4px;
-  font-size: 13px;
-  color: #d6453d;
-}
-
+/* === Submit === */
 .submit {
   margin-top: 8px;
   border: none;
@@ -162,16 +171,14 @@
   }
 }
 
-/* чуть-чуть шире на десктопе */
-@media (min-width: 768px) {
-  .page {
-    align-items: center;
-  }
-
-  .formWrapper {
-    max-width: 540px;
-  }
+/* === Status Message === */
+.status {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #d6453d;
 }
+
+/* === Checkbox (Privacy Policy) === */
 .checkbox {
   display: flex;
   align-items: flex-start;
