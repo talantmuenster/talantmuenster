@@ -9,7 +9,18 @@ export async function POST(req: Request) {
   try {
     console.log("API HIT");
 
-    const data = await req.json();
+    // 🔒 читаем тело безопасно
+    const raw = await req.text();
+    console.log("RAW BODY:", raw);
+
+    if (!raw) {
+      return NextResponse.json(
+        { ok: false, error: "Empty request body" },
+        { status: 400 }
+      );
+    }
+
+    const data = JSON.parse(raw);
 
     const {
       fullName = "",
@@ -37,7 +48,7 @@ export async function POST(req: Request) {
       html,
     });
 
-    console.log("Resend OK:", result);
+    console.log("RESEND RESULT:", result);
 
     return NextResponse.json({ ok: true });
   } catch (error: any) {
