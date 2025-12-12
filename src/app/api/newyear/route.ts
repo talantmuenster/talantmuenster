@@ -7,31 +7,19 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
-    const form = await req.formData();
+    console.log("API HIT");
 
-    const fullName = form.get("fullName")?.toString() || "";
-    const age = form.get("age")?.toString() || "";
-    const city = form.get("city")?.toString() || "";
-    const nomination = form.get("nomination")?.toString() || "";
-    const workTitle = form.get("workTitle")?.toString() || "";
-    const email = form.get("email")?.toString() || "";
+    const data = await req.json();
 
-    const files = form.getAll("files") as File[];
+    const {
+      fullName = "",
+      age = "",
+      city = "",
+      nomination = "",
+      workTitle = "",
+      email = "",
+    } = data;
 
-    // ====== 1. Превращаем файлы в Base64 вложения ======
-    const attachments = [];
-
-    for (const file of files) {
-      const buffer = Buffer.from(await file.arrayBuffer());
-      const base64 = buffer.toString("base64");
-
-      attachments.push({
-        filename: file.name,
-        content: base64,
-      });
-    }
-
-    // ====== 2. HTML письма ======
     const html = `
       <h2>Новая заявка на конкурс</h2>
       <p><b>ФИО:</b> ${fullName}</p>
@@ -40,21 +28,23 @@ export async function POST(req: Request) {
       <p><b>Номинация:</b> ${nomination}</p>
       <p><b>Название работы:</b> ${workTitle}</p>
       <p><b>Email:</b> ${email}</p>
-      <p><b>Количество фото:</b> ${files.length}</p>
     `;
 
-    // ====== 3. Отправка письма ======
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: process.env.EMAIL_FROM!,
-      to: process.env.EMAIL_TO!,
+      to: process.env.EMAIL_TO!.split(","),
       subject: "Новая заявка — Конкурс Новогодних Игрушек 2025",
       html,
-
     });
+
+    console.log("Resend OK:", result);
 
     return NextResponse.json({ ok: true });
   } catch (error: any) {
-    console.error("Email sending error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("SEND ERROR:", error);
+    return NextResponse.json(
+      { ok: false, error: error.message },
+      { status: 500 }
+    );
   }
 }
