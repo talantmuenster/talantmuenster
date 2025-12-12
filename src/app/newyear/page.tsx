@@ -23,7 +23,6 @@ export default function NewYearPage() {
   const [agree, setAgree] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // очищаем URL превью
   useEffect(() => {
     return () => {
       files.forEach((f) => URL.revokeObjectURL(f.url));
@@ -31,10 +30,10 @@ export default function NewYearPage() {
   }, [files]);
 
   const handleFilesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files;
-    if (!fileList) return;
+    const list = e.target.files;
+    if (!list) return;
 
-    const arr = Array.from(fileList);
+    const arr = Array.from(list);
 
     const all = [
       ...files,
@@ -67,15 +66,14 @@ export default function NewYearPage() {
     }
 
     if (!files.length) {
-      setStatus('Нужно выбрать хотя бы один файл (для проверки жюри).');
+      setStatus('Нужно загрузить хотя бы один файл.');
       return;
     }
 
     try {
       setIsSubmitting(true);
 
-      // 🔥 ОТПРАВЛЯЕМ ТОЛЬКО JSON
-      const res = await fetch('/api/send', {
+      const res = await fetch('/api/newyear', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -87,27 +85,34 @@ export default function NewYearPage() {
           nomination,
           workTitle,
           email,
-          filesCount: files.length, // 👈 просто информация
+          filesCount: files.length,
         }),
       });
 
-      const data = await res.json();
+      const text = await res.text();
+      let data: any;
+
+      try {
+        data = JSON.parse(text);
+      } catch {
+        throw new Error('Сервер вернул не JSON');
+      }
 
       if (!data.ok) {
         throw new Error(data.error || 'Ошибка отправки');
       }
 
       setIsSubmitted(true);
-      setFiles([]);
       setFullName('');
       setAge('');
       setCity('');
       setNomination('');
       setWorkTitle('');
       setEmail('');
+      setFiles([]);
     } catch (err: any) {
       console.error(err);
-      setStatus(`Ошибка: ${err.message || 'не удалось отправить'}`);
+      setStatus(`Не удалось отправить: ${err.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -115,33 +120,78 @@ export default function NewYearPage() {
 
   return (
     <div className={styles.page}>
+      <div className={styles.overlay} />
       <div className={styles.formWrapper}>
-        <h1 className={styles.title}>Конкурс новогодних игрушек-2025</h1>
+        <h1 className={styles.title}>
+          Конкурс новогодних игрушек-2025
+        </h1>
 
         <form className={styles.form} onSubmit={handleSubmit}>
-          <input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="ФИО *" />
-          <input type="number" value={age} onChange={(e) => setAge(e.target.value)} placeholder="Возраст *" />
-          <input value={city} onChange={(e) => setCity(e.target.value)} placeholder="Город, страна *" />
-          <input value={nomination} onChange={(e) => setNomination(e.target.value)} placeholder="Номинация *" />
-          <input value={workTitle} onChange={(e) => setWorkTitle(e.target.value)} placeholder="Название работы *" />
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email *" />
+          <label className={styles.field}>
+            <span>ФИО *</span>
+            <input value={fullName} onChange={(e) => setFullName(e.target.value)} />
+          </label>
 
-          {/* файлы — ТОЛЬКО ДЛЯ UI */}
-          <input type="file" multiple accept="image/*" onChange={handleFilesChange} />
+          <label className={styles.field}>
+            <span>Возраст *</span>
+            <input type="number" value={age} onChange={(e) => setAge(e.target.value)} />
+          </label>
 
-          {files.length > 0 && <p>Файлов выбрано: {files.length}</p>}
+          <label className={styles.field}>
+            <span>Населённый пункт *</span>
+            <input value={city} onChange={(e) => setCity(e.target.value)} />
+          </label>
+
+          <label className={styles.field}>
+            <span>Номинация *</span>
+            <input value={nomination} onChange={(e) => setNomination(e.target.value)} />
+          </label>
+
+          <label className={styles.field}>
+            <span>Название работы *</span>
+            <input value={workTitle} onChange={(e) => setWorkTitle(e.target.value)} />
+          </label>
+
+          <label className={styles.field}>
+            <span>Email *</span>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </label>
+
+          <div className={styles.field}>
+            <span>Файлы *</span>
+            <label className={styles.uploadBtn}>
+              <input type="file" multiple accept="image/*" onChange={handleFilesChange} />
+              Загрузить
+            </label>
+
+            {files.length > 0 && (
+              <div className={styles.previews}>
+                {files.map((pf) => (
+                  <div key={pf.id} className={styles.previewItem}>
+                    <img src={pf.url} alt="" />
+                    <button type="button" onClick={() => removeFile(pf.id)}>✕</button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
           <label className={styles.checkbox}>
             <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} />
-            Я согласен(на) с <a href="/privacy-policy" target="_blank">политикой конфиденциальности</a>
+            <span>
+              Я согласен(на) с{' '}
+              <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+                политикой конфиденциальности
+              </a>
+            </span>
           </label>
 
-          {status && <p className={styles.status}>{status}</p>}
+          {status && <div className={styles.status}>{status}</div>}
 
           {isSubmitted ? (
-            <p>✅ Заявка отправлена</p>
+            <div className={styles.submitted}>✅ Заявка отправлена</div>
           ) : (
-            <button disabled={isSubmitting}>
+            <button className={styles.submit} disabled={isSubmitting}>
               {isSubmitting ? 'Отправляем…' : 'Отправить заявку'}
             </button>
           )}
