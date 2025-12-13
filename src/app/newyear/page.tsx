@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './NewYearForm.module.scss';
 
 type PreviewFile = {
@@ -18,11 +18,15 @@ export default function NewYearPage() {
   const [email, setEmail] = useState('');
 
   const [files, setFiles] = useState<PreviewFile[]>([]);
+  const [agree, setAgree] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
-  const [agree, setAgree] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // 🔒 защита от повторной отправки (даже при reload)
+  const hasSubmittedRef = useRef(false);
+
+  // очистка blob URL
   useEffect(() => {
     return () => {
       files.forEach((f) => URL.revokeObjectURL(f.url));
@@ -33,26 +37,40 @@ export default function NewYearPage() {
     const list = e.target.files;
     if (!list) return;
 
-    const arr = Array.from(list);
+    const next = Array.from(list).map((file) => ({
+      id: `${Date.now()}-${Math.random()}`,
+      file,
+      url: URL.createObjectURL(file),
+    }));
 
-    const all = [
-      ...files,
-      ...arr.map((f) => ({
-        id: `${Date.now()}-${Math.random()}`,
-        file: f,
-        url: URL.createObjectURL(f),
-      })),
-    ];
-
-    setFiles(all.slice(0, 20));
+    setFiles((prev) => [...prev, ...next].slice(0, 20));
+    setStatus(null);
   };
 
   const removeFile = (id: string) => {
     setFiles((prev) => prev.filter((f) => f.id !== id));
   };
 
+  const resetForm = () => {
+    setFullName('');
+    setAge('');
+    setCity('');
+    setNomination('');
+    setWorkTitle('');
+    setEmail('');
+    setFiles([]);
+    setAgree(false);
+    setStatus(null);
+    setIsSubmitted(false);
+    hasSubmittedRef.current = false;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // 🛑 ГЛАВНЫЙ ФИКС: защита от повторной отправки
+    if (isSubmitting || isSubmitted || hasSubmittedRef.current) return;
+
     setStatus(null);
 
     if (!agree) {
@@ -72,46 +90,35 @@ export default function NewYearPage() {
 
     try {
       setIsSubmitting(true);
+      hasSubmittedRef.current = true; // 🔒 блокируем повтор
+
+      const fd = new FormData();
+      fd.append('fullName', fullName);
+      fd.append('age', age);
+      fd.append('city', city);
+      fd.append('nomination', nomination);
+      fd.append('workTitle', workTitle);
+      fd.append('email', email);
+
+      files.forEach((pf) => {
+        fd.append('files', pf.file);
+      });
 
       const res = await fetch('/api/newyear', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fullName,
-          age,
-          city,
-          nomination,
-          workTitle,
-          email,
-          filesCount: files.length,
-        }),
+        body: fd, // ❗ БЕЗ headers
       });
 
-      const text = await res.text();
-      let data: any;
+      const data = await res.json().catch(() => null);
 
-      try {
-        data = JSON.parse(text);
-      } catch {
-        throw new Error('Сервер вернул не JSON');
-      }
-
-      if (!data.ok) {
-        throw new Error(data.error || 'Ошибка отправки');
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || 'Ошибка при отправке');
       }
 
       setIsSubmitted(true);
-      setFullName('');
-      setAge('');
-      setCity('');
-      setNomination('');
-      setWorkTitle('');
-      setEmail('');
-      setFiles([]);
     } catch (err: any) {
       console.error(err);
+      hasSubmittedRef.current = false; // разрешаем повтор при ошибке
       setStatus(`Не удалось отправить: ${err.message}`);
     } finally {
       setIsSubmitting(false);
@@ -121,6 +128,7 @@ export default function NewYearPage() {
   return (
     <div className={styles.page}>
       <div className={styles.overlay} />
+
       <div className={styles.formWrapper}>
         <h1 className={styles.title}>
           Конкурс новогодних игрушек-2025
@@ -157,8 +165,10 @@ export default function NewYearPage() {
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </label>
 
+          {/* Файлы */}
           <div className={styles.field}>
-            <span>Файлы *</span>
+            <span>Файлы работы *</span>
+
             <label className={styles.uploadBtn}>
               <input type="file" multiple accept="image/*" onChange={handleFilesChange} />
               Загрузить
@@ -168,7 +178,7 @@ export default function NewYearPage() {
               <div className={styles.previews}>
                 {files.map((pf) => (
                   <div key={pf.id} className={styles.previewItem}>
-                    <img src={pf.url} alt="" />
+                    <img src={pf.url} alt={pf.file.name} />
                     <button type="button" onClick={() => removeFile(pf.id)}>✕</button>
                   </div>
                 ))}
@@ -177,7 +187,11 @@ export default function NewYearPage() {
           </div>
 
           <label className={styles.checkbox}>
-            <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} />
+            <input
+              type="checkbox"
+              checked={agree}
+              onChange={(e) => setAgree(e.target.checked)}
+            />
             <span>
               Я согласен(на) с{' '}
               <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
@@ -189,9 +203,29 @@ export default function NewYearPage() {
           {status && <div className={styles.status}>{status}</div>}
 
           {isSubmitted ? (
-            <div className={styles.submitted}>✅ Заявка отправлена</div>
+            <div className={styles.afterSubmit}>
+              <button
+                type="button"
+                className={styles.submittedBtn}
+                disabled
+              >
+                ✓ Отправлено
+              </button>
+
+              <button
+                type="button"
+                className={styles.resetBtn}
+                onClick={resetForm}
+              >
+                Отправить ещё анкету
+              </button>
+            </div>
           ) : (
-            <button className={styles.submit} disabled={isSubmitting}>
+            <button
+              className={styles.submit}
+              type="submit"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? 'Отправляем…' : 'Отправить заявку'}
             </button>
           )}
