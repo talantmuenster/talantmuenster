@@ -1,43 +1,23 @@
-import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
-    console.log('API HIT /api/newyear');
+    console.log("API HIT");
 
-    // 🔒 читаем тело безопасно
-    const raw = await req.text();
-    console.log('RAW BODY:', raw);
-
-    if (!raw) {
-      return NextResponse.json(
-        { ok: false, error: 'Empty body' },
-        { status: 400 }
-      );
-    }
-
-    let data: any;
-    try {
-      data = JSON.parse(raw);
-    } catch {
-      return NextResponse.json(
-        { ok: false, error: 'Invalid JSON' },
-        { status: 400 }
-      );
-    }
+    const data = await req.json();
 
     const {
-      fullName,
-      age,
-      city,
-      nomination,
-      workTitle,
-      email,
-      filesCount,
+      fullName = "",
+      age = "",
+      city = "",
+      nomination = "",
+      workTitle = "",
+      email = "",
     } = data;
 
     const html = `
@@ -48,21 +28,22 @@ export async function POST(req: Request) {
       <p><b>Номинация:</b> ${nomination}</p>
       <p><b>Название работы:</b> ${workTitle}</p>
       <p><b>Email:</b> ${email}</p>
-      <p><b>Количество файлов:</b> ${filesCount}</p>
     `;
 
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: process.env.EMAIL_FROM!,
-      to: process.env.EMAIL_TO!.split(','),
-      subject: 'Новая заявка — Конкурс Новогодних Игрушек 2025',
+      to: process.env.EMAIL_TO!.split(","),
+      subject: "Новая заявка — Конкурс Новогодних Игрушек 2025",
       html,
     });
 
+    console.log("Resend OK:", result);
+
     return NextResponse.json({ ok: true });
-  } catch (err: any) {
-    console.error('SEND ERROR:', err);
+  } catch (error: any) {
+    console.error("SEND ERROR:", error);
     return NextResponse.json(
-      { ok: false, error: err.message },
+      { ok: false, error: error.message },
       { status: 500 }
     );
   }
