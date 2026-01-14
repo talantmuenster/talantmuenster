@@ -1,0 +1,164 @@
+{
+  "header": {
+    "programs": "PROGRAMS",
+    "news": "NEWS",
+    "events": "EVENTS",
+    "about": "ABOUT US",
+    "contact": "Contact",
+    "langchange": "Change language"
+  },
+  "hero": {
+    "title": "Intercultural Center for Children, Youth, and Families",
+    "description": "We foster creativity, communication, and cultural diversity, because every talent deserves to be discovered",
+    "learnMore": "Learn more",
+    "stat1Title": "9 Programs",
+    "stat1Subtitle": "for education",
+    "stat2Title": "5 Events",
+    "stat2Subtitle": "per month",
+    "stat3Title": "Online registration",
+    "stat3Subtitle": "for courses"
+  },
+  "about": {
+    "breadcrumbs": {
+      "home": "Home",
+      "about": "About us"
+    },
+
+    "hero": {
+      "title": {
+        "before": "For more than ten years TALANT E.V has been helping children and adults",
+        "highlight": "develop",
+        "after": "their abilities"
+      },
+      "subtitle": "Our motto “Awaken your talent!” is a call to discover, develop and share your abilities."
+    },
+
+    "programs": {
+      "title": {
+        "before": "Diverse programs for",
+        "highlight": "development and support"
+      },
+      "text": "We offer a wide range of educational, creative and social programs for children, teenagers and families.",
+      "stats": {
+        "directions": "directions",
+        "courses": "courses",
+        "students": "students"
+      }
+    },
+
+    "cooperation": {
+      "title": {
+        "highlight": "We develop cooperation",
+        "after": "beyond Münster"
+      },
+      "text": "We promote intercultural meetings, exchange and cooperation between young people from different countries."
+    },
+
+    "project": {
+      "title": {
+        "before": "Our project —",
+        "highlight": "the “Bridge” newspaper"
+      },
+      "text": "The project supports dialogue and cultural exchange among young people."
+    },
+
+    "team": {
+      "role": {
+        "music": "Music teacher"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": {
+        "1": {
+          "title": "How can I register for a course?",
+          "answer": "You can register via the form on our website or by contacting us directly."
+        },
+        "2": {
+          "title": "Where do the courses take place?",
+          "answer": "Courses are held on-site and online, including outside of Münster."
+        },
+        "3": {
+          "title": "What kind of support can I receive?",
+          "answer": "We provide educational, creative and social support."
+        },
+        "4": {
+          "title": "How does support with official documents work?",
+          "answer": "We provide consultation and assistance with the preparation of official documents."
+        }
+      }
+    },
+
+    "cta": {
+      "title": "Would you like to participate, cooperate or support us?",
+      "subtitle": "We are open to new ideas, teams and creative partners.",
+      "button": "Contact us"
+    }
+  },
+  "project": {
+    "breadcrumbs": {
+      "home": "Home",
+      "project": "Project"
+    },
+    "hero": {
+      "title": {
+        "before": "Our",
+        "highlight": "project"
+      },
+      "subtitle": "We actively participate in international partnerships outside Münster and promote intercultural encounters, exchange, and cooperation between young people from different countries—through culture, education, art, and sports."
+    }
+  },
+  "news": {
+    "breadcrumbs": {
+      "home": "Home",
+      "news": "News"
+    },
+
+    "hero": {
+      "title": {
+        "before": "News",
+        "highlight": "news"
+      },
+      "subtitle": "A brief description of the news to give a little background on what happened there. A brief description of the news to give a little background on what happened there."
+    }
+  },
+  "document": {
+    "breadcrumbs": {
+      "home": "Home",
+      "documents": "Documents and Publications"
+    },
+
+    "hero": {
+      "title": {
+        "before": "Documents and",
+        "highlight": "publications"
+      },
+      "subtitle": "At our center, children, teenagers, and families can express themselves, learn new things, and develop in various ways.",
+      "certificate": "Certificate",
+      "publication": "Publication",
+      "download": "Download",
+      "view": "View",
+      "empty": "Documents will be available soon"
+    }
+  },
+  "footer": {
+    "address": "Heinrich-Ebel-Str. 48 48161 Münster",
+    "news": "Nachrichten",
+    "events": "Veranstaltungen",
+    "documents": "Dokumente und Publikationen",
+    "projects": "Projekte",
+    "about": "Über uns",
+    "email": "talantmuenster@gmail.com",
+    "phone": "+49 176 64217368",
+    "contactUs": "Kontaktieren Sie uns",
+    "copyright": "© 2025 Talant E.V.",
+    "privacy": "Datenschutzrichtlinie",
+    "cookies": "Cookie-Nutzung"
+  },
+  "notFound": {
+    "title": "Page under construction",
+    "description": "We are currently working on this section. Please check back soon.",
+    "home": "Go to home",
+    "back": "Go back"
+  }
+}

@@ -1,0 +1,62 @@
+'use client';
+
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+
+import { TeamCard } from '@/components/ui/TeamCard';
+
+type TeamMember = {
+  name: string;
+  role: string;
+  image: string;
+};
+
+type TeamSectionProps = {
+  title?: string;
+  members: TeamMember[];
+};
+
+export function TeamSection({
+  title = 'Наша команда',
+  members,
+}: TeamSectionProps) {
+  return (
+    <section className="w-full py-12 lg:py-20">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8">
+
+        {/* TITLE */}
+        <h2 className="text-xl sm:text-2xl font-bold text-center text-primary-dark">
+          Наша <span className="text-primary-light">команда</span>
+        </h2>
+
+        {/* MOBILE / TABLET — SLIDER */}
+        <div className="mt-8 lg:hidden">
+          <Swiper
+            spaceBetween={16}
+            grabCursor
+            breakpoints={{
+              0: { slidesPerView: 1.2 },
+              480: { slidesPerView: 1.5 },
+              640: { slidesPerView: 2 },
+            }}
+          >
+            {members.map((member, index) => (
+              <SwiperSlide key={index} className="h-auto">
+                <TeamCard {...member} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        {/* DESKTOP — GRID */}
+        <div className="hidden lg:grid mt-10 grid-cols-4 gap-6">
+          {members.map((member, index) => (
+            <TeamCard key={index} {...member} />
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}

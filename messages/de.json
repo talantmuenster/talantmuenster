@@ -1,0 +1,188 @@
+{
+  "header": {
+    "programs": "PROGRAMME",
+    "news": "NACHRICHTEN",
+    "events": "VERANSTALTUNGEN",
+    "about": "ÜBER UNS",
+    "contact": "Kontakt",
+    "langchange": "Sprache ändern"
+  },
+  "hero": {
+    "title": "Interkulturelles Zentrum für Kinder, Jugendliche und Familien",
+    "description": "Wir fördern Kreativität, Kommunikation und kulturelle Vielfalt, denn jedes Talent verdient es, entdeckt zu werden",
+    "learnMore": "Mehr erfahren",
+    "stat1Title": "9 Programme",
+    "stat1Subtitle": "zur Ausbildung",
+    "stat2Title": "5 Veranstaltungen",
+    "stat2Subtitle": "pro Monat",
+    "stat3Title": "Online-Anmeldung",
+    "stat3Subtitle": "für Kurse"
+  },
+  "about": {
+    "breadcrumbs": {
+      "home": "Startseite",
+      "about": "Über uns"
+    },
+
+    "hero": {
+      "title": {
+        "before": "Seit über zehn Jahren hilft TALANT E.V Kindern und Erwachsenen dabei,",
+        "highlight": "ihre Fähigkeiten",
+        "after": "zu entwickeln"
+      },
+      "subtitle": "Unser Leitspruch „Wecke dein Talent!“ ist ein Aufruf an Kinder, Jugendliche und Erwachsene, ihre Fähigkeiten zu entdecken, weiterzuentwickeln und mit anderen zu teilen."
+    },
+
+    "programs": {
+      "title": {
+        "before": "Vielfältige Programme zur",
+        "highlight": "Entwicklung und Unterstützung"
+      },
+      "text": "Wir bieten ein breites Spektrum an Bildungs-, Kreativ- und Sozialprogrammen für Kinder, Jugendliche und Familien. Unsere Angebote umfassen Sprachförderung, Kunst, Sport, kulturelle Projekte sowie individuelle Unterstützung, damit jeder das passende Format entsprechend seinen Interessen und Bedürfnissen wählen kann.",
+      "stats": {
+        "directions": "Richtungen",
+        "courses": "Kurse",
+        "students": "Teilnehmende"
+      }
+    },
+
+    "cooperation": {
+      "title": {
+        "highlight": "Wir fördern Zusammenarbeit",
+        "after": "über Münster hinaus"
+      },
+      "text": "Wir unterstützen interkulturelle Begegnungen, Austausch und Zusammenarbeit zwischen jungen Menschen aus verschiedenen Ländern – durch Kultur, Bildung, Kunst und Sport."
+    },
+
+    "project": {
+      "title": {
+        "before": "Unser Projekt –",
+        "highlight": "die Zeitung „Brücke“"
+      },
+      "text": "Das Projekt fördert Dialog, Meinungsvielfalt und kulturellen Austausch unter jungen Menschen."
+    },
+
+    "team": {
+      "role": {
+        "music": "Musiklehrerin / Musiklehrer"
+      }
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "items": {
+        "1": {
+          "title": "Wie kann ich mich für einen Kurs anmelden?",
+          "answer": "Sie können sich über das Formular auf unserer Website anmelden oder uns direkt kontaktieren."
+        },
+        "2": {
+          "title": "Wo finden die Kurse statt?",
+          "answer": "Die Kurse finden vor Ort und online statt, auch außerhalb von Münster."
+        },
+        "3": {
+          "title": "Welche Unterstützung kann ich erhalten?",
+          "answer": "Wir bieten pädagogische, kreative und soziale Unterstützung."
+        },
+        "4": {
+          "title": "Wie erfolgt die Unterstützung bei der Beantragung von Dokumenten?",
+          "answer": "Wir beraten und begleiten bei der Vorbereitung und Beantragung offizieller Dokumente."
+        }
+      }
+    },
+    "cta": {
+      "title": "Möchten Sie teilnehmen, mit uns zusammenarbeiten oder uns unterstützen?",
+      "subtitle": "Wir sind offen für neue Ideen, Teams und kreative Partnerschaften.",
+      "button": "Kontakt aufnehmen"
+    }
+  },
+  "project": {
+    "breadcrumbs": {
+      "home": "Startseite",
+      "project": "Projekt"
+    },
+
+    "hero": {
+      "title": {
+        "before": "Unser",
+        "highlight": "Projekt"
+      },
+      "subtitle": "Wir beteiligen uns aktiv an internationalen Partnerschaften außerhalb Münsters und fördern interkulturelle Begegnungen, den Austausch und die Zusammenarbeit zwischen Jugendlichen aus verschiedenen Ländern – durch Kultur, Bildung, Kunst und Sport."
+    }
+  },
+  "document": {
+    "breadcrumbs": {
+      "home": "Startseite",
+      "documents": "Dokumente und Publikationen"
+    },
+    "hero": {
+      "title": {
+        "before": "Dokumente und",
+        "highlight": "Publikationen"
+      },
+      "subtitle": "In unserem Zentrum können Kinder, Jugendliche und Familien sich entfalten, Neues lernen und in verschiedenen Bereichen wachsen.",
+      "certificate": "Zertifikate",
+      "publication": "Publikationen",
+      "download": "Herunterladen",
+      "view": "Ansehen",
+      "empty": "Dokumente werden bald verfügbar sein"
+    }
+  },
+  "whyChoose": {
+    "title": "Warum",
+    "titleBrand": "TALANT E.V. wählen?",
+    "subtitle": "Offiziell anerkannte Unterstützung, professioneller Ansatz und Offenheit",
+    "feature1": "Wir sind ein offener Raum für alle Generationen und Kulturen",
+    "feature2": "Wir sind eine anerkannte Organisation im Bereich der Kinder- und Jugendhilfe gemäß § 75 SGB VIII",
+    "feature3": "Wir bringen Menschen zusammen, entdecken Talente und fördern die persönliche Entwicklung",
+    "feature4": "Wir streben danach, Menschen zu helfen, ihren Platz in einer neuen Kultur zu finden und sich in die Gesellschaft zu integrieren, ohne dabei ihre Wurzeln und ihr spirituelles Erbe zu verlieren"
+  },
+  "howWeHelp": {
+    "title": "Wobei wir",
+    "titleHighlight": "helfen können",
+    "subtitle": "Sie können auf unsere Unterstützung und Erfahrung zählen",
+    "category1Title": "Dokumente und Beratungen",
+    "category1Item1": "Unterstützung bei der Bearbeitung offizieller Dokumente",
+    "category1Item2": "Erklärung von Verfahren und Anforderungen",
+    "category1Item3": "Begleitung bei der Kommunikation mit Behörden",
+    "category2Title": "Übersetzung und Kommunikation",
+    "category2Item1": "Übersetzung von Dokumenten und Geschäftskorrespondenz",
+    "category2Item2": "Hilfe bei Sprach- und Sprechschwierigkeiten",
+    "category3Title": "Bildungsunterstützung",
+    "category3Item1": "Nachhilfe in allen Schulfächern",
+    "category3Item2": "Beratungen für Eltern und Schüler",
+    "category3Item3": "Individuelle Unterrichtsstunden zur Prüfungsvorbereitung",
+    "ctaButton": "Hilfe erhalten"
+  },
+  "news": {
+    "breadcrumbs": {
+      "home": "Startseite",
+      "news": "Nachrichten"
+    },
+
+    "hero": {
+      "title": {
+        "before": "Nachrichten"
+      },
+      "subtitle": "Kurzbeschreibung der Neuigkeiten, um einen kurzen Überblick über die Geschehnisse zu geben. Kurzbeschreibung der Neuigkeiten, um einen kurzen Überblick über die Geschehnisse zu geben."
+    }
+  },
+  "footer": {
+    "address": "Heinrich-Ebel-Str. 48 48161 Münster",
+    "news": "Nachrichten",
+    "events": "Veranstaltungen",
+    "documents": "Dokumente und Publikationen",
+    "projects": "Projekte",
+    "about": "Über uns",
+    "email": "talantmuenster@gmail.com",
+    "phone": "+49 176 64217368",
+    "contactUs": "Kontaktieren Sie uns",
+    "copyright": "© 2025 Talant E.V.",
+    "privacy": "Datenschutzrichtlinie",
+    "cookies": "Cookie-Nutzung"
+  },
+  "notFound": {
+    "title": "Seite in Entwicklung",
+    "description": "Wir arbeiten gerade an diesem Bereich. Bald verfügbar.",
+    "home": "Zur Startseite",
+    "back": "Zurück"
+  }
+}

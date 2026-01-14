@@ -1,24 +1,53 @@
-// app/page.tsx
-'use client';
 
-import Image from 'next/image';
+import Hero from '@/components/home/hero';
+import HowWeHelp from '@/components/home/HowWeHelp';
+import Programs from '@/components/home/Programs';
+import { Subscribe } from '@/components/home/Subscribe';
+import { UpcomingEvents } from '@/components/home/upcoming-events/UpcomingEvents';
+import WhyChoose from '@/components/home/WhyChoose';
+import { CalendarEvent } from '@/type/type';
+const events: CalendarEvent[] = [
+  {
+    id: '1',
+    title: 'Мысли об искусстве',
+    description: 'Лекция о русской живописи 18 века',
+    date: '2024-11-12',
+    startTime: '16:00',
+    endTime: '18:00',
+    registrationUrl: '#',
+  },
+  {
+    id: '2',
+    title: 'Мысли об искусстве',
+    description: 'Лекция о русской живописи 18 века',
+    date: '2024-11-12',
+    startTime: '16:00',
+    endTime: '18:00',
+    registrationUrl: '#',
+  },
+  {
+    id: '3',
+    title: 'Мысли об искусстве',
+    description: 'Лекция о русской живописи 18 века',
+    date: '2024-11-12',
+    startTime: '16:00',
+    endTime: '18:00',
+    registrationUrl: '#',
+  },
+];
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen items-center justify-center  text-center p-4">
-      <div>
-        <Image
-          src="/logo.png"
-          alt="Logo"
-          width={500}
-          height={500}
-          className="mx-auto mb-6"
-        />
-        <h1 className="text-2xl md:text-3xl font-semibold text-gray-700">
-          Website is under technical maintenance. <br />
-          We'll be back soon.
-        </h1>
-      </div>
-    </main>
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1">
+        <Hero />
+        <Programs />
+        <WhyChoose/>
+        <HowWeHelp />
+        <UpcomingEvents CalendarEvent={events} />
+        <Subscribe />
+        {/* Здесь будут другие секции */}
+      </main>
+    </div>
   );
 }
