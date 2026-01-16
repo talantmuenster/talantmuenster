@@ -1,7 +1,7 @@
 import { Phone, Mail, MapPin } from "lucide-react";
-import { Subscribe } from "../../../../components/home/Subscribe";
-import { Breadcrumbs } from "../../../../components/ui/Breadcrumbs";
-import { LINKS } from "../../../../lib/links";
+import { Subscribe } from "@/components/home/Subscribe";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { LINKS } from "@/lib/links";
 import Link from "next/link";
 
 export default function ContactPage() {

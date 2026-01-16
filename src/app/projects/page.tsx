@@ -1,8 +1,8 @@
 import { useTranslations } from "next-intl";
 import React from "react";
-import { HeroSection } from "../../../../components/main/HeroSection";
+import { HeroSection } from "@/components/main/HeroSection";
 import { ProjectsSection } from "./ProjectsSection";
-import { Subscribe } from "../../../../components/home/Subscribe";
+import { Subscribe } from "@/components/home/Subscribe";
 
 export default function Project() {
   const t = useTranslations("project");

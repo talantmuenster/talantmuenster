@@ -3,11 +3,11 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 
-import { HeroSection } from "../../../../components/main/HeroSection";
-import { ImageTextSection } from "../../../../components/main/ImageTextSection";
-import { TeamSection } from "../../../../components/about/TeamSection";
-import FqaSection from "../../../../components/about/fqasection";
-import { FinalCTA } from "../../../../components/about/FinalCTA";
+import { HeroSection } from "@/components/main/HeroSection";
+import { ImageTextSection } from "@/components/main/ImageTextSection";
+import { TeamSection } from "@/components/about/TeamSection";
+import FqaSection from "@/components/about/fqasection";
+import { FinalCTA } from "@/components/about/FinalCTA";
 
 export default function About() {
   const t = useTranslations("about");

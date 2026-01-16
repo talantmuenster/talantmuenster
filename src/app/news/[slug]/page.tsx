@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { HeroSection } from "@/components/main/HeroSection";
-import { newss } from "../../../../data/news";
-import { Subscribe } from "../../../../../components/home/Subscribe";
-import { Container } from "../../../../../components/ui/Container";
-import RelatedNews from "../../../../../components/RelatedNews";
+import { newss } from "@/data/news";
+import { Subscribe } from "@/components/home/Subscribe";
+import { Container } from "@/components/ui/Container";
+import RelatedNews from "@/components/RelatedNews";
 
 type Props = {
   params: Promise<{ slug: string }>;

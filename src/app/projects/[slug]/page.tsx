@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { HeroSection } from "@/components/main/HeroSection";
-import { projects } from "../../../../data/projects";
-import { Subscribe } from "../../../../../components/home/Subscribe";
+import { projects } from "@/data/projects";
+import { Subscribe } from "@/components/home/Subscribe";
 import { getTranslations } from "next-intl/server";
 
 type Props = {

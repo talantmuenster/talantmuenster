@@ -2,7 +2,7 @@
 
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { LINKS } from '../../lib/links';
+import { LINKS } from '@/lib/links';
 
 type FinalCTAProps = {
   title: string;

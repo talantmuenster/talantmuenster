@@ -3,12 +3,12 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-import { HeroSection } from "../../../../components/main/HeroSection";
-import { Subscribe } from "../../../../components/home/Subscribe";
-import { ContentCard } from "../../../../components/ui/ContentCard";
-import { Container } from "../../../../components/ui/Container";
-import Pagination from "../../../../components/ui/Pagination";
-import { newss } from "../../../data/news";
+import { HeroSection } from "@/components/main/HeroSection";
+import { Subscribe } from "@/components/home/Subscribe";
+import { ContentCard } from "@/components/ui/ContentCard";
+import { Container } from "@/components/ui/Container";
+import Pagination from "@/components/ui/Pagination";
+import { newss } from "@/data/news";
 export default function Project() {
   const t = useTranslations("news");
 
