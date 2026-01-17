@@ -88,7 +88,6 @@ export default function Hero() {
                   icon={<BookOpen className="w-4 h-4" />}
                   title={t('stat1Title')}
                   subtitle={t('stat1Subtitle')}
-                  className="w-full"
                 />
                 <InfoPill
                   icon={<Calendar className="w-4 h-4" />}

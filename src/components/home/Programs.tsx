@@ -60,7 +60,6 @@ export default function Programs() {
 {programs.map((item) => (
   <motion.div
     key={item.title}
-    variants={cardVariants}
     whileHover={{ y: -6 }}
     transition={{ type: 'spring', stiffness: 260 }}
   >

@@ -1,12 +1,20 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 
 export const runtime = "nodejs";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
+  // ⛔️ Во время build / без ключа — просто выходим
+  if (!process.env.RESEND_API_KEY) {
+    return NextResponse.json(
+      { ok: true, skipped: "RESEND_API_KEY missing" },
+      { status: 200 }
+    );
+  }
+
   try {
+    const { Resend } = await import("resend");
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     const form = await req.formData();
 
     const fullName = form.get("fullName")?.toString() || "";
@@ -18,13 +26,12 @@ export async function POST(req: Request) {
 
     const html = `
       <h2>Новая заявка на конкурс!</h2>
-
       <p><b>ФИО:</b> ${fullName}</p>
       <p><b>Возраст:</b> ${age}</p>
       <p><b>Город:</b> ${city}</p>
       <p><b>Номинация:</b> ${nomination}</p>
       <p><b>Название работы:</b> ${workTitle}</p>
-      <p><b>Email для связи:</b> ${email}</p>
+      <p><b>Email:</b> ${email}</p>
     `;
 
     await resend.emails.send({
@@ -37,6 +44,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   } catch (error: any) {
     console.error("Email sending error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: "Email send failed" },
+      { status: 500 }
+    );
   }
 }

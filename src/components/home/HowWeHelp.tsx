@@ -86,7 +86,6 @@ export default function HowWeHelp() {
                 {categories.map((category, index) => (
                   <motion.div
                     key={index}
-                    variants={cardVariants}
                     whileHover={{ y: -4 }}
                     transition={{ type: 'spring', stiffness: 300 }}
                     className={`bg-white rounded-2xl p-5 ${styles.card}`}

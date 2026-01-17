@@ -96,7 +96,6 @@ export default function ContactPage() {
                     href={LINKS.privacy}
                     target="_blank"
                     rel="noopener noreferrer"
-                    q
                     className="underline text-primary hover:text-primary-dark transition"
                   >
                     Политикой конфиденциальности

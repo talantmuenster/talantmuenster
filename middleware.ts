@@ -1,11 +1,14 @@
-// middleware.ts (В КОРНЕ)
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import createMiddleware from 'next-intl/middleware';
+import { locales, defaultLocale } from './i18n/config';
 
-export function middleware(request: NextRequest) {
-  return NextResponse.redirect(new URL("/en", request.url));
-}
+export default createMiddleware({
+  locales,
+  defaultLocale,
+  localeDetection: true,
+});
 
 export const config = {
-  matcher: ["/$"],
+  matcher: [
+    '/((?!api|_next|_vercel|.*\\..*).*)',
+  ],
 };
