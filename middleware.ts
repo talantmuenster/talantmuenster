@@ -4,7 +4,7 @@ import { locales, defaultLocale } from './i18n/config';
 export default createMiddleware({
   locales,
   defaultLocale,
-  localeDetection: true,
+  localePrefix: 'never', // 🔥 КЛЮЧЕВО
 });
 
 export const config = {
