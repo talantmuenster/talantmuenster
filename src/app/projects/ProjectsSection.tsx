@@ -1,5 +1,5 @@
 import { ContentCard } from "@/components/ui/ContentCard";
-import { projects } from "@/app/data/projects";
+import { projects } from "@/data/projects";
 export function ProjectsSection() {
   return (
     <section className="py-20 bg-white">

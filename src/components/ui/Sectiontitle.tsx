@@ -4,7 +4,7 @@ type SectionTitleProps = {
   /** variant 1 */
   primary?: string;
   secondary?: string;
-
+  className?: string;
   /** variant 2 */
   title?: string;
   splitIndex?: number; // индекс, где делить строку
@@ -36,7 +36,7 @@ export function SectionTitle({
 
   primaryColor = 'text-primary',
   secondaryColor = 'text-primary-light',
-
+  className,
   size = 'xl',
   align = 'left',
   stacked = false,
@@ -75,6 +75,7 @@ export function SectionTitle({
   return (
     <h2
       className={`
+        ${className}
         font-heading font-bold
         leading-[120%]
         ${SIZE_MAP[size]}

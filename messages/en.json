@@ -141,6 +141,34 @@
       "empty": "Documents will be available soon"
     }
   },
+  "courses": {
+    "breadcrumbs": {
+      "home": "Home",
+      "programs": "Programs",
+      "course": "Course"
+    },
+    "hero": {
+      "title": {
+        "before": "Programs"
+      },
+      "subtitle": "We offer a wide range of educational, creative and social programs for children, teenagers and families.",
+      "register": "Register now"
+    }
+  },
+  "events":{
+     "breadcrumbs": {
+      "home": "Home",
+      "events": "Events",
+      "course": "Course"
+    },
+    "hero": {
+      "title": {
+        "before": "Events"
+      },
+      "subtitle": "We offer a wide range of educational, creative and social programs for children, teenagers and families."
+    
+  }
+},
   "footer": {
     "address": "Heinrich-Ebel-Str. 48 48161 Münster",
     "news": "Nachrichten",

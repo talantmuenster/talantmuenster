@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/Button";
-import { DOCUMENTS } from "@/app/data/document";
+import { DOCUMENTS } from "@/data/document";
 
 export function DocumentsSection() {
   const t = useTranslations("document");

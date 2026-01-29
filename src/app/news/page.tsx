@@ -8,7 +8,7 @@ import { Subscribe } from "@/components/home/Subscribe";
 import { ContentCard } from "@/components/ui/ContentCard";
 import { Container } from "@/components/ui/Container";
 import Pagination from "@/components/ui/Pagination";
-import { newss } from "@/app/data/news";
+import { newss } from "@/data/news";
 export default function Project() {
   const t = useTranslations("news");
 
