@@ -7,7 +7,7 @@ import { BookOpen, Calendar, Laptop } from 'lucide-react';
 import { Button } from '../ui/Button';
 
 export default function Hero() {
-  const t = useTranslations('hero');
+  const t = useTranslations('home.hero');
 
   return (
     <section className="w-full">

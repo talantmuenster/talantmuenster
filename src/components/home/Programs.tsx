@@ -5,42 +5,43 @@ import { Button } from '../ui/Button';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-
-const programs = [
-  { title: 'Музыка', color: '#A4B5FF ', image: '/home/programs/music.png' , href: '/programs/music' },
-  { title: 'Спорт', color: '#FF6B6B', image: '/home/programs/sport.png' , href: '/programs/sport' },
-  { title: 'Танцы', color: '#FF6B6B', image: '/home/programs/dance.png' , href: '/programs/dance' },
-  { title: 'Языки', color: '#FFA500', image: '/home/programs/language.png' , href: '/programs/language' },
-  { title: 'Информатика', color: '#FFD700', image: '/home/programs/it.png' , href: '/programs/it' },
-  { title: 'Математика', color: '#90EE90', image: '/home/programs/matem.png' , href: '/programs/matem' },
-  { title: 'Искусство', color: '#4169E1', image: '/home/programs/art.png', href: '/programs/art' },
-];
-const gridVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 24,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      ease: 'easeOut',
-    },
-  },
-};
+import { useTranslations } from 'next-intl';
 
 
 export default function Programs() {
+  const t = useTranslations('home.programs');
+  const programs = [
+   { title: t(`music`), color: '#A4B5FF ', image: '/home/programs/music.png' , href: '/programs/music' },
+   { title: t('sports'), color: '#FF6B6B', image: '/home/programs/sport.png' , href: '/programs/sport' },
+   { title: t('dance'), color: '#FF6B6B', image: '/home/programs/dance.png' , href: '/programs/dance' },
+   { title: t('language'), color: '#FFA500', image: '/home/programs/language.png' , href: '/programs/language' },
+   { title: t('it'), color: '#FFD700', image: '/home/programs/it.png' , href: '/programs/it' },
+   { title: t('math'), color: '#90EE90', image: '/home/programs/matem.png' , href: '/programs/matem' },
+   { title: t('art'), color: '#4169E1', image: '/home/programs/art.png', href: '/programs/art' },
+  ];
+  const gridVariants = {
+   hidden: {},
+   visible: {
+     transition: {
+       staggerChildren: 0.1,
+     },
+   },
+  };
+  
+  const cardVariants = {
+   hidden: {
+     opacity: 0,
+     y: 24,
+   },
+   visible: {
+     opacity: 1,
+     y: 0,
+     transition: {
+       duration: 0.4,
+       ease: 'easeOut',
+     },
+   },
+  };
   return (
     <section className="px-4 py-16">
       <div className="max-w-7xl mx-auto">

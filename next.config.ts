@@ -4,7 +4,22 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const nextConfig: NextConfig = {
-  // Твои существующие настройки...
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.firebaseapp.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.firebaseappdomain.com',
+      },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);

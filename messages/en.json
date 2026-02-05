@@ -7,16 +7,60 @@
     "contact": "Contact",
     "langchange": "Change language"
   },
-  "hero": {
-    "title": "Intercultural Center for Children, Youth, and Families",
-    "description": "We foster creativity, communication, and cultural diversity, because every talent deserves to be discovered",
-    "learnMore": "Learn more",
-    "stat1Title": "9 Programs",
-    "stat1Subtitle": "for education",
-    "stat2Title": "5 Events",
-    "stat2Subtitle": "per month",
-    "stat3Title": "Online registration",
-    "stat3Subtitle": "for courses"
+  "home":{
+    "hero": {
+      "title": "Intercultural Center for Children, Youth, and Families",
+      "description": "We foster creativity, communication, and cultural diversity, because every talent deserves to be discovered",
+      "learnMore": "Learn more",
+      "stat1Title": "9 Programs",
+      "stat1Subtitle": "for education",
+      "stat2Title": "5 Events",
+      "stat2Subtitle": "per month",
+      "stat3Title": "Online registration",
+      "stat3Subtitle": "for courses"
+    },
+    "programs":{
+      "music":"Music",
+      "dance": "Dance",
+      "art": "Art",
+      "language": "Language",
+      "it": "Computer Science",
+      "math": "Mathematics",
+      "sports": "Sports",
+      "social": "Social",
+      "other": "Other"
+    },
+    "whyChoose": {
+      "title": "Why choose",
+      "titleBrand": "TALANT E.V?",
+      "subtitle": "Officially recognized support, a professional approach, and openness",
+      "feature1": "We are an open space for people of all generations and cultures",
+      "feature2": "We are a recognized organization in the field of child and youth support in accordance with § 75 SGB VIII",
+      "feature3": "We bring people together, discover talents, and promote personal development",
+      "feature4": "We strive to help people find their place in a new culture and integrate into society without losing their roots and spiritual heritage"
+    },
+    "howWeHelp": {
+      "title": "How we can",
+      "titleHighlight": "help",
+      "subtitle": "You can rely on our support and experience",
+      "category1Title": "Documents and consultations",
+      "category1Item1": "Support with official documents",
+      "category1Item2": "Explanation of procedures and requirements",
+      "category1Item3": "Assistance in communication with institutions",
+      "category2Title": "Translation and communication",
+      "category2Item1": "Translation of documents and business correspondence",
+      "category2Item2": "Support with speech and language difficulties",
+      "category3Title": "Educational support",
+      "category3Item1": "Tutoring in all school subjects",
+      "category3Item2": "Consultations for parents and students",
+      "category3Item3": "Individual exam preparation sessions",
+      "ctaButton": "Get support"
+    },
+    "subscribe":{ 
+      "title":"Subscribe and stay up to date",
+    "subtitle":"all events",
+    "description":"Be the first to know about our new projects, workshops, and meetings"
+    }
   },
   "about": {
     "breadcrumbs": {

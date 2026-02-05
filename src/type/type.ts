@@ -1,11 +1,19 @@
 export type CalendarEvent = {
   id: string;
-  title: string;
-  description: string;
+  title?: LocalizedContent;
+  description?: LocalizedContent;
   date: string;
   startTime: string;
   endTime: string;
   registrationUrl?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type LocalizedContent = {
+  ru: string;
+  en: string;
+  de: string;
 };
 // type/type.ts
 
@@ -27,11 +35,33 @@ export type ProjectContentBlock = {
 };
 
 export type Project = {
-  slug: string;
-  title: string;
-  subtitle: string;
+  id?: string;
+  slug: LocalizedContent;
+  title: LocalizedContent;
+  subtitle: LocalizedContent;
   cover: string;
-  content: ProjectContentBlock[];
+  content: LocalizedContent;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Post = {
+  id?: string;
+  title: LocalizedContent;
+  content: LocalizedContent;
+  excerpt: LocalizedContent;
+  featuredImage?: string;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type AdminUser = {
+  uid: string;
+  email: string;
+  role: 'admin' | 'editor';
+  displayName?: string;
 };
 export type NewsContentBlock = {
   title?: string;
@@ -39,15 +69,19 @@ export type NewsContentBlock = {
 };
 
 export type News = {
-  slug: string;
-  title: string;
-  subtitle: string;
-  description: string;
+  id?: string;
+  slug: LocalizedContent;
+  title: LocalizedContent;
+  subtitle: LocalizedContent;
+  description: LocalizedContent;
   image: string;
   date: string;
   href: string;
   cover: string;
-  content: NewsContentBlock[];
+  content: LocalizedContent;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type DocItem = {
@@ -66,3 +100,7 @@ export type DocumentLinkProps = {
   href: string;
   mode?: "view" | "download"; // ← default = view
 };
+
+export type ContentType = 'events' | 'news' | 'posts';
+
+export type Locale = 'ru' | 'en' | 'de';

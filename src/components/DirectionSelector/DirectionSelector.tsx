@@ -1,4 +1,4 @@
-import { DIRECTIONS } from '../../data/direction';
+import { DIRECTIONS } from '@/data/direction';
 import { DirectionChip } from './DirectionChip';
 
 export function DirectionSelector() {
@@ -7,7 +7,7 @@ export function DirectionSelector() {
       
 
       {/* Ссылки */}
-      <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
+      <div className="flex flex-wrap mb-20 justify-center gap-3 max-w-3xl mx-auto">
         {DIRECTIONS.map((item) => (
           <DirectionChip
             key={item.id}

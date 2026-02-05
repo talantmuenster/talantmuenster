@@ -6,7 +6,7 @@ import { Sparkle, Sparkles } from 'lucide-react';
 import { SparkleSoftFilled } from '../ui/SparkleSoftFilled';
 
 export default function WhyChoose() {
-  const t = useTranslations('whyChoose');
+  const t = useTranslations('home.whyChoose');
 
   const features = [
     t('feature1'),

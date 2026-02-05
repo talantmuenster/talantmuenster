@@ -1,14 +1,14 @@
 import { useTranslations } from 'next-intl';
 import React from 'react'
-import { HeroSection } from '../../components/main/HeroSection';
-import { Container } from '../../components/ui/Container';
-import { DirectionSelector } from '../../components/DirectionSelector/DirectionSelector';
-import { SectionTitle } from '../../components/ui/Sectiontitle';
+import { HeroSection } from '@/components/main/HeroSection';
+import { Container } from '@/components/ui/Container';
+import { DirectionSelector } from '@/components/DirectionSelector/DirectionSelector';
+import { SectionTitle } from '@/components/ui/Sectiontitle';
 import { SliderAbout } from './components/sliderabout';
 import HowToParticipate from './components/HowToParticipate';
 
 export default function Programs() {
-    const t = useTranslations("courses");
+    const t = useTranslations("courses"); 
   
 	return (
 		<div className="min-h-screen flex flex-col">
@@ -27,7 +27,7 @@ export default function Programs() {
 			  <DirectionSelector />
 			</Container>
 			<SliderAbout />
-			<HowToParticipate/>0
+			<HowToParticipate/>
 		  </main>
 		</div>	
 	

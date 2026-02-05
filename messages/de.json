@@ -7,7 +7,8 @@
     "contact": "Kontakt",
     "langchange": "Sprache ändern"
   },
-  "hero": {
+  "home":{
+    "hero": {
     "title": "Interkulturelles Zentrum für Kinder, Jugendliche und Familien",
     "description": "Wir fördern Kreativität, Kommunikation und kulturelle Vielfalt, denn jedes Talent verdient es, entdeckt zu werden",
     "learnMore": "Mehr erfahren",
@@ -18,6 +19,40 @@
     "stat3Title": "Online-Anmeldung",
     "stat3Subtitle": "für Kurse"
   },
+    "whyChoose": {
+    "title": "Warum",
+    "titleBrand": "TALANT E.V. wählen?",
+    "subtitle": "Offiziell anerkannte Unterstützung, professioneller Ansatz und Offenheit",
+    "feature1": "Wir sind ein offener Raum für alle Generationen und Kulturen",
+    "feature2": "Wir sind eine anerkannte Organisation im Bereich der Kinder- und Jugendhilfe gemäß § 75 SGB VIII",
+    "feature3": "Wir bringen Menschen zusammen, entdecken Talente und fördern die persönliche Entwicklung",
+    "feature4": "Wir streben danach, Menschen zu helfen, ihren Platz in einer neuen Kultur zu finden und sich in die Gesellschaft zu integrieren, ohne dabei ihre Wurzeln und ihr spirituelles Erbe zu verlieren"
+  },
+  "howWeHelp": {
+    "title": "Wobei wir",
+    "titleHighlight": "helfen können",
+    "subtitle": "Sie können auf unsere Unterstützung und Erfahrung zählen",
+    "category1Title": "Dokumente und Beratungen",
+    "category1Item1": "Unterstützung bei der Bearbeitung offizieller Dokumente",
+    "category1Item2": "Erklärung von Verfahren und Anforderungen",
+    "category1Item3": "Begleitung bei der Kommunikation mit Behörden",
+    "category2Title": "Übersetzung und Kommunikation",
+    "category2Item1": "Übersetzung von Dokumenten und Geschäftskorrespondenz",
+    "category2Item2": "Hilfe bei Sprach- und Sprechschwierigkeiten",
+    "category3Title": "Bildungsunterstützung",
+    "category3Item1": "Nachhilfe in allen Schulfächern",
+    "category3Item2": "Beratungen für Eltern und Schüler",
+    "category3Item3": "Individuelle Unterrichtsstunden zur Prüfungsvorbereitung",
+    "ctaButton": "Hilfe erhalten"
+  },
+  "subscribe": {
+    "title": "Abonnieren und auf dem Laufenden bleiben",
+    "subtitle": "alle Veranstaltungen",
+    "description": "Erfahren Sie als Erste*r von unseren neuen Projekten, Workshops und Treffen"
+  }
+
+  },
+  
   "about": {
     "breadcrumbs": {
       "home": "Startseite",
@@ -126,32 +161,7 @@
       "empty": "Dokumente werden bald verfügbar sein"
     }
   },
-  "whyChoose": {
-    "title": "Warum",
-    "titleBrand": "TALANT E.V. wählen?",
-    "subtitle": "Offiziell anerkannte Unterstützung, professioneller Ansatz und Offenheit",
-    "feature1": "Wir sind ein offener Raum für alle Generationen und Kulturen",
-    "feature2": "Wir sind eine anerkannte Organisation im Bereich der Kinder- und Jugendhilfe gemäß § 75 SGB VIII",
-    "feature3": "Wir bringen Menschen zusammen, entdecken Talente und fördern die persönliche Entwicklung",
-    "feature4": "Wir streben danach, Menschen zu helfen, ihren Platz in einer neuen Kultur zu finden und sich in die Gesellschaft zu integrieren, ohne dabei ihre Wurzeln und ihr spirituelles Erbe zu verlieren"
-  },
-  "howWeHelp": {
-    "title": "Wobei wir",
-    "titleHighlight": "helfen können",
-    "subtitle": "Sie können auf unsere Unterstützung und Erfahrung zählen",
-    "category1Title": "Dokumente und Beratungen",
-    "category1Item1": "Unterstützung bei der Bearbeitung offizieller Dokumente",
-    "category1Item2": "Erklärung von Verfahren und Anforderungen",
-    "category1Item3": "Begleitung bei der Kommunikation mit Behörden",
-    "category2Title": "Übersetzung und Kommunikation",
-    "category2Item1": "Übersetzung von Dokumenten und Geschäftskorrespondenz",
-    "category2Item2": "Hilfe bei Sprach- und Sprechschwierigkeiten",
-    "category3Title": "Bildungsunterstützung",
-    "category3Item1": "Nachhilfe in allen Schulfächern",
-    "category3Item2": "Beratungen für Eltern und Schüler",
-    "category3Item3": "Individuelle Unterrichtsstunden zur Prüfungsvorbereitung",
-    "ctaButton": "Hilfe erhalten"
-  },
+
   "news": {
     "breadcrumbs": {
       "home": "Startseite",

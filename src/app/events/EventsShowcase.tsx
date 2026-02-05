@@ -1,142 +1,266 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { Button } from '../../components/ui/Button';
+import { EventRegistrationModal } from '../../components/events/EventRegistrationModal';
 
 type EventItem = {
-  id: number;
+  id: string;
   date: string;
   day: string;
   time: string;
+  startTime: string;
+  endTime: string;
   title: string;
   subtitle: string;
   image: string;
   description: string;
+  fullDescription?: string;
 };
 
-const events: EventItem[] = [
+const fallbackEvents: EventItem[] = [
   {
-    id: 1,
+    id: '1',
     date: '12.11',
     day: 'Четверг',
     time: '16:00 – 18:00',
+    startTime: '16:00',
+    endTime: '18:00',
     title: 'Мысли об искусстве',
     subtitle: 'Лекция о русской живописи 18 века',
     image:
       'https://images.unsplash.com/photo-1549880338-65ddcdfd017b?w=900&h=600&fit=crop',
     description:
       'Открытая лекция о влиянии русской живописи на европейское искусство...',
-  },
-  {
-    id: 2,
-    date: '13.11',
-    day: 'Пятница',
-    time: '17:00 – 19:00',
-    title: 'Форма и цвет',
-    subtitle: 'Современное искусство',
-    image:
-      'https://images.unsplash.com/photo-1526318472351-c75fcf070305?w=900&h=600&fit=crop',
-    description:
-      'Разбор ключевых направлений современного визуального искусства...',
-  },
-  {
-    id: 3,
-    date: '14.11',
-    day: 'Суббота',
-    time: '15:00 – 17:00',
-    title: 'Абстракция',
-    subtitle: 'От Кандинского до наших дней',
-    image:
-      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&h=600&fit=crop',
-    description:
-      'Как абстрактное искусство изменило визуальное мышление...',
+    fullDescription:
+      'Открытое для себя магию русской живописи – от ярких полотен Айвазовского до душевных пейзажей Левитана, которые трогают сердца и протяжении веков. Эта лекция поможет вам не только лучше понять творчество великих художников, но и узнать о малоизвестных фактах их жизни, влиянии обществ и временах на их шедевры.',
   },
 ];
 
 export default function EventsShowcase() {
+  const [events, setEvents] = useState<EventItem[]>(fallbackEvents);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
+  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await fetch('/api/admin/events');
+        if (res.ok) {
+          const data = await res.json();
+          const published = (data || [])
+            .filter((e: any) => e.published)
+            .map((e: any) => {
+              const eventDate = new Date(e.date);
+              const day = eventDate.getDate().toString().padStart(2, '0');
+              const month = (eventDate.getMonth() + 1).toString().padStart(2, '0');
+              const weekday = eventDate.toLocaleDateString('ru-RU', { weekday: 'long' });
+              
+              return {
+                id: e.id,
+                date: `${day}.${month}`,
+                day: weekday.charAt(0).toUpperCase() + weekday.slice(1),
+                time: `${e.startTime || ''} – ${e.endTime || ''}`,
+                startTime: e.startTime || '',
+                endTime: e.endTime || '',
+                title: typeof e.title === 'string' ? e.title : (e.title?.ru || ''),
+                subtitle: typeof e.subtitle === 'string' ? e.subtitle : (e.subtitle?.ru || ''),
+                image: e.image || e.cover || 'https://images.unsplash.com/photo-1549880338-65ddcdfd017b?w=900&h=600&fit=crop',
+                description: typeof e.description === 'string' ? e.description : (e.description?.ru || ''),
+                fullDescription: typeof e.content === 'string' ? e.content : (e.content?.ru || (typeof e.description === 'string' ? e.description : (e.description?.ru || ''))),
+              };
+            });
+          
+          if (published.length > 0) {
+            setEvents(published);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch events:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
   const active = events[activeIndex];
+
+  const handleSelectEvent = (index: number) => {
+    setActiveIndex(index);
+    setIsMobileModalOpen(true);
+  };
+
+  const handleOpenRegistration = () => {
+    setIsRegistrationModalOpen(true);
+    setIsMobileModalOpen(false);
+  };
 
   return (
     <section className="w-full py-16 bg-white">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-12">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* LEFT LIST */}
-        <div className="space-y-4">
-          {events.map((event, index) => (
-            <button
-              key={event.id}
-              onClick={() => setActiveIndex(index)}
-              className={`
-                w-full text-left rounded-xl border p-4 transition
-                ${
-                  index === activeIndex
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:bg-gray-50'
-                }
-              `}
-            >
-              <div className="flex gap-4">
-                <div className="text-center min-w-[64px]">
-                  <div className="text-lg font-semibold text-blue-600">
-                    {event.date}
+        <div className="flex flex-col gap-4">
+          {events.map((event, index) => {
+            const date = new Date(event.date);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const weekday = date.toLocaleDateString('ru-RU', { weekday: 'long' }); 
+ 
+            return ( 
+              <button 
+                key={event.id} 
+                onClick={() => handleSelectEvent(index)}
+                className={`
+                  bg-white border border-gray-200 rounded-lg p-4 flex gap-6 items-stretch text-left transition
+                  ${
+                    index === activeIndex
+                      ? ' bg-[#EBEFFF61]'
+                      : 'border border-gray-700 hover:bg-[#EBEFFF61]'
+                  }
+                `}
+              >
+                <div className="bg-primary-light/20 rounded-xl p-4 min-w-[96px] h-full flex flex-col justify-center text-center">
+                  <div className="text-heading-lg font-heading text-primary">
+                    {day}.{month}
                   </div>
-                  <div className="text-xs text-gray-500">
-                    {event.day}
+                  <div className="text-sm text-primary capitalize">
+                    {weekday}
                   </div>
                 </div>
 
-                <div>
-                  <div className="text-sm text-gray-500">
-                    {event.time}
+                {/* CONTENT */}
+                <div className="flex-1">
+                  <div className="text-lgg text-text-gray-700">
+                    {event.startTime} – {event.endTime}
                   </div>
-                  <div className="font-medium">
+
+                  <div className="font-medium text-heading-mdd mt-2 mb-2 text-primary">
                     {event.title}
                   </div>
-                  <div className="text-sm text-gray-500">
-                    {event.subtitle}
+
+                  <div className="text-sm text-text-gray-700 mb-4">
+                    {event.description}
                   </div>
+                  <Button
+                    variant="text"
+                    withArrow
+                    size="sm"
+                    className="pl-0"
+                  >
+                    Подробнее
+                  </Button>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
 
-        {/* RIGHT CARD */}
-        <div className="relative">
-          <div
-            key={active.id}
-            className="
-              rounded-3xl overflow-hidden bg-white
-              shadow-xl transition-all duration-500
-            "
-          >
-            <div className="h-[300px] overflow-hidden">
-              <img
+
+        {/* RIGHT DETAILS */}
+        {active && (
+          <div className="space-y-6 hidden lg:block">
+            {/* Image */}
+            <div className="relative w-full h-[400px] rounded-2xl overflow-hidden">
+              <Image
                 src={active.image}
                 alt={active.title}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
+                priority
               />
             </div>
 
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2">
+            {/* Title and Meta */}
+            <div>
+              <h2 className="text-3xl font-bold text-primary mb-2">
                 {active.title}
-              </h3>
-
-              <div className="text-sm text-gray-500 mb-4">
-                {active.day}, {active.date} · {active.time}
+              </h2>
+              <div className="text-gray-600 mb-4">
+                {active.day}, {active.date} • {active.time}
               </div>
-
-              <p className="text-gray-600 mb-6">
-                {active.description}
+              <p className="text-gray-900 leading-relaxed">
+                {active.fullDescription || active.description}
               </p>
+            </div>
 
-              <button className="px-5 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition">
+            {/* Registration Button */}
+            <div>
+              <Button
+                size="md"
+                variant="primary"
+                disabled={!active.startTime}
+                onClick={handleOpenRegistration}
+              >
                 Регистрация
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {active && isMobileModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 lg:hidden">
+          <div className="w-full max-w-lg bg-white rounded-xl overflow-hidden shadow-xl">
+            <div className="flex items-center justify-between px-5 py-4 border-b">
+              <div className="text-sm font-semibold text-gray-700">
+                Мероприятие
+              </div>
+              <button
+                onClick={() => setIsMobileModalOpen(false)}
+                className="text-gray-500 hover:text-gray-700"
+                aria-label="Закрыть"
+              >
+                ✕
               </button>
+            </div>
+
+            <div className="relative w-full h-[300px]">
+              <Image
+                src={active.image}
+                alt={active.title}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+
+            <div className="p-5 space-y-3">
+              <h2 className="text-3xl font-semibold text-primary ">
+                {active.title}
+              </h2>
+              <div className="text-sm text-gray-600 mb-3">
+                {active.day}, {active.date} • {active.time}
+              </div>
+              <p className="text-sm text-gray-700  py-3 leading-relaxed">
+                {active.fullDescription || active.description}
+              </p>
+              <Button
+                size="sm"
+                variant="primary"
+                disabled={!active.startTime}
+                className="w-full text-center justify-center"
+                onClick={handleOpenRegistration}
+              >
+                Регистрация
+              </Button>
             </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {/* REGISTRATION MODAL */}
+      <EventRegistrationModal
+        isOpen={isRegistrationModalOpen}
+        onClose={() => setIsRegistrationModalOpen(false)}
+        eventTitle={active.title}
+        eventId={active.id}
+        events={events.map(e => ({ id: e.id, title: e.title }))}
+      />
     </section>
   );
 }

@@ -6,6 +6,7 @@ import { SectionTitle } from '../../ui/Sectiontitle';
 import type { CalendarEvent } from '@/type/type';
 import { EventsSchedule } from './EventsSchedule';
 import MobileEventsSlider from './MobileEventsSlider.client';
+import { LINKS } from '../../../lib/links';
 
 type Props = {
   CalendarEvent: CalendarEvent[];
@@ -55,7 +56,7 @@ export function UpcomingEvents({ CalendarEvent }: Props) {
 
         {/* ============ DESKTOP ============ */}
         <div className="hidden lg:grid mt-12 grid-cols-[380px_1fr] gap-10 items-stretch">
-          <div className="relative h-full rounded-3xl overflow-hidden">
+          <div className="relative w-[380px] h-[600px] rounded-3xl overflow-hidden flex-shrink-0">
             <Image
               src="/home/events-image.png"
               alt="Events"
@@ -69,7 +70,7 @@ export function UpcomingEvents({ CalendarEvent }: Props) {
         </div>
 
         <div className="hidden lg:flex mt-10 justify-end">
-          <Button variant="text" withArrow>
+          <Button variant="text" withArrow href={LINKS.events}>
             Смотреть больше
           </Button>
         </div>

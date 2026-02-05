@@ -9,7 +9,7 @@ import { motion } from 'motion/react';
 import styles from './style/home.module.scss'; // ✅ ВАЖНО
 
 export default function HowWeHelp() {
-  const t = useTranslations('howWeHelp');
+  const t = useTranslations('home.howWeHelp');
 
   const listVariants = {
     hidden: {},

@@ -52,19 +52,20 @@ const config: Config = {
 
       fontSize: {
         h1: ["56px", { lineHeight: "110%" }],
+        "text-base": ["18px", { lineHeight: "100%" }],
         lgg: ["16px", { lineHeight: "100%" }],
         sn: ["14px", { lineHeight: "100%" }],
         sm: ["12px", { lineHeight: "100%" }],
         md: ["14px", { lineHeight: "100%" }],
         lg: ["18px", { lineHeight: "100%" }],
         xl: ["20px", { lineHeight: "120%" }],
-        "text-base": ["18px", { lineHeight: "100%" }],
 
         "heading-xl": ["48px", { lineHeight: "110%" }],
         "heading-lg": ["40px", { lineHeight: "110%" }],
         "heading-md": ["28px", { lineHeight: "110%" }],
         "heading-mdd": ["24px", { lineHeight: "110%" }],
         "2xl": ["28px", { lineHeight: "120%" }],
+        "3xl": ["36px", { lineHeight: "120%" }],
         "4xl": ["43px", { lineHeight: "102%" }],
 
         "5xl": ["58px", { lineHeight: "110%" }],
