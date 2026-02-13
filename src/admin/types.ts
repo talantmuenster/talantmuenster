@@ -49,12 +49,44 @@ export type ProgramSection = {
   modules: ProgramModule[];
 };
 
+export type CourseTab = {
+  title: LocalizedContent;
+  description: LocalizedContent;
+  address: string;
+  duration: string;
+  price: string;
+  ctaLabel?: LocalizedContent;
+};
+
+export type Teacher = {
+  name: LocalizedContent;
+  role: LocalizedContent;
+  bio: LocalizedContent;
+  avatar: string;
+  tags: LocalizedContent[];
+};
+
+export type ScheduleItem = {
+  day: 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
+  time: string;
+  title: LocalizedContent;
+  teacher?: LocalizedContent;
+};
+
 export type Program = {
   id?: string;
   slug: string;
   title: LocalizedContent;
-  description: LocalizedContent;
-  content: LocalizedContent;
+  subtitle: LocalizedContent;
+  description?: LocalizedContent;
+  content?: LocalizedContent;
+  cover?: string;
+  heroSlides?: string[];
+  courseTabs?: CourseTab[];
+  teachers?: Teacher[];
+  schedule?: {
+    items: ScheduleItem[];
+  };
   sections?: ProgramSection[];
   imageUrl?: string;
   published: boolean;

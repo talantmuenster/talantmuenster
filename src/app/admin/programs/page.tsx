@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import LanguageEditor, { LanguageEditorProvider, LanguageTabs } from '@/admin/components/LanguageEditor';
 import { Program, LocalizedContent } from '@/admin/types';
 
 const emptyLocalized: LocalizedContent = { ru: '', en: '', de: '' };
+type LanguageType = 'ru' | 'en' | 'de';
 
 export default function ProgramsAdminPage() {
   const [items, setItems] = useState<Program[]>([]);
@@ -12,6 +12,9 @@ export default function ProgramsAdminPage() {
   const [editing, setEditing] = useState<Program | null>(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [migratingData, setMigratingData] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<LanguageType>('ru');
+  const [activeTab, setActiveTab] = useState<'info' | 'courses' | 'teachers' | 'schedule'>('info');
 
   const fetchItems = async () => {
     setLoading(true);
@@ -30,20 +33,38 @@ export default function ProgramsAdminPage() {
     fetchItems();
   }, []);
 
+  const migrateFromLocal = async () => {
+    if (!confirm('Загрузить данные из локального файла в Firebase?')) return;
+    setMigratingData(true);
+    try {
+      const res = await fetch('/api/admin/programs-migrate', { method: 'POST' });
+      if (!res.ok) throw new Error('Ошибка при миграции');
+      const result = await res.json();
+      setSuccess(`✅ Загружено ${result.results.length} программ`);
+      await fetchItems();
+    } catch (err: any) {
+      setError(`Ошибка: ${err.message}`);
+    } finally {
+      setMigratingData(false);
+    }
+  };
+
   const startNew = () => {
     setEditing({
       slug: '',
       title: emptyLocalized,
-      description: emptyLocalized,
-      content: emptyLocalized,
-      sections: [],
-      imageUrl: '',
+      subtitle: emptyLocalized,
+      cover: '',
+      heroSlides: [],
+      courseTabs: [],
+      teachers: [],
+      schedule: { items: [] },
       published: false,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     });
-    setError('');
-    setSuccess('');
+    setSelectedLanguage('ru');
+    setActiveTab('info');
   };
 
   const save = async () => {
@@ -61,7 +82,19 @@ export default function ProgramsAdminPage() {
       const url = editing.id ? `/api/admin/programs?id=${editing.id}` : '/api/admin/programs';
       const method = editing.id ? 'PUT' : 'POST';
 
-      const payload = { ...editing, slug: normalizedSlug };
+      const payload = {
+        ...editing,
+        slug: normalizedSlug,
+        title: editing.title,
+        subtitle: editing.subtitle,
+        cover: editing.cover || '',
+        heroSlides: editing.heroSlides || [],
+        courseTabs: editing.courseTabs || [],
+        teachers: editing.teachers || [],
+        schedule: editing.schedule || { items: [] },
+        published: editing.published ?? true,
+      };
+
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
@@ -81,425 +114,559 @@ export default function ProgramsAdminPage() {
   };
 
   const remove = async (id: string) => {
-    if (!confirm('Удалить это направление?')) return;
-
+    if (!confirm('Удалить?')) return;
     try {
       const res = await fetch(`/api/admin/programs?id=${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Ошибка при удалении');
-
-      setSuccess('✅ Направление удалено');
+      setSuccess('✅ Удалено');
       await fetchItems();
     } catch (err: any) {
       setError(err.message);
     }
   };
 
-  const togglePublished = async (item: Program) => {
-    if (!item.id) return;
-    try {
-      setLoading(true);
-      const res = await fetch(`/api/admin/programs?id=${item.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ published: !item.published }),
-      });
-      if (!res.ok) throw new Error('Ошибка при обновлении статуса');
-      await fetchItems();
-      setSuccess(item.published ? '✅ Переведено в черновик' : '✅ Опубликовано');
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const updateSection = (index: number, updates: { title?: string; modules?: { title: string; description: string }[] }) => {
-    if (!editing) return;
-    const sections = [...(editing.sections || [])];
-    sections[index] = { ...sections[index], ...updates };
-    setEditing({ ...editing, sections });
-  };
-
-  const addSection = () => {
-    if (!editing) return;
-    const sections = [...(editing.sections || []), { title: '', modules: [] }];
-    setEditing({ ...editing, sections });
-  };
-
-  const removeSection = (index: number) => {
-    if (!editing) return;
-    const sections = [...(editing.sections || [])];
-    sections.splice(index, 1);
-    setEditing({ ...editing, sections });
-  };
-
-  const addModule = (sectionIndex: number) => {
-    if (!editing) return;
-    const sections = [...(editing.sections || [])];
-    const section = sections[sectionIndex] || { title: '', modules: [] };
-    const modules = [...(section.modules || []), { title: '', description: '' }];
-    sections[sectionIndex] = { ...section, modules };
-    setEditing({ ...editing, sections });
-  };
-
-  const updateModule = (
-    sectionIndex: number,
-    moduleIndex: number,
-    updates: { title?: string; description?: string }
-  ) => {
-    if (!editing) return;
-    const sections = [...(editing.sections || [])];
-    const section = sections[sectionIndex] || { title: '', modules: [] };
-    const modules = [...(section.modules || [])];
-    modules[moduleIndex] = { ...modules[moduleIndex], ...updates };
-    sections[sectionIndex] = { ...section, modules };
-    setEditing({ ...editing, sections });
-  };
-
-  const removeModule = (sectionIndex: number, moduleIndex: number) => {
-    if (!editing) return;
-    const sections = [...(editing.sections || [])];
-    const section = sections[sectionIndex] || { title: '', modules: [] };
-    const modules = [...(section.modules || [])];
-    modules.splice(moduleIndex, 1);
-    sections[sectionIndex] = { ...section, modules };
-    setEditing({ ...editing, sections });
-  };
-
-  const ensureFirstModule = () => {
-    const sections = [...(editing?.sections || [])];
-    if (!sections[0]) {
-      sections[0] = { title: '', modules: [{ title: '', description: '' }] };
-    } else if (!Array.isArray(sections[0].modules) || sections[0].modules.length === 0) {
-      sections[0] = { ...sections[0], modules: [{ title: '', description: '' }] };
-    }
-    return sections;
-  };
-
-  const updateFirstModule = (updates: { title?: string; description?: string }) => {
-    if (!editing) return;
-    const sections = ensureFirstModule();
-    const firstModule = sections[0].modules[0] || { title: '', description: '' };
-    sections[0].modules[0] = { ...firstModule, ...updates };
-    setEditing({ ...editing, sections });
-  };
-
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-3">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold">Направления программ</h1>
-          <button
-            onClick={startNew}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-          >
-            + Новое направление
-          </button>
+  // Список
+  if (!editing) {
+    return (
+      <div className="min-w-0">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold">Программы</h1>
+          <div className="flex gap-2">
+            <button
+              onClick={migrateFromLocal}
+              disabled={migratingData}
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 text-sm"
+            >
+              {migratingData ? '⏳ Загрузка...' : '⬆️ Из файла'}
+            </button>
+            <button
+              onClick={startNew}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
+            >
+              ➕ Новая программа
+            </button>
+          </div>
         </div>
-        <div>
-          <a href="/programs" className="px-3 py-1 text-sm rounded-full border bg-blue-600 text-white border-blue-600">Открыть страницу «Программы»</a>
-        </div>
-      </div>
 
-      {error && (
-        <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
-          {error}
-        </div>
-      )}
-      {success && (
-        <div className="p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg">
-          {success}
-        </div>
-      )}
+        {error && <div className="p-4 bg-red-100 text-red-700 rounded-lg mb-4">{error}</div>}
+        {success && <div className="p-4 bg-green-100 text-green-700 rounded-lg mb-4">{success}</div>}
 
-      {!editing && (
-        <div className="space-y-3">
+        <div className="grid gap-3">
           {loading ? (
-            <div className="text-center py-8 text-gray-500">Загрузка...</div>
+            <div className="text-center py-8 text-gray-500">⏳ Загрузка...</div>
           ) : items.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">Нет направлений</div>
+            <div className="text-center py-8 text-gray-500">Нет программ</div>
           ) : (
             items.map((item) => (
               <div
                 key={item.id}
-                className="bg-white p-4 rounded-lg border border-gray-200 flex justify-between items-start"
+                className="bg-white p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition flex justify-between items-center group"
               >
                 <div className="flex-1">
-                  <h3 className="font-semibold text-lg">
-                    {item.title?.ru || item.title?.en || item.title?.de || 'Без названия'}
-                  </h3>
-                  <p className="text-sm text-gray-600">Slug: {item.slug}</p>
-                  <span
-                    className={`text-xs px-2 py-1 rounded mt-2 inline-block ${
-                      item.published
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-gray-100 text-gray-800'
-                    }`}
-                  >
-                    {item.published ? '✓ Опубликовано' : 'Черновик'}
-                  </span>
+                  <h3 className="font-semibold text-lg text-gray-900">{item.title?.ru || 'Без названия'}</h3>
+                  <div className="flex gap-3 mt-2 text-sm text-gray-600">
+                    <span>📌 {item.slug}</span>
+                    <span>{item.published ? '✅ Опубликовано' : '📝 Черновик'}</span>
+                  </div>
                 </div>
-                <div className="flex gap-2 ml-4">
+                <div className="flex gap-2 ml-4 opacity-0 group-hover:opacity-100 transition">
                   <button
-                    onClick={() => togglePublished(item)}
-                    className={`px-3 py-1 text-sm rounded hover:opacity-90 ${
-                      item.published
-                        ? 'bg-gray-100 text-gray-700'
-                        : 'bg-green-100 text-green-700'
-                    }`}
-                  >
-                    {item.published ? 'В черновик' : 'Опубликовать'}
-                  </button>
-                  <button
-                    onClick={() =>
-                      setEditing({
-                        ...item,
-                        sections: item.sections || [],
-                      })
-                    }
+                    onClick={() => setEditing(item)}
                     className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
                   >
-                    Редактировать
+                    ✏️ Редактировать
                   </button>
                   <button
                     onClick={() => remove(item.id!)}
                     className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200"
                   >
-                    Удалить
+                    🗑️ Удалить
                   </button>
                 </div>
               </div>
             ))
           )}
         </div>
-      )}
+      </div>
+    );
+  }
 
-      {editing && (
-        <LanguageEditorProvider>
-          <div className="bg-white p-6 rounded-lg border border-gray-200 space-y-6">
-            <h2 className="text-2xl font-semibold">
-              {editing.id ? 'Редактировать' : 'Новое'} направление
-            </h2>
+  // Редактирование
+  return (
+    <div className="min-w-0">
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="text-3xl font-bold">
+            {editing.id ? '✏️ Редактирование' : '➕ Новая программа'}
+          </h1>
+          <p className="text-sm text-gray-600 mt-1">Slug: {editing.slug || '—'}</p>
+        </div>
+        <button
+          onClick={() => setEditing(null)}
+          className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400"
+        >
+          ← Назад
+        </button>
+      </div>
 
-            <LanguageTabs />
+      {error && <div className="p-4 bg-red-100 text-red-700 rounded-lg mb-4">{error}</div>}
+      {success && <div className="p-4 bg-green-100 text-green-700 rounded-lg mb-4">{success}</div>}
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
-            <input
-              type="text"
-              value={editing.slug}
-              onChange={(e) => setEditing({ ...editing, slug: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-              placeholder="например: art, music"
-            />
-          </div>
+      {/* Языковой переключатель */}
+      <div className="bg-white p-4 rounded-lg border border-gray-200 mb-6 flex items-center gap-2">
+        <span className="text-sm font-semibold text-gray-700">Язык:</span>
+        <div className="flex gap-2">
+          {(['ru', 'en', 'de'] as const).map((lang) => (
+            <button
+              key={lang}
+              onClick={() => setSelectedLanguage(lang)}
+              className={`px-3 py-1 rounded text-sm font-medium transition ${
+                selectedLanguage === lang
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {lang === 'ru' && '🇷🇺'}
+              {lang === 'en' && '🇬🇧'}
+              {lang === 'de' && '🇩🇪'}
+              {lang.toUpperCase()}
+            </button>
+          ))}
+        </div>
+      </div>
 
-          <LanguageEditor
-            content={editing.title}
-            onChange={(c) => setEditing({ ...editing, title: c })}
-            fieldName="Название направления"
-            placeholder="Название"
-          />
+      {/* Вкладки */}
+      <div className="flex gap-2 mb-6 border-b border-gray-200 overflow-x-auto">
+        {(['info', 'courses', 'teachers', 'schedule'] as const).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-4 py-3 font-medium text-sm whitespace-nowrap border-b-2 transition ${
+              activeTab === tab
+                ? 'border-blue-600 text-blue-600'
+                : 'border-transparent text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            {tab === 'info' && '📋 Основная информация'}
+            {tab === 'courses' && '📚 Курсы'}
+            {tab === 'teachers' && '👥 Преподаватели'}
+            {tab === 'schedule' && '📅 Расписание'}
+          </button>
+        ))}
+      </div>
 
-          <LanguageEditor
-            content={editing.description}
-            onChange={(c) => setEditing({ ...editing, description: c })}
-            fieldName="Краткое описание"
-            isTextarea
-            rows={3}
-            placeholder="Короткое описание"
-          />
+      {/* Основная информация */}
+      {activeTab === 'info' && (
+        <div className="space-y-4">
+          <div className="bg-white p-6 rounded-lg border border-gray-200">
+            <h3 className="text-lg font-semibold mb-4">Основные данные</h3>
 
-          <LanguageEditor
-            content={editing.content}
-            onChange={(c) => setEditing({ ...editing, content: c })}
-            fieldName="Полное описание"
-            isTextarea
-            rows={6}
-            placeholder="Полный текст"
-          />
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700">Slug (идентификатор)</label>
+                <input
+                  type="text"
+                  value={editing.slug}
+                  onChange={(e) => setEditing({ ...editing, slug: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="art, music, dance..."
+                />
+                <p className="text-xs text-gray-500 mt-1">Используется в URL</p>
+              </div>
 
-          <div className="space-y-3 border border-blue-200 bg-blue-50/40 rounded-lg p-4">
-            <h3 className="text-lg font-semibold">Первый модуль</h3>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Название модуля</label>
-              <input
-                type="text"
-                value={editing.sections?.[0]?.modules?.[0]?.title || ''}
-                onChange={(e) => updateFirstModule({ title: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                placeholder="Название первого модуля"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Описание модуля</label>
-              <textarea
-                value={editing.sections?.[0]?.modules?.[0]?.description || ''}
-                onChange={(e) => updateFirstModule({ description: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                rows={3}
-                placeholder="Описание первого модуля"
-              />
-            </div>
-          </div>
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700">
+                  🖼️ Обложка (фото программы)
+                </label>
+                <input
+                  type="text"
+                  value={editing.cover || ''}
+                  onChange={(e) => setEditing({ ...editing, cover: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="https://..."
+                />
+              </div>
 
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Разделы и модули</h3>
-              <button
-                type="button"
-                onClick={addSection}
-                className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
-              >
-                + Добавить раздел
-              </button>
-            </div>
-
-            {(editing.sections || []).length === 0 ? (
-              <div className="text-sm text-gray-500">Разделов пока нет</div>
-            ) : (
-              <div className="space-y-4">
-                {(editing.sections || []).map((section, sectionIndex) => (
-                  <div
-                    key={`section-${sectionIndex}`}
-                    className="border border-gray-200 rounded-lg p-4 space-y-4"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Название раздела
-                        </label>
-                        <input
-                          type="text"
-                          value={section.title}
-                          onChange={(e) => updateSection(sectionIndex, { title: e.target.value })}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                          placeholder="Например: Основы, Практика, Финальный проект"
-                        />
-                      </div>
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700">
+                  🎬 Слайдер (несколько фото)
+                </label>
+                <div className="space-y-2">
+                  {(editing.heroSlides || []).map((slide, idx) => (
+                    <div key={idx} className="flex gap-2">
+                      <input
+                        type="text"
+                        value={slide}
+                        onChange={(e) => {
+                          const slides = [...(editing.heroSlides || [])];
+                          slides[idx] = e.target.value;
+                          setEditing({ ...editing, heroSlides: slides });
+                        }}
+                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="https://..."
+                      />
                       <button
-                        type="button"
-                        onClick={() => removeSection(sectionIndex)}
-                        className="px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded"
+                        onClick={() => {
+                          const slides = (editing.heroSlides || []).filter((_, i) => i !== idx);
+                          setEditing({ ...editing, heroSlides: slides });
+                        }}
+                        className="px-3 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200"
                       >
-                        Удалить раздел
+                        🗑️
                       </button>
                     </div>
+                  ))}
+                  <button
+                    onClick={() => setEditing({ ...editing, heroSlides: [...(editing.heroSlides || []), ''] })}
+                    className="w-full py-2 border-2 border-dashed border-blue-300 text-blue-600 rounded-lg hover:bg-blue-50 font-medium"
+                  >
+                    ➕ Добавить фото
+                  </button>
+                </div>
+              </div>
 
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-medium">Модули</h4>
+              <label className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={editing.published}
+                  onChange={(e) => setEditing({ ...editing, published: e.target.checked })}
+                />
+                <span className="font-medium text-gray-700">✅ Опубликовано</span>
+              </label>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg border border-gray-200">
+            <h3 className="text-lg font-semibold mb-4">Содержание на {selectedLanguage === 'ru' ? '🇷🇺 Русском' : selectedLanguage === 'en' ? '🇬🇧 Английском' : '🇩🇪 Немецком'}</h3>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700">Название программы</label>
+                <input
+                  type="text"
+                  value={editing.title[selectedLanguage]}
+                  onChange={(e) => setEditing({ ...editing, title: { ...editing.title, [selectedLanguage]: e.target.value } })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder={selectedLanguage === 'ru' ? 'Введите название' : selectedLanguage === 'en' ? 'Enter title' : 'Geben Sie den Titel ein'}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700">Короткое описание</label>
+                <textarea
+                  value={editing.subtitle[selectedLanguage]}
+                  onChange={(e) => setEditing({ ...editing, subtitle: { ...editing.subtitle, [selectedLanguage]: e.target.value } })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 h-24"
+                  placeholder={selectedLanguage === 'ru' ? 'Краткое описание программы' : selectedLanguage === 'en' ? 'Brief description' : 'Kurzbeschreibung'}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Курсы */}
+      {activeTab === 'courses' && (
+        <div className="space-y-4">
+          {(editing.courseTabs || []).map((course, idx) => (
+            <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-lg font-semibold">{course.title[selectedLanguage] || `Курс ${idx + 1}`}</h3>
+                <button
+                  onClick={() => setEditing({ ...editing, courseTabs: editing.courseTabs?.filter((_, i) => i !== idx) })}
+                  className="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200"
+                >
+                  🗑️ Удалить
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                <input
+                  type="text"
+                  placeholder="Название курса"
+                  value={course.title[selectedLanguage] || ''}
+                  onChange={(e) => {
+                    const upd = [...(editing.courseTabs || [])];
+                    upd[idx] = { ...course, title: { ...course.title, [selectedLanguage]: e.target.value } };
+                    setEditing({ ...editing, courseTabs: upd });
+                  }}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                />
+                <textarea
+                  placeholder="Описание курса"
+                  value={course.description[selectedLanguage] || ''}
+                  onChange={(e) => {
+                    const upd = [...(editing.courseTabs || [])];
+                    upd[idx] = { ...course, description: { ...course.description, [selectedLanguage]: e.target.value } };
+                    setEditing({ ...editing, courseTabs: upd });
+                  }}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg h-20"
+                />
+                <div className="grid grid-cols-3 gap-2">
+                  <input
+                    type="text"
+                    placeholder="Адрес"
+                    value={course.address || ''}
+                    onChange={(e) => {
+                      const upd = [...(editing.courseTabs || [])];
+                      upd[idx] = { ...course, address: e.target.value };
+                      setEditing({ ...editing, courseTabs: upd });
+                    }}
+                    className="px-4 py-2 border border-gray-300 rounded-lg"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Длительность"
+                    value={course.duration || ''}
+                    onChange={(e) => {
+                      const upd = [...(editing.courseTabs || [])];
+                      upd[idx] = { ...course, duration: e.target.value };
+                      setEditing({ ...editing, courseTabs: upd });
+                    }}
+                    className="px-4 py-2 border border-gray-300 rounded-lg"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Цена"
+                    value={course.price || ''}
+                    onChange={(e) => {
+                      const upd = [...(editing.courseTabs || [])];
+                      upd[idx] = { ...course, price: e.target.value };
+                      setEditing({ ...editing, courseTabs: upd });
+                    }}
+                    className="px-4 py-2 border border-gray-300 rounded-lg"
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+
+          <button
+            onClick={() => setEditing({ ...editing, courseTabs: [...(editing.courseTabs || []), { title: emptyLocalized, description: emptyLocalized, address: '', duration: '', price: '' }] })}
+            className="w-full py-2 border-2 border-dashed border-blue-300 text-blue-600 rounded-lg hover:bg-blue-50 font-medium"
+          >
+            ➕ Добавить курс
+          </button>
+        </div>
+      )}
+
+      {/* Преподаватели */}
+      {activeTab === 'teachers' && (
+        <div className="space-y-4">
+          {(editing.teachers || []).map((teacher, idx) => (
+            <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-lg font-semibold">{teacher.name[selectedLanguage] || `Преподаватель ${idx + 1}`}</h3>
+                <button
+                  onClick={() => setEditing({ ...editing, teachers: editing.teachers?.filter((_, i) => i !== idx) })}
+                  className="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200"
+                >
+                  🗑️ Удалить
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                <input
+                  type="text"
+                  placeholder="Имя преподавателя"
+                  value={teacher.name[selectedLanguage] || ''}
+                  onChange={(e) => {
+                    const upd = [...(editing.teachers || [])];
+                    upd[idx] = { ...teacher, name: { ...teacher.name, [selectedLanguage]: e.target.value } };
+                    setEditing({ ...editing, teachers: upd });
+                  }}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                />
+                <input
+                  type="text"
+                  placeholder="Должность"
+                  value={teacher.role?.[selectedLanguage] || ''}
+                  onChange={(e) => {
+                    const upd = [...(editing.teachers || [])];
+                    upd[idx] = { ...teacher, role: { ...(teacher.role || emptyLocalized), [selectedLanguage]: e.target.value } };
+                    setEditing({ ...editing, teachers: upd });
+                  }}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                />
+                <textarea
+                  placeholder="Биография"
+                  value={teacher.bio?.[selectedLanguage] || ''}
+                  onChange={(e) => {
+                    const upd = [...(editing.teachers || [])];
+                    upd[idx] = { ...teacher, bio: { ...(teacher.bio || emptyLocalized), [selectedLanguage]: e.target.value } };
+                    setEditing({ ...editing, teachers: upd });
+                  }}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg h-20"
+                />
+                <input
+                  type="text"
+                  placeholder="Avatar URL"
+                  value={teacher.avatar || ''}
+                  onChange={(e) => {
+                    const upd = [...(editing.teachers || [])];
+                    upd[idx] = { ...teacher, avatar: e.target.value };
+                    setEditing({ ...editing, teachers: upd });
+                  }}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                />
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-700">🏷️ Теги (умения, специализация)</label>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {(teacher.tags || []).map((tag, tagIdx) => (
+                      <div key={tagIdx} className="flex items-center gap-1 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                        <span>{tag}</span>
                         <button
                           type="button"
-                          onClick={() => addModule(sectionIndex)}
-                          className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
+                          onClick={() => {
+                            const upd = [...(editing.teachers || [])];
+                            upd[idx] = { ...teacher, tags: (teacher.tags || []).filter((_, i) => i !== tagIdx) };
+                            setEditing({ ...editing, teachers: upd });
+                          }}
+                          className="font-bold hover:text-blue-900"
                         >
-                          + Добавить модуль
+                          ✕
                         </button>
                       </div>
-
-                      {sectionIndex === 0 && (section.modules || []).length <= 1 ? (
-                        <div className="text-sm text-gray-500">Модулей пока нет</div>
-                      ) : (section.modules || []).length === 0 ? (
-                        <div className="text-sm text-gray-500">Модулей пока нет</div>
-                      ) : (
-                        <div className="space-y-3">
-                          {(section.modules || [])
-                            .slice(sectionIndex === 0 ? 1 : 0)
-                            .map((module, moduleIndex) => (
-                            <div
-                              key={`section-${sectionIndex}-module-${moduleIndex + (sectionIndex === 0 ? 1 : 0)}`}
-                              className="bg-gray-50 border border-gray-200 rounded-lg p-3 space-y-2"
-                            >
-                              <div className="flex items-start justify-between gap-3">
-                                <div className="flex-1 space-y-2">
-                                  <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                                      Название модуля
-                                    </label>
-                                    <input
-                                      type="text"
-                                      value={module.title}
-                                      onChange={(e) =>
-                                        updateModule(
-                                          sectionIndex,
-                                          moduleIndex + (sectionIndex === 0 ? 1 : 0),
-                                          { title: e.target.value }
-                                        )
-                                      }
-                                      className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                                      placeholder="Название модуля"
-                                    />
-                                  </div>
-                                  <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                                      Описание модуля
-                                    </label>
-                                    <textarea
-                                      value={module.description}
-                                      onChange={(e) =>
-                                        updateModule(sectionIndex, moduleIndex + (sectionIndex === 0 ? 1 : 0), {
-                                          description: e.target.value,
-                                        })
-                                      }
-                                      className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                                      rows={3}
-                                      placeholder="Короткое описание модуля"
-                                    />
-                                  </div>
-                                </div>
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    removeModule(sectionIndex, moduleIndex + (sectionIndex === 0 ? 1 : 0))
-                                  }
-                                  className="px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded"
-                                >
-                                  Удалить
-                                </button>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                    ))}
                   </div>
-                ))}
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="Добавить тег (например: Рисунок, Живопись)"
+                      id={`tag-${idx}`}
+                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const input = document.getElementById(`tag-${idx}`) as HTMLInputElement;
+                        if (input.value.trim()) {
+                          const upd = [...(editing.teachers || [])];
+                          upd[idx] = { ...teacher, tags: [...(teacher.tags || []), input.value.trim()] };
+                          setEditing({ ...editing, teachers: upd });
+                          input.value = '';
+                        }
+                      }}
+                      className="px-4 py-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 font-medium"
+                    >
+                      ➕
+                    </button>
+                  </div>
+                </div>
               </div>
-            )}
-          </div>
+            </div>
+          ))}
 
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              id="published"
-              checked={editing.published}
-              onChange={(e) => setEditing({ ...editing, published: e.target.checked })}
-              className="w-4 h-4"
-            />
-            <label htmlFor="published" className="text-sm font-medium">
-              Опубликовать
-            </label>
-          </div>
-
-          <div className="flex gap-3 justify-end">
-            <button
-              onClick={() => setEditing(null)}
-              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-            >
-              Отмена
-            </button>
-            <button
-              onClick={save}
-              disabled={loading}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
-            >
-              {loading ? 'Сохранение...' : 'Сохранить'}
-            </button>
-          </div>
-          </div>
-        </LanguageEditorProvider>
+          <button
+            onClick={() => setEditing({ ...editing, teachers: [...(editing.teachers || []), { name: emptyLocalized, role: emptyLocalized, bio: emptyLocalized, avatar: '', tags: [] }] })}
+            className="w-full py-2 border-2 border-dashed border-blue-300 text-blue-600 rounded-lg hover:bg-blue-50 font-medium"
+          >
+            ➕ Добавить преподавателя
+          </button>
+        </div>
       )}
+
+      {/* Расписание */}
+      {activeTab === 'schedule' && (
+        <div className="space-y-4">
+          {(editing.schedule?.items || []).map((item, idx) => (
+            <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-lg font-semibold">
+                  📅 {item.day.toUpperCase()} на {item.time}
+                </h3>
+                <button
+                  onClick={() => setEditing({ ...editing, schedule: { ...editing.schedule, items: editing.schedule?.items?.filter((_, i) => i !== idx) } })}
+                  className="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200"
+                >
+                  🗑️ Удалить
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-2">
+                  <select
+                    value={item.day}
+                    onChange={(e) => {
+                      const upd = [...(editing.schedule?.items || [])];
+                      upd[idx] = { ...item, day: e.target.value as any };
+                      setEditing({ ...editing, schedule: { ...editing.schedule, items: upd } });
+                    }}
+                    className="px-4 py-2 border border-gray-300 rounded-lg"
+                  >
+                    {['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].map((d) => (
+                      <option key={d} value={d}>
+                        {d.toUpperCase()}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    type="time"
+                    value={item.time}
+                    onChange={(e) => {
+                      const upd = [...(editing.schedule?.items || [])];
+                      upd[idx] = { ...item, time: e.target.value };
+                      setEditing({ ...editing, schedule: { ...editing.schedule, items: upd } });
+                    }}
+                    className="px-4 py-2 border border-gray-300 rounded-lg"
+                  />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Название занятия"
+                  value={item.title[selectedLanguage] || ''}
+                  onChange={(e) => {
+                    const upd = [...(editing.schedule?.items || [])];
+                    upd[idx] = { ...item, title: { ...item.title, [selectedLanguage]: e.target.value } };
+                    setEditing({ ...editing, schedule: { ...editing.schedule, items: upd } });
+                  }}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                />
+                <select
+                  value={item.teacher?.[selectedLanguage] || ''}
+                  onChange={(e) => {
+                    const upd = [...(editing.schedule?.items || [])];
+                    upd[idx] = { ...item, teacher: { ...(item.teacher || emptyLocalized), [selectedLanguage]: e.target.value } };
+                    setEditing({ ...editing, schedule: { ...editing.schedule, items: upd } });
+                  }}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                >
+                  <option value="">— Выберите преподавателя —</option>
+                  {(editing.teachers || []).map((teacher, tIdx) => (
+                    <option key={tIdx} value={teacher.name[selectedLanguage] || ''}>
+                      {teacher.name[selectedLanguage]}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          ))}
+
+          <button
+            onClick={() => setEditing({ ...editing, schedule: { ...editing.schedule, items: [...(editing.schedule?.items || []), { day: 'mon', time: '10:00', title: emptyLocalized }] } })}
+            className="w-full py-2 border-2 border-dashed border-blue-300 text-blue-600 rounded-lg hover:bg-blue-50 font-medium"
+          >
+            ➕ Добавить занятие
+          </button>
+        </div>
+      )}
+
+      {/* Кнопки сохранения */}
+      <div className="flex gap-3 mt-8 sticky bottom-6 bg-white p-4 rounded-lg border border-gray-200 shadow-lg">
+        <button
+          onClick={save}
+          disabled={loading}
+          className="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 font-medium transition"
+        >
+          {loading ? '⏳ Сохранение...' : '✅ Сохранить'}
+        </button>
+        <button
+          onClick={() => setEditing(null)}
+          className="px-6 py-3 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 font-medium transition"
+        >
+          ❌ Отмена
+        </button>
+      </div>
     </div>
   );
 }
