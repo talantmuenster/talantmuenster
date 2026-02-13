@@ -5,15 +5,29 @@ export const DOCUMENTS: DocSection[] = [
     type: "certificate",
     items: [
       {
-        title: "Сертификат",
-        description:
-          "Пояснительный текст о том, что это за сертификат, желательно короткий",
+        title: {
+          ru: "Сертификат",
+          en: "Certificate",
+          de: "Zertifikat",
+        },
+        description: {
+          ru: "Пояснительный текст о том, что это за сертификат, желательно короткий",
+          en: "Short explanation about this certificate",
+          de: "Kurze Erklärung zu diesem Zertifikat",
+        },
         href: "/documents/certificate-1",
       },
       {
-        title: "Сертификат",
-        description:
-          "Пояснительный текст о том, что это за сертификат, желательно короткий",
+        title: {
+          ru: "Сертификат",
+          en: "Certificate",
+          de: "Zertifikat",
+        },
+        description: {
+          ru: "Пояснительный текст о том, что это за сертификат, желательно короткий",
+          en: "Short explanation about this certificate",
+          de: "Kurze Erklärung zu diesem Zertifikat",
+        },
         href: "/documents/certificate-2",
         mode: "download",
       },
@@ -23,15 +37,29 @@ export const DOCUMENTS: DocSection[] = [
     type: "publication",
     items: [
       {
-        title: "Публикация",
-        description:
-          "Пояснительный текст о том, что это за публикация, желательно короткий",
+        title: {
+          ru: "Публикация",
+          en: "Publication",
+          de: "Publikation",
+        },
+        description: {
+          ru: "Пояснительный текст о том, что это за публикация, желательно короткий",
+          en: "Short explanation about this publication",
+          de: "Kurze Erklärung zu dieser Publikation",
+        },
         href: "/documents/publication-1",
       },
       {
-        title: "Публикация",
-        description:
-          "Пояснительный текст о том, что это за публикация, желательно короткий",
+        title: {
+          ru: "Публикация",
+          en: "Publication",
+          de: "Publikation",
+        },
+        description: {
+          ru: "Пояснительный текст о том, что это за публикация, желательно короткий",
+          en: "Short explanation about this publication",
+          de: "Kurze Erklärung zu dieser Publikation",
+        },
         href: "/documents/publication-2",
       },
     ],

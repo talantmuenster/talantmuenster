@@ -25,6 +25,43 @@ export type Event = {
   updatedAt: string;
 };
 
+// Documents (Сертификаты и публикации)
+export type DocumentItem = {
+  id?: string;
+  type: 'certificate' | 'publication';
+  title: LocalizedContent;
+  description: LocalizedContent;
+  href: string;
+  mode?: 'view' | 'download';
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+// Programs (Направления)
+export type ProgramModule = {
+  title: string;
+  description: string;
+};
+
+export type ProgramSection = {
+  title: string;
+  modules: ProgramModule[];
+};
+
+export type Program = {
+  id?: string;
+  slug: string;
+  title: LocalizedContent;
+  description: LocalizedContent;
+  content: LocalizedContent;
+  sections?: ProgramSection[];
+  imageUrl?: string;
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
 // News (Новости)
 export type News = {
   id?: string;

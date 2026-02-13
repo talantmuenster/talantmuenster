@@ -3,7 +3,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import LanguageEditor from '@/admin/components/LanguageEditor';
+import LanguageEditor, { LanguageEditorProvider, LanguageTabs } from '@/admin/components/LanguageEditor';
 import ImageUpload from '@/admin/components/ImageUpload';
 import { Event, LocalizedContent } from '@/admin/types';
 import { EventRegistrations } from '@/components/admin/EventRegistrations';
@@ -123,14 +123,19 @@ export default function EventsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Управление мероприятиями</h1>
-        <button
-          onClick={startNew}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          + Новое событие
-        </button>
+      <div className="flex flex-col gap-3">
+        <div className="flex justify-between items-center">
+          <h1 className="text-3xl font-bold">Управление мероприятиями</h1>
+          <button
+            onClick={startNew}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            + Новое событие
+          </button>
+        </div>
+        <div>
+          <a href="/events" className="px-3 py-1 text-sm rounded-full border bg-blue-600 text-white border-blue-600">Открыть страницу «Мероприятия»</a>
+        </div>
       </div>
 
       {/* Messages */}
@@ -237,110 +242,114 @@ export default function EventsPage() {
 
       {/* Form */}
       {editing && (
-        <div className="bg-white p-6 rounded-lg border border-gray-200 space-y-6">
-          <h2 className="text-2xl font-semibold">
-            {editing.id ? 'Редактировать' : 'Новое'} событие
-          </h2>
+        <LanguageEditorProvider>
+          <div className="bg-white p-6 rounded-lg border border-gray-200 space-y-6">
+            <h2 className="text-2xl font-semibold">
+              {editing.id ? 'Редактировать' : 'Новое'} событие
+            </h2>
 
-          <LanguageEditor
-            content={editing.title}
-            onChange={(c) => setEditing({ ...editing, title: c })}
-            fieldName="Название события"
-            placeholder="Введите название"
-          />
+            <LanguageTabs />
 
-          <LanguageEditor
-            content={editing.description}
-            onChange={(c) => setEditing({ ...editing, description: c })}
-            fieldName="Описание"
-            isTextarea
-            placeholder="Подробное описание события"
-          />
-
-          {editing.location && (
             <LanguageEditor
-              content={editing.location}
-              onChange={(c) => setEditing({ ...editing, location: c })}
-              fieldName="Место проведения"
-              placeholder="Город, адрес"
+              content={editing.title}
+              onChange={(c) => setEditing({ ...editing, title: c })}
+              fieldName="Название события"
+              placeholder="Введите название"
             />
-          )}
 
-          <div className="grid grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Дата</label>
-              <input
-                type="date"
-                value={editing.date}
-                onChange={(e) => setEditing({ ...editing, date: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Начало</label>
-              <input
-                type="time"
-                value={editing.startTime}
-                onChange={(e) => setEditing({ ...editing, startTime: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Конец</label>
-              <input
-                type="time"
-                value={editing.endTime}
-                onChange={(e) => setEditing({ ...editing, endTime: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-              />
-            </div>
-          </div>
-
-          {editing.imageUrl && (
-            <ImageUpload
-              onUpload={(url) => setEditing({ ...editing, imageUrl: url })}
-              currentImageUrl={editing.imageUrl}
-              folder="events"
+            <LanguageEditor
+              content={editing.description}
+              onChange={(c) => setEditing({ ...editing, description: c })}
+              fieldName="Описание"
+              isTextarea
+              placeholder="Подробное описание события"
             />
-          )}
 
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              id="published"
-              checked={editing.published}
-              onChange={(e) => setEditing({ ...editing, published: e.target.checked })}
-              className="w-4 h-4"
-            />
-            <label htmlFor="published" className="text-sm font-medium">
-              Опубликовать
-            </label>
-          </div>
+            {editing.location && (
+              <LanguageEditor
+                content={editing.location}
+                onChange={(c) => setEditing({ ...editing, location: c })}
+                fieldName="Место проведения"
+                placeholder="Город, адрес"
+              />
+            )}
 
-          <div className="flex gap-3 justify-end">
-            <button
-              onClick={() => setEditing(null)}
-              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-            >
-              Отмена
-            </button>
-            <button
-              onClick={save}
-              disabled={loading}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
-            >
-              {loading ? 'Сохранение...' : 'Сохранить'}
-            </button>
-          </div>
-
-          {/* Registrations for this event */}
-          {editing.id && (
-            <div className="mt-8 pt-8 border-t border-gray-300">
-              <h3 className="text-xl font-semibold mb-4">Регистрации на это мероприятие</h3>
-              <EventRegistrations eventId={editing.id} />
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Дата</label>
+                <input
+                  type="date"
+                  value={editing.date}
+                  onChange={(e) => setEditing({ ...editing, date: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Начало</label>
+                <input
+                  type="time"
+                  value={editing.startTime}
+                  onChange={(e) => setEditing({ ...editing, startTime: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Конец</label>
+                <input
+                  type="time"
+                  value={editing.endTime}
+                  onChange={(e) => setEditing({ ...editing, endTime: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+              </div>
             </div>
-          )}
-        </div>
+
+            {editing.imageUrl && (
+              <ImageUpload
+                onUpload={(url) => setEditing({ ...editing, imageUrl: url })}
+                currentImageUrl={editing.imageUrl}
+                folder="events"
+              />
+            )}
+
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="published"
+                checked={editing.published}
+                onChange={(e) => setEditing({ ...editing, published: e.target.checked })}
+                className="w-4 h-4"
+              />
+              <label htmlFor="published" className="text-sm font-medium">
+                Опубликовать
+              </label>
+            </div>
+
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setEditing(null)}
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+              >
+                Отмена
+              </button>
+              <button
+                onClick={save}
+                disabled={loading}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+              >
+                {loading ? 'Сохранение...' : 'Сохранить'}
+              </button>
+            </div>
+
+            {/* Registrations for this event */}
+            {editing.id && (
+              <div className="mt-8 pt-8 border-t border-gray-300">
+                <h3 className="text-xl font-semibold mb-4">Регистрации на это мероприятие</h3>
+                <EventRegistrations eventId={editing.id} />
+              </div>
+            )}
+          </div>
+        </LanguageEditorProvider>
       )}
 
     </div>

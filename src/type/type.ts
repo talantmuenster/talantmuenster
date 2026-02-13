@@ -85,8 +85,8 @@ export type News = {
 };
 
 export type DocItem = {
-  title: string;
-  description: string;
+  title: LocalizedContent;
+  description: LocalizedContent;
   href: string;
   mode?: "view" | "download";
 };

@@ -3,7 +3,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import LanguageEditor from '@/admin/components/LanguageEditor';
+import LanguageEditor, { LanguageEditorProvider, LanguageTabs } from '@/admin/components/LanguageEditor';
 import ImageUpload from '@/admin/components/ImageUpload';
 import { News, LocalizedContent } from '@/admin/types';
 
@@ -97,14 +97,19 @@ export default function NewsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Управление новостями</h1>
-        <button
-          onClick={startNew}
-          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-        >
-          + Новая новость
-        </button>
+      <div className="flex flex-col gap-3">
+        <div className="flex justify-between items-center">
+          <h1 className="text-3xl font-bold">Управление новостями</h1>
+          <button
+            onClick={startNew}
+            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+          >
+            + Новая новость
+          </button>
+        </div>
+        <div>
+          <a href="/news" className="px-3 py-1 text-sm rounded-full border bg-blue-600 text-white border-blue-600">Открыть страницу «Новости»</a>
+        </div>
       </div>
 
       {/* Messages */}
@@ -181,81 +186,85 @@ export default function NewsPage() {
 
       {/* Form */}
       {editing && (
-        <div className="bg-white p-6 rounded-lg border border-gray-200 space-y-6">
-          <h2 className="text-2xl font-semibold">
-            {editing.id ? 'Редактировать' : 'Новая'} новость
-          </h2>
+        <LanguageEditorProvider>
+          <div className="bg-white p-6 rounded-lg border border-gray-200 space-y-6">
+            <h2 className="text-2xl font-semibold">
+              {editing.id ? 'Редактировать' : 'Новая'} новость
+            </h2>
 
-          <ImageUpload
-            onUpload={(url) => setEditing({ ...editing, imageUrl: url })}
-            currentImageUrl={editing.imageUrl}
-            folder="news"
-          />
+            <LanguageTabs />
 
-          <LanguageEditor
-            content={editing.title}
-            onChange={(c) => setEditing({ ...editing, title: c })}
-            fieldName="Заголовок новости"
-            placeholder="Привлекательный заголовок"
-          />
-
-          <LanguageEditor
-            content={editing.excerpt}
-            onChange={(c) => setEditing({ ...editing, excerpt: c })}
-            fieldName="Краткое описание"
-            isTextarea
-            rows={2}
-            placeholder="Краткая анонс для списка новостей"
-          />
-
-          <LanguageEditor
-            content={editing.content}
-            onChange={(c) => setEditing({ ...editing, content: c })}
-            fieldName="Полный текст новости"
-            isTextarea
-            rows={8}
-            placeholder="Полный текст статьи"
-          />
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Дата публикации</label>
-            <input
-              type="date"
-              value={editing.date}
-              onChange={(e) => setEditing({ ...editing, date: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+            <ImageUpload
+              onUpload={(url) => setEditing({ ...editing, imageUrl: url })}
+              currentImageUrl={editing.imageUrl}
+              folder="news"
             />
-          </div>
 
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              id="published"
-              checked={editing.published}
-              onChange={(e) => setEditing({ ...editing, published: e.target.checked })}
-              className="w-4 h-4"
+            <LanguageEditor
+              content={editing.title}
+              onChange={(c) => setEditing({ ...editing, title: c })}
+              fieldName="Заголовок новости"
+              placeholder="Привлекательный заголовок"
             />
-            <label htmlFor="published" className="text-sm font-medium">
-              Опубликовать
-            </label>
-          </div>
 
-          <div className="flex gap-3 justify-end">
-            <button
-              onClick={() => setEditing(null)}
-              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-            >
-              Отмена
-            </button>
-            <button
-              onClick={save}
-              disabled={loading}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
-            >
-              {loading ? 'Сохранение...' : 'Сохранить'}
-            </button>
+            <LanguageEditor
+              content={editing.excerpt}
+              onChange={(c) => setEditing({ ...editing, excerpt: c })}
+              fieldName="Краткое описание"
+              isTextarea
+              rows={2}
+              placeholder="Краткая анонс для списка новостей"
+            />
+
+            <LanguageEditor
+              content={editing.content}
+              onChange={(c) => setEditing({ ...editing, content: c })}
+              fieldName="Полный текст новости"
+              isTextarea
+              rows={8}
+              placeholder="Полный текст статьи"
+            />
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Дата публикации</label>
+              <input
+                type="date"
+                value={editing.date}
+                onChange={(e) => setEditing({ ...editing, date: e.target.value })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="published"
+                checked={editing.published}
+                onChange={(e) => setEditing({ ...editing, published: e.target.checked })}
+                className="w-4 h-4"
+              />
+              <label htmlFor="published" className="text-sm font-medium">
+                Опубликовать
+              </label>
+            </div>
+
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setEditing(null)}
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+              >
+                Отмена
+              </button>
+              <button
+                onClick={save}
+                disabled={loading}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
+              >
+                {loading ? 'Сохранение...' : 'Сохранить'}
+              </button>
+            </div>
           </div>
-        </div>
+        </LanguageEditorProvider>
       )}
     </div>
   );

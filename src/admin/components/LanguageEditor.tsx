@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 import { LocalizedContent, Locale } from '../types';
 
 interface LanguageEditorProps {
@@ -20,6 +20,44 @@ const languages: { code: Locale; name: string; flag: string }[] = [
   { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
 ];
 
+type LanguageContextValue = {
+  activeLanguage: Locale;
+  setActiveLanguage: (lang: Locale) => void;
+};
+
+const LanguageContext = createContext<LanguageContextValue | null>(null);
+
+export function LanguageEditorProvider({ children }: { children: React.ReactNode }) {
+  const [activeLanguage, setActiveLanguage] = useState<Locale>('ru');
+  const value = useMemo(() => ({ activeLanguage, setActiveLanguage }), [activeLanguage]);
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+}
+
+export function LanguageTabs() {
+  const ctx = useContext(LanguageContext);
+  if (!ctx) return null;
+
+  return (
+    <div className="flex gap-2 flex-wrap">
+      {languages.map((lang) => (
+        <button
+          key={lang.code}
+          type="button"
+          onClick={() => ctx.setActiveLanguage(lang.code)}
+          className={`px-3 py-2 text-sm rounded-md flex items-center gap-2 transition-all ${
+            ctx.activeLanguage === lang.code
+              ? 'bg-blue-600 text-white shadow-md'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          <span>{lang.flag}</span>
+          <span>{lang.name}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export default function LanguageEditor({
   content,
   onChange,
@@ -28,7 +66,10 @@ export default function LanguageEditor({
   rows = 6,
   placeholder = '',
 }: LanguageEditorProps) {
-  const [activeLanguage, setActiveLanguage] = useState<Locale>('ru');
+  const ctx = useContext(LanguageContext);
+  const [localLanguage, setLocalLanguage] = useState<Locale>('ru');
+  const activeLanguage = ctx?.activeLanguage ?? localLanguage;
+  const setActiveLanguage = ctx?.setActiveLanguage ?? setLocalLanguage;
 
   const handleContentChange = (value: string) => {
     onChange({
@@ -39,24 +80,26 @@ export default function LanguageEditor({
 
   return (
     <div className="space-y-4">
-      {/* Language Tabs */}
-      <div className="flex gap-2 flex-wrap">
-        {languages.map((lang) => (
-          <button
-            key={lang.code}
-            type="button"
-            onClick={() => setActiveLanguage(lang.code)}
-            className={`px-3 py-2 text-sm rounded-md flex items-center gap-2 transition-all ${
-              activeLanguage === lang.code
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            <span>{lang.flag}</span>
-            <span>{lang.name}</span>
-          </button>
-        ))}
-      </div>
+      {/* Language Tabs (only when no global switch) */}
+      {!ctx && (
+        <div className="flex gap-2 flex-wrap">
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              type="button"
+              onClick={() => setActiveLanguage(lang.code)}
+              className={`px-3 py-2 text-sm rounded-md flex items-center gap-2 transition-all ${
+                activeLanguage === lang.code
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <span>{lang.flag}</span>
+              <span>{lang.name}</span>
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Input Field */}
       <div>

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-type Tab = 'dashboard' | 'events' | 'news' | 'projects' | 'clients' | 'settings';
+type Tab = 'dashboard' | 'events' | 'programs' | 'documents' | 'news' | 'projects' | 'clients' | 'settings';
 
 interface NavItem {
   id: Tab;
@@ -18,6 +18,8 @@ interface NavItem {
 const navItems: NavItem[] = [
   { id: 'dashboard', label: 'Панель управления', icon: '📊', href: '/admin' },
   { id: 'events', label: 'Мероприятия', icon: '📅', href: '/admin/events' },
+  { id: 'programs', label: 'Программы', icon: '📚', href: '/admin/programs' },
+  { id: 'documents', label: 'Документы', icon: '📄', href: '/admin/documents' },
   { id: 'news', label: 'Новости', icon: '📰', href: '/admin/news' },
   { id: 'projects', label: 'Проекты', icon: '🎨', href: '/admin/projects' },
   { id: 'clients', label: 'Клиенты', icon: '👥', href: '/admin/clients' },
@@ -178,7 +180,26 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             height: '64px',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '0 24px', height: '100%', gap: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '0 24px', height: '100%', gap: '16px' }}>
+            <a
+              href="/"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                padding: '8px 12px',
+                borderRadius: '8px',
+                border: '1px solid #e2e8f0',
+                backgroundColor: '#f8fafc',
+                color: '#0f172a',
+                fontSize: '13px',
+                fontWeight: '600',
+                textDecoration: 'none',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#eef2ff')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#f8fafc')}
+            >
+              На главную
+            </a>
             {/* User Profile */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div
