@@ -27,7 +27,7 @@ export default function DocumentsAdminPage() {
   const fetchItems = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/documents');
+      const res = await fetch('/api/admin/documents', { credentials: 'include' });
       const data = await res.json();
       setItems(data || []);
     } catch (err) {
@@ -66,6 +66,7 @@ export default function DocumentsAdminPage() {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editing),
+        credentials: 'include',
       });
 
       if (!res.ok) throw new Error('Ошибка при сохранении');
@@ -84,7 +85,7 @@ export default function DocumentsAdminPage() {
     if (!confirm('Удалить этот документ?')) return;
 
     try {
-      const res = await fetch(`/api/admin/documents?id=${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/admin/documents?id=${id}`, { method: 'DELETE', credentials: 'include' });
       if (!res.ok) throw new Error('Ошибка при удалении');
 
       setSuccess('✅ Документ удалён');

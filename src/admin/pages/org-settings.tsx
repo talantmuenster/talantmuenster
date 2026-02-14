@@ -19,6 +19,7 @@ export default function OrgSettingsPage() {
     website: '',
     logoUrl: '',
     socialLinks: {},
+    updatedAt: '',
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -32,7 +33,9 @@ export default function OrgSettingsPage() {
   const fetchSettings = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/org-settings');
+      const res = await fetch('/api/admin/org-settings', {
+        credentials: 'include',
+      });
       const data = await res.json();
       setSettings(data);
     } catch (err) {
@@ -56,6 +59,7 @@ export default function OrgSettingsPage() {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(settings),
+        credentials: 'include',
       });
 
       if (!res.ok) throw new Error('Ошибка при сохранении');

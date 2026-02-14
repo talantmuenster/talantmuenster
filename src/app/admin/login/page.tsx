@@ -1,16 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
-import app from '@/lib/firebase-client';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/lib/firebase-client';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
-  const auth = getAuth(app);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,6 +25,7 @@ export default function LoginPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ idToken }),
+        credentials: 'include',
       });
 
       if (!res.ok) {

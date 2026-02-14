@@ -35,7 +35,7 @@ export function EventRegistrations({ eventId, eventTitle }: Props) {
         ? `/api/event-registration?eventId=${eventId}`
         : '/api/event-registration';
       
-      const res = await fetch(url);
+      const res = await fetch(url, { credentials: 'include' });
       if (res.ok) {
         const data = await res.json();
         setRegistrations(data);

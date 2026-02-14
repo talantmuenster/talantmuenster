@@ -2,9 +2,10 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useIdleTimer } from '@/hooks/useIdleTimer';
 
 type Tab = 'dashboard' | 'events' | 'programs' | 'documents' | 'news' | 'projects' | 'clients' | 'settings';
 
@@ -28,7 +29,48 @@ const navItems: NavItem[] = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [showIdleWarning, setShowIdleWarning] = useState(false);
   const pathname = usePathname();
+
+  // Warning at 9 minutes (1 minute before logout)
+  useIdleTimer({
+    timeout: 9 * 60 * 1000, // 9 minutes
+    onIdle: () => {
+      setShowIdleWarning(true);
+    },
+    enabled: true,
+  });
+
+  // Auto-logout after 10 minutes of inactivity
+  useIdleTimer({
+    timeout: 10 * 60 * 1000, // 10 minutes
+    onIdle: async () => {
+      try {
+        await fetch('/api/admin/logout', { method: 'POST', credentials: 'include' });
+      } catch (err) {
+        console.error('Logout failed', err);
+      } finally {
+        window.location.href = '/admin/login';
+      }
+    },
+    enabled: true,
+  });
+
+  // Reset warning on any activity
+  useEffect(() => {
+    const handleActivity = () => {
+      if (showIdleWarning) {
+        setShowIdleWarning(false);
+      }
+    };
+
+    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+    events.forEach((event) => window.addEventListener(event, handleActivity));
+
+    return () => {
+      events.forEach((event) => window.removeEventListener(event, handleActivity));
+    };
+  }, [showIdleWarning]);
 
   const isActive = (href: string) => {
     return pathname === href || pathname.startsWith(href + '/');
@@ -36,6 +78,32 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <div style={{ display: 'flex', height: '100vh', backgroundColor: '#f8fafc', color: '#1e293b' }}>
+      {/* Idle Warning Banner */}
+      {showIdleWarning && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 9999,
+            backgroundColor: '#fef3c7',
+            borderBottom: '2px solid #f59e0b',
+            padding: '12px 24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '12px',
+            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+          }}
+        >
+          <span style={{ fontSize: '18px' }}>⚠️</span>
+          <span style={{ color: '#92400e', fontWeight: '600', fontSize: '14px' }}>
+            Вы неактивны. Автоматический выход через 1 минуту.
+          </span>
+        </div>
+      )}
+
       {/* Sidebar */}
       <aside
         style={{
@@ -137,7 +205,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <button
             onClick={async () => {
               try {
-                await fetch('/api/admin/logout', { method: 'POST' });
+                await fetch('/api/admin/logout', { method: 'POST', credentials: 'include' });
                 window.location.href = '/admin/login';
               } catch (err) {
                 console.error('Logout failed', err);

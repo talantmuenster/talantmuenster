@@ -70,18 +70,18 @@ export type NewsContentBlock = {
 
 export type News = {
   id?: string;
-  slug: LocalizedContent;
-  title: LocalizedContent;
-  subtitle: LocalizedContent;
-  description: LocalizedContent;
+  slug: string;
+  title: string;
+  subtitle: string;
+  description: string;
   image: string;
   date: string;
   href: string;
   cover: string;
-  content: LocalizedContent;
-  published: boolean;
-  createdAt: string;
-  updatedAt: string;
+  content: NewsContentBlock[];
+  published?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type DocItem = {

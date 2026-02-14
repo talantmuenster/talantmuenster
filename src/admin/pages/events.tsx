@@ -23,8 +23,8 @@ export default function EventsPage() {
     setLoading(true);
     try {
       const [eventsRes, registrationsRes] = await Promise.all([
-        fetch('/api/admin/events'),
-        fetch('/api/event-registration'),
+        fetch('/api/admin/events', { credentials: 'include' }),
+        fetch('/api/event-registration', { credentials: 'include' }),
       ]);
       const eventsData = await eventsRes.json();
       const registrationsData = registrationsRes.ok ? await registrationsRes.json() : [];
@@ -92,6 +92,7 @@ export default function EventsPage() {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editing),
+        credentials: 'include',
       });
 
       if (!res.ok) throw new Error('Ошибка при сохранении');
@@ -110,7 +111,7 @@ export default function EventsPage() {
     if (!confirm('Удалить это событие?')) return;
 
     try {
-      const res = await fetch(`/api/admin/events?id=${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/admin/events?id=${id}`, { method: 'DELETE', credentials: 'include' });
       if (!res.ok) throw new Error('Ошибка при удалении');
 
       setSuccess('✅ Событие удалено');

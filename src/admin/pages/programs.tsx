@@ -3,11 +3,66 @@
 import { useEffect, useState } from 'react';
 import LanguageEditor, { LanguageEditorProvider, LanguageTabs } from '@/admin/components/LanguageEditor';
 import ImageUpload from '@/admin/components/ImageUpload';
-import { LocalizedContent } from '@/admin/types';
+import { LocalizedContent, Locale } from '@/admin/types';
 import { programs as initialPrograms } from '@/data/programs';
 import type { ProgramHeroData } from '@/lib/programs';
 
 const emptyLocalized: LocalizedContent = { ru: '', en: '', de: '' };
+
+// Helper component to display language-specific fields
+function LanguageFieldsEditor({ 
+  editing, 
+  setEditing,
+  selectedLang 
+}: { 
+  editing: ProgramHeroData; 
+  setEditing: (val: ProgramHeroData) => void;
+  selectedLang: Locale;
+}) {
+  return (
+    <div style={{ padding: '16px', backgroundColor: '#f8fafc', borderRadius: '4px' }}>
+      <div style={{ marginBottom: '12px' }}>
+        <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px' }}>Название ({selectedLang.toUpperCase()})</label>
+        <input
+          type="text"
+          value={editing.title[selectedLang]}
+          onChange={(e) =>
+            setEditing({
+              ...editing,
+              title: { ...editing.title, [selectedLang]: e.target.value },
+            })
+          }
+          style={{
+            width: '100%',
+            padding: '8px 12px',
+            border: '1px solid #e2e8f0',
+            borderRadius: '4px',
+          }}
+        />
+      </div>
+
+      <div>
+        <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px' }}>Описание ({selectedLang.toUpperCase()})</label>
+        <textarea
+          value={editing.subtitle[selectedLang]}
+          onChange={(e) =>
+            setEditing({
+              ...editing,
+              subtitle: { ...editing.subtitle, [selectedLang]: e.target.value },
+            })
+          }
+          style={{
+            width: '100%',
+            padding: '8px 12px',
+            border: '1px solid #e2e8f0',
+            borderRadius: '4px',
+            minHeight: '100px',
+          }}
+        />
+      </div>
+    </div>
+  );
+}
 
 type ScheduleItem = {
   day: 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
@@ -30,7 +85,7 @@ type Teacher = {
   role: LocalizedContent;
   bio: LocalizedContent;
   avatar: string;
-  tags: LocalizedContent[];
+  tags: string[];
 };
 
 export default function ProgramsPage() {
@@ -40,6 +95,7 @@ export default function ProgramsPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [activeTab, setActiveTab] = useState<'info' | 'courses' | 'teachers' | 'schedule'>('info');
+  const [selectedLanguage, setSelectedLanguage] = useState<Locale>('ru');
 
   useEffect(() => {
     setPrograms(initialPrograms);
@@ -258,55 +314,32 @@ export default function ProgramsPage() {
             />
           </div>
 
-          <LanguageEditorProvider>
-            <LanguageTabs>
-              {['ru', 'en', 'de'].map((lang) => (
-                <div key={lang} style={{ padding: '16px', backgroundColor: '#f8fafc', borderRadius: '4px' }}>
-                  <h3 style={{ marginBottom: '12px', fontWeight: '600' }}>{lang.toUpperCase()}</h3>
-
-                  <div style={{ marginBottom: '12px' }}>
-                    <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px' }}>Название</label>
-                    <input
-                      type="text"
-                      value={editing.title[lang as keyof typeof editing.title]}
-                      onChange={(e) =>
-                        setEditing({
-                          ...editing,
-                          title: { ...editing.title, [lang]: e.target.value },
-                        })
-                      }
-                      style={{
-                        width: '100%',
-                        padding: '8px 12px',
-                        border: '1px solid #e2e8f0',
-                        borderRadius: '4px',
-                      }}
-                    />
-                  </div>
-
-                  <div>
-                    <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px' }}>Описание</label>
-                    <textarea
-                      value={editing.subtitle[lang as keyof typeof editing.subtitle]}
-                      onChange={(e) =>
-                        setEditing({
-                          ...editing,
-                          subtitle: { ...editing.subtitle, [lang]: e.target.value },
-                        })
-                      }
-                      style={{
-                        width: '100%',
-                        padding: '8px 12px',
-                        border: '1px solid #e2e8f0',
-                        borderRadius: '4px',
-                        minHeight: '100px',
-                      }}
-                    />
-                  </div>
-                </div>
+          <div>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600' }}>Название и описание</label>
+            <div style={{ marginBottom: '12px', display: 'flex', gap: '8px' }}>
+              {(['ru', 'en', 'de'] as Locale[]).map((lang) => (
+                <button
+                  key={lang}
+                  type="button"
+                  onClick={() => setSelectedLanguage(lang)}
+                  style={{
+                    padding: '6px 12px',
+                    borderRadius: '6px',
+                    border: '1px solid #e2e8f0',
+                    backgroundColor: selectedLanguage === lang ? '#3b82f6' : '#f8fafc',
+                    color: selectedLanguage === lang ? '#ffffff' : '#64748b',
+                    cursor: 'pointer',
+                    fontSize: '13px',
+                    fontWeight: '600',
+                  }}
+                >
+                  {lang.toUpperCase()}
+                </button>
               ))}
-            </LanguageTabs>
-          </LanguageEditorProvider>
+            </div>
+
+            <LanguageFieldsEditor editing={editing} setEditing={setEditing} selectedLang={selectedLanguage} />
+          </div>
 
           <div>
             <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600' }}>Обложка</label>
@@ -511,7 +544,7 @@ export default function ProgramsPage() {
                       ...editing,
                       schedule: {
                         ...editing.schedule,
-                        items: editing.schedule?.items?.filter((_, i) => i !== index),
+                        items: (editing.schedule?.items || []).filter((_, i) => i !== index),
                       },
                     });
                   }}

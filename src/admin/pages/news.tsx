@@ -19,7 +19,7 @@ export default function NewsPage() {
   const fetchItems = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/news');
+      const res = await fetch('/api/admin/news', { credentials: 'include' });
       const data = await res.json();
       setItems(data || []);
     } catch (err) {
@@ -66,6 +66,7 @@ export default function NewsPage() {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editing),
+        credentials: 'include',
       });
 
       if (!res.ok) throw new Error('Ошибка при сохранении');
@@ -84,7 +85,7 @@ export default function NewsPage() {
     if (!confirm('Удалить эту новость?')) return;
 
     try {
-      const res = await fetch(`/api/admin/news?id=${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/admin/news?id=${id}`, { method: 'DELETE', credentials: 'include' });
       if (!res.ok) throw new Error('Ошибка при удалении');
 
       setSuccess('✅ Новость удалена');

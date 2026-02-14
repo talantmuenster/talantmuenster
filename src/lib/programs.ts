@@ -54,7 +54,7 @@ export type ProgramTeacher = {
   role?: LocalizedContent;
   bio?: LocalizedContent;
   avatar: string;
-  tags?: LocalizedContent[];
+  tags?: string[];
 };
 
 export type ProgramScheduleItem = {

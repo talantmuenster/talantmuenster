@@ -41,9 +41,9 @@ export default function AdminDashboard() {
       setLoading(true);
 
       const [eventsRes, newsRes, projectsRes] = await Promise.all([
-        fetch('/api/admin/events'),
-        fetch('/api/admin/news'),
-        fetch('/api/admin/projects'),
+        fetch('/api/admin/events', { credentials: 'include' }),
+        fetch('/api/admin/news', { credentials: 'include' }),
+        fetch('/api/admin/projects', { credentials: 'include' }),
       ]);
 
       const events = await eventsRes.json();

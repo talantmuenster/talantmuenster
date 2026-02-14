@@ -19,7 +19,7 @@ export default function ProgramsAdminPage() {
   const fetchItems = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/programs');
+      const res = await fetch('/api/admin/programs', { credentials: 'include' });
       const data = await res.json();
       setItems(data || []);
     } catch (err) {
@@ -37,7 +37,7 @@ export default function ProgramsAdminPage() {
     if (!confirm('Загрузить данные из локального файла в Firebase?')) return;
     setMigratingData(true);
     try {
-      const res = await fetch('/api/admin/programs-migrate', { method: 'POST' });
+      const res = await fetch('/api/admin/programs-migrate', { method: 'POST', credentials: 'include' });
       if (!res.ok) throw new Error('Ошибка при миграции');
       const result = await res.json();
       setSuccess(`✅ Загружено ${result.results.length} программ`);
@@ -99,6 +99,7 @@ export default function ProgramsAdminPage() {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
+        credentials: 'include',
       });
 
       if (!res.ok) throw new Error('Ошибка при сохранении');
@@ -116,7 +117,7 @@ export default function ProgramsAdminPage() {
   const remove = async (id: string) => {
     if (!confirm('Удалить?')) return;
     try {
-      const res = await fetch(`/api/admin/programs?id=${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/admin/programs?id=${id}`, { method: 'DELETE', credentials: 'include' });
       if (!res.ok) throw new Error('Ошибка при удалении');
       setSuccess('✅ Удалено');
       await fetchItems();
@@ -576,7 +577,7 @@ export default function ProgramsAdminPage() {
                   📅 {item.day.toUpperCase()} на {item.time}
                 </h3>
                 <button
-                  onClick={() => setEditing({ ...editing, schedule: { ...editing.schedule, items: editing.schedule?.items?.filter((_, i) => i !== idx) } })}
+                  onClick={() => setEditing({ ...editing, schedule: { ...editing.schedule, items: (editing.schedule?.items || []).filter((_, i) => i !== idx) } })}
                   className="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200"
                 >
                   🗑️ Удалить

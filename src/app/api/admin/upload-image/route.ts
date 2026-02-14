@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     });
 
     // Get public URL (Firebase Storage public path)
-    const publicUrl = `https://storage.googleapis.com/${storage.bucket.name}/${filename}`;
+    const publicUrl = `https://storage.googleapis.com/${storage.name}/${filename}`;
 
     return NextResponse.json({
       success: true,

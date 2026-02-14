@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/firebase';
+import type { Query, CollectionReference, DocumentData } from 'firebase-admin/firestore';
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const slug = searchParams.get('slug');
 
-    let query = db.collection('programs');
+    let query: Query<DocumentData> | CollectionReference<DocumentData> = db.collection('programs');
     if (slug) {
       query = query.where('slug', '==', slug);
     }
