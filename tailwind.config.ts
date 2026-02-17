@@ -53,13 +53,13 @@ const config: Config = {
       fontSize: {
         h1: ["56px", { lineHeight: "110%" }],
         "text-base": ["18px", { lineHeight: "100%" }],
+        xl: ["20px", { lineHeight: "120%" }],
+        lg: ["18px", { lineHeight: "100%" }],
         lgg: ["16px", { lineHeight: "100%" }],
+        md: ["14px", { lineHeight: "100%" }],
         sn: ["14px", { lineHeight: "100%" }],
         sm: ["12px", { lineHeight: "100%" }],
-        md: ["14px", { lineHeight: "100%" }],
-        lg: ["18px", { lineHeight: "100%" }],
-        xl: ["20px", { lineHeight: "120%" }],
-
+        
         "heading-xl": ["48px", { lineHeight: "110%" }],
         "heading-lg": ["40px", { lineHeight: "110%" }],
         "heading-md": ["28px", { lineHeight: "110%" }],

@@ -1,109 +1,130 @@
 {
   "header": {
     "programs": "PROGRAMME",
-    "news": "NACHRICHTEN",
+    "news": "AKTUELLES",
     "events": "VERANSTALTUNGEN",
     "about": "ÜBER UNS",
     "contact": "Kontakt",
     "langchange": "Sprache ändern"
   },
-  "home":{
+  "home": {
     "hero": {
-    "title": "Interkulturelles Zentrum für Kinder, Jugendliche und Familien",
-    "description": "Wir fördern Kreativität, Kommunikation und kulturelle Vielfalt, denn jedes Talent verdient es, entdeckt zu werden",
-    "learnMore": "Mehr erfahren",
-    "stat1Title": "9 Programme",
-    "stat1Subtitle": "zur Ausbildung",
-    "stat2Title": "5 Veranstaltungen",
-    "stat2Subtitle": "pro Monat",
-    "stat3Title": "Online-Anmeldung",
-    "stat3Subtitle": "für Kurse"
-  },
+      "title": "Interkulturelles Zentrum für Kinder, Jugendliche und Familien",
+      "description": "Wir fördern Kreativität, Kommunikation und kulturelle Vielfalt, denn jedes Talent verdient es, entdeckt zu werden",
+      "learnMore": "Mehr erfahren",
+      "stat1Title": "9 Programme",
+      "stat1Subtitle": "für Bildung",
+      "stat2Title": "5 Events",
+      "stat2Subtitle": "pro Monat",
+      "stat3Title": "Online-Anmeldung",
+      "stat3Subtitle": "für Kurse"
+    },
+    "programs": {
+      "title1": "Förder-",
+      "title2": "programme",
+      "music": "Musik",
+      "dance": "Tanz",
+      "art": "Kunst",
+      "language": "Sprachen",
+      "it": "Informatik",
+      "math": "Mathematik",
+      "sports": "Sport",
+      "social": "Soziales",
+      "other": "Mehr sehen"
+    },
     "whyChoose": {
-    "title": "Warum",
-    "titleBrand": "TALANT E.V. wählen?",
-    "subtitle": "Offiziell anerkannte Unterstützung, professioneller Ansatz und Offenheit",
-    "feature1": "Wir sind ein offener Raum für alle Generationen und Kulturen",
-    "feature2": "Wir sind eine anerkannte Organisation im Bereich der Kinder- und Jugendhilfe gemäß § 75 SGB VIII",
-    "feature3": "Wir bringen Menschen zusammen, entdecken Talente und fördern die persönliche Entwicklung",
-    "feature4": "Wir streben danach, Menschen zu helfen, ihren Platz in einer neuen Kultur zu finden und sich in die Gesellschaft zu integrieren, ohne dabei ihre Wurzeln und ihr spirituelles Erbe zu verlieren"
+      "title": "Warum",
+      "titleBrand": "TALANT E.V.?",
+      "subtitle": "Staatlich anerkannte Unterstützung, professioneller Ansatz und Offenheit",
+      "feature1": "Wir sind ein offener Raum für Menschen aller Generationen und Kulturen",
+      "feature2": "Wir sind ein anerkannter Träger der freien Jugendhilfe gemäß § 75 SGB VIII",
+      "feature3": "Wir bringen Menschen zusammen, entdecken Talente und fördern die persönliche Entwicklung",
+      "feature4": "Wir unterstützen Menschen dabei, ihren Platz in einer neuen Kultur zu finden und sich zu integrieren, ohne ihre Wurzeln und ihr geistiges Erbe zu verlieren"
+    },
+    "howWeHelp": {
+      "title": "Wie wir",
+      "titleHighlight": "helfen",
+      "subtitle": "Sie können sich auf unsere Unterstützung und Erfahrung verlassen",
+      "category1Title": "Dokumente und Beratung",
+      "category1Item1": "Unterstützung bei offiziellen Dokumenten",
+      "category1Item2": "Erklärung von Verfahren und Anforderungen",
+      "category1Item3": "Unterstützung bei der Kommunikation mit Behörden",
+      "category2Title": "Übersetzung und Kommunikation",
+      "category2Item1": "Übersetzung von Dokumenten und Geschäftskorrespondenz",
+      "category2Item2": "Unterstützung bei Sprech- und Sprachschwierigkeiten",
+      "category3Title": "Bildungsunterstützung",
+      "category3Item1": "Nachhilfe in allen Schulfächern",
+      "category3Item2": "Beratung für Eltern und Schüler",
+      "category3Item3": "Individuelle Prüfungsvorbereitung",
+      "ctaButton": "Unterstützung erhalten"
+    },
+    "upcomingEvents": {
+      "title": "Anstehende",
+      "title1": "Events",
+      "subtitle": "Machen Sie mit und entdecken Sie neue Möglichkeiten für Entwicklung und Austausch",
+      "registration": "Jetzt anmelden",
+      "other": "Mehr sehen",
+      "other1": " Mehr"
+    },
+    "subscribe": {
+      "title": "Abonnieren und auf dem Laufenden bleiben",
+      "subtitle": "alle Events",
+      "description": "Erfahren Sie als Erster von unseren neuen Projekten, Workshops und Treffen",
+      "subscribe": "Abonnieren",
+      "mail": "E-Mail eingeben",
+      "successMessage": "Vielen Dank! Sie haben sich erfolgreich angemeldet.",
+      "errorMessage": "Fehler beim Abonnement. Bitte versuchen Sie es erneut."
+    }
   },
-  "howWeHelp": {
-    "title": "Wobei wir",
-    "titleHighlight": "helfen können",
-    "subtitle": "Sie können auf unsere Unterstützung und Erfahrung zählen",
-    "category1Title": "Dokumente und Beratungen",
-    "category1Item1": "Unterstützung bei der Bearbeitung offizieller Dokumente",
-    "category1Item2": "Erklärung von Verfahren und Anforderungen",
-    "category1Item3": "Begleitung bei der Kommunikation mit Behörden",
-    "category2Title": "Übersetzung und Kommunikation",
-    "category2Item1": "Übersetzung von Dokumenten und Geschäftskorrespondenz",
-    "category2Item2": "Hilfe bei Sprach- und Sprechschwierigkeiten",
-    "category3Title": "Bildungsunterstützung",
-    "category3Item1": "Nachhilfe in allen Schulfächern",
-    "category3Item2": "Beratungen für Eltern und Schüler",
-    "category3Item3": "Individuelle Unterrichtsstunden zur Prüfungsvorbereitung",
-    "ctaButton": "Hilfe erhalten"
-  },
-  "subscribe": {
-    "title": "Abonnieren und auf dem Laufenden bleiben",
-    "subtitle": "alle Veranstaltungen",
-    "description": "Erfahren Sie als Erste*r von unseren neuen Projekten, Workshops und Treffen"
-  }
-
-  },
-  
   "about": {
     "breadcrumbs": {
       "home": "Startseite",
       "about": "Über uns"
     },
-
     "hero": {
       "title": {
-        "before": "Seit über zehn Jahren hilft TALANT E.V Kindern und Erwachsenen dabei,",
+        "before": "Seit mehr als zehn Jahren hilft TALANT E.V. Kindern und Erwachsenen,",
         "highlight": "ihre Fähigkeiten",
-        "after": "zu entwickeln"
+        "after": "zu entfalten"
       },
-      "subtitle": "Unser Leitspruch „Wecke dein Talent!“ ist ein Aufruf an Kinder, Jugendliche und Erwachsene, ihre Fähigkeiten zu entdecken, weiterzuentwickeln und mit anderen zu teilen."
+      "subtitle": "Unser Motto „Wecke dein Talent!“ ist ein Aufruf, Fähigkeiten zu entdecken, zu entwickeln und zu teilen."
     },
-
     "programs": {
       "title": {
-        "before": "Vielfältige Programme zur",
+        "before": "Vielfältige Programme für",
         "highlight": "Entwicklung und Unterstützung"
       },
-      "text": "Wir bieten ein breites Spektrum an Bildungs-, Kreativ- und Sozialprogrammen für Kinder, Jugendliche und Familien. Unsere Angebote umfassen Sprachförderung, Kunst, Sport, kulturelle Projekte sowie individuelle Unterstützung, damit jeder das passende Format entsprechend seinen Interessen und Bedürfnissen wählen kann.",
+      "text": "Wir bieten ein breites Spektrum an bildungsorientierten, kreativen und sozialen Programmen für Kinder, Jugendliche und Familien.",
       "stats": {
-        "directions": "Richtungen",
+        "directions": "Bereiche",
         "courses": "Kurse",
-        "students": "Teilnehmende"
+        "students": "Schüler"
       }
     },
-
     "cooperation": {
       "title": {
-        "highlight": "Wir fördern Zusammenarbeit",
-        "after": "über Münster hinaus"
+        "highlight": "Wir bauen Kooperationen",
+        "after": "über Münster hinaus aus"
       },
-      "text": "Wir unterstützen interkulturelle Begegnungen, Austausch und Zusammenarbeit zwischen jungen Menschen aus verschiedenen Ländern – durch Kultur, Bildung, Kunst und Sport."
+      "text": "Wir fördern interkulturelle Begegnungen, Austausch und Zusammenarbeit zwischen jungen Menschen aus verschiedenen Ländern."
     },
-
     "project": {
       "title": {
-        "before": "Unser Projekt –",
+        "before": "Unser Projekt —",
         "highlight": "die Zeitung „Brücke“"
       },
-      "text": "Das Projekt fördert Dialog, Meinungsvielfalt und kulturellen Austausch unter jungen Menschen."
+      "text": "Das Projekt fördert den Dialog und den kulturellen Austausch unter jungen Menschen."
     },
-
     "team": {
+      "title1": "Unser",
+      "title2": "Team",
       "role": {
-        "music": "Musiklehrerin / Musiklehrer"
+        "music": "Musiklehrer/in"
       }
     },
     "faq": {
-      "title": "Häufig gestellte Fragen",
+      "title": "Häufig gestellte",
+      "title1": "Fragen",
       "items": {
         "1": {
           "title": "Wie kann ich mich für einen Kurs anmelden?",
@@ -114,19 +135,19 @@
           "answer": "Die Kurse finden vor Ort und online statt, auch außerhalb von Münster."
         },
         "3": {
-          "title": "Welche Unterstützung kann ich erhalten?",
-          "answer": "Wir bieten pädagogische, kreative und soziale Unterstützung."
+          "title": "Welche Art von Unterstützung kann ich erhalten?",
+          "answer": "Wir bieten pädagogische, kreative und soziale Unterstützung an."
         },
         "4": {
-          "title": "Wie erfolgt die Unterstützung bei der Beantragung von Dokumenten?",
-          "answer": "Wir beraten und begleiten bei der Vorbereitung und Beantragung offizieller Dokumente."
+          "title": "Wie funktioniert die Hilfe bei offiziellen Dokumenten?",
+          "answer": "Wir bieten Beratung und Unterstützung bei der Vorbereitung offizieller Dokumente an."
         }
       }
     },
     "cta": {
-      "title": "Möchten Sie teilnehmen, mit uns zusammenarbeiten oder uns unterstützen?",
-      "subtitle": "Wir sind offen für neue Ideen, Teams und kreative Partnerschaften.",
-      "button": "Kontakt aufnehmen"
+      "title": "Möchten Sie teilnehmen, kooperieren oder uns unterstützen?",
+      "subtitle": "Wir sind offen für neue Ideen, Teams und kreative Partner.",
+      "button": "Kontaktieren Sie uns"
     }
   },
   "project": {
@@ -134,13 +155,25 @@
       "home": "Startseite",
       "project": "Projekt"
     },
-
     "hero": {
       "title": {
         "before": "Unser",
         "highlight": "Projekt"
       },
-      "subtitle": "Wir beteiligen uns aktiv an internationalen Partnerschaften außerhalb Münsters und fördern interkulturelle Begegnungen, den Austausch und die Zusammenarbeit zwischen Jugendlichen aus verschiedenen Ländern – durch Kultur, Bildung, Kunst und Sport."
+      "subtitle": "Wir beteiligen uns aktiv an internationalen Partnerschaften außerhalb von Münster und fördern interkulturelle Begegnungen, Austausch und Zusammenarbeit zwischen jungen Menschen aus verschiedenen Ländern – durch Kultur, Bildung, Kunst und Sport."
+    }
+  },
+  "news": {
+    "breadcrumbs": {
+      "home": "Startseite",
+      "news": "Aktuelles"
+    },
+    "hero": {
+      "title": {
+        "before": "Neuigkeiten &",
+        "highlight": "Aktuelles"
+      },
+      "subtitle": "Hier finden Sie Informationen über unsere neuesten Aktivitäten und Entwicklungen im Zentrum."
     }
   },
   "document": {
@@ -153,45 +186,105 @@
         "before": "Dokumente und",
         "highlight": "Publikationen"
       },
-      "subtitle": "In unserem Zentrum können Kinder, Jugendliche und Familien sich entfalten, Neues lernen und in verschiedenen Bereichen wachsen.",
-      "certificate": "Zertifikate",
-      "publication": "Publikationen",
+      "subtitle": "In unserem Zentrum können sich Kinder, Jugendliche und Familien entfalten, Neues lernen und sich vielseitig weiterentwickeln.",
+      "certificate": "Zertifikat",
+      "publication": "Publikation",
       "download": "Herunterladen",
       "view": "Ansehen",
       "empty": "Dokumente werden bald verfügbar sein"
     }
   },
-
-  "news": {
+  "courses": {
+    "title": "Bereich",
+    "title2": "auswählen",
     "breadcrumbs": {
       "home": "Startseite",
-      "news": "Nachrichten"
+      "programs": "Programme",
+      "course": "Kurs"
     },
-
     "hero": {
       "title": {
-        "before": "Nachrichten"
+        "before": "Programme"
       },
-      "subtitle": "Kurzbeschreibung der Neuigkeiten, um einen kurzen Überblick über die Geschehnisse zu geben. Kurzbeschreibung der Neuigkeiten, um einen kurzen Überblick über die Geschehnisse zu geben."
+      "subtitle": "Wir bieten ein breites Spektrum an Bildungs-, Kreativ- und Sozialprogrammen für Kinder, Jugendliche und Familien.",
+      "register": "Jetzt anmelden"
+    },
+    "SectionTitle": "Unsere Programme konzentrieren sich auf Bildung, kreative Entwicklung und",
+    "SectionTitle2": "Unterstützung für Familien in einem interkulturellen Umfeld.",
+    "selectcr": "Kurs wählen",
+    "address": "Adresse",
+    "schedule": "Termine",
+    "duration": "Dauer der Einheit",
+    "price": "Kosten pro Einheit",
+    "ctaLabel": "Für den Kurs anmelden",
+    "teachers": "Lehrkräfte",
+    "relatprogtitl1": "Siehe auch andere",
+    "relatprogtitl2": "Programme",
+    "apple": {
+      "title": "Wie kann ich teilnehmen?",
+      "selection": "Wählen Sie den gewünschten Bereich",
+      "selection1": "Kontaktieren Sie uns über das Formular",
+      "selection2": "Melden Sie sich für einen Kurs oder ein Event an",
+      "selectbtb": "Kurs auswählen"
+    }
+  },
+  "events": {
+    "breadcrumbs": {
+      "home": "Startseite",
+      "events": "Veranstaltungen",
+      "course": "Kurs"
+    },
+    "hero": {
+      "title": {
+        "before": "Veranstaltungen"
+      },
+      "subtitle": "Wir bieten ein breites Spektrum an Bildungs-, Kreativ- und Sozialprogrammen für Kinder, Jugendliche und Familien."
+    }
+  },
+  "contactsus": {
+    "breadcrumbs": {
+      "home": "Startseite",
+      "contact": "Kontakt"
+    },
+    "title": "Kontaktieren Sie uns auf",
+    "title1": "beliebigem Weg",
+    "description": "Wir sind für Sie da! Ob Sie Fragen zu unseren Angeboten haben, Beratung benötigen oder Feedback geben möchten – unser Team hilft Ihnen gerne weiter.",
+    "address": "Adresse",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "message": "Nachricht",
+    "officeAddress": "Büro- und Postanschrift",
+    "coursesAndEvents": "Kurse und Veranstaltungen",
+    "form": {
+      "name": "Ihr Name",
+      "email": "Ihre E-Mail",
+      "message": "Ihre Nachricht",
+      "submit": "Nachricht senden",
+      "consentText": "Ich stimme der Verarbeitung meiner Daten gemäß der",
+      "privacyPolicy": "Datenschutzerklärung",
+      "registForEvent": "Für Event anmelden",
+      "events": "Veranstaltungen",
+      "message1": "Nachricht",
+      "submitcourse": "Für Kurs anmelden"
     }
   },
   "footer": {
-    "address": "Heinrich-Ebel-Str. 48 48161 Münster",
-    "news": "Nachrichten",
-    "events": "Veranstaltungen",
-    "documents": "Dokumente und Publikationen",
+    "address": "Heinrich-Ebel-Str. 48, 48161 Münster",
+    "news": "Aktuelles",
+    "events": "Events",
+    "documents": "Dokumente",
     "projects": "Projekte",
     "about": "Über uns",
     "email": "talantmuenster@gmail.com",
     "phone": "+49 176 64217368",
-    "contactUs": "Kontaktieren Sie uns",
+    "contactUs": "Kontakt",
     "copyright": "© 2025 Talant E.V.",
-    "privacy": "Datenschutzrichtlinie",
-    "cookies": "Cookie-Nutzung"
+    "privacy": "Datenschutzerklärung",
+    "cookies": "Cookie-Richtlinie"
   },
   "notFound": {
-    "title": "Seite in Entwicklung",
-    "description": "Wir arbeiten gerade an diesem Bereich. Bald verfügbar.",
+    "title": "Seite im Aufbau",
+    "description": "Wir arbeiten derzeit an diesem Bereich. Bitte schauen Sie bald wieder vorbei.",
     "home": "Zur Startseite",
     "back": "Zurück"
   }

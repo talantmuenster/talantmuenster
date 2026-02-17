@@ -81,8 +81,6 @@ export function Subscribe() {
 
             <p className="text-gray-600 max-w-md mx-auto lg:mx-0">
               {t('description')}
-              Будь первым, кто узнает о наших новых проектах, мастер-классах и
-              встречах
             </p>
 
             <form
@@ -98,7 +96,7 @@ export function Subscribe() {
             >
               <input
                 type="email"
-                placeholder="Электронная почта"
+                placeholder={t('mail')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="
@@ -116,16 +114,16 @@ export function Subscribe() {
                   className=""
                   disabled={isSubmitting || !isEmailValid(email)}
                 >
-                  Подписаться
+                  {t('subscribe')}
                 </Button>
               </div>
             </form>
 
             {status === 'success' && (
-              <div className="text-sm text-green-700">Спасибо! Вы подписались.</div>
+              <div className="text-sm text-green-700">{t('successMessage')}</div>
             )}
             {status === 'error' && (
-              <div className="text-sm text-red-700">Ошибка подписки. Попробуйте снова.</div>
+              <div className="text-sm text-red-700">{t('errorMessage')}</div>
             )}
           </div>
         </div>

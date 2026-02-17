@@ -38,6 +38,7 @@ export function FQA({ items }: FQAProps) {
               w-full
               justify-start
               text-left
+              text-lg
               py-4
               font-medium
               text-primary
@@ -50,7 +51,7 @@ export function FQA({ items }: FQAProps) {
               className="
                 flex items-center justify-center
                 w-8 h-8
-                rounded-sn
+                rounded-sn1
                 bg-primary-light
                 text-white
                 shrink-0
@@ -63,7 +64,7 @@ export function FQA({ items }: FQAProps) {
             {item.question}
           </AccordionTrigger>
 
-          <AccordionContent className="pl-12 pb-4 text-sm text-gray-600 leading-relaxed">
+          <AccordionContent className="pl-12 pb-4 text-lgg text-gray-600 leading-relaxed">
             {item.answer}
           </AccordionContent>
         </AccordionItem>

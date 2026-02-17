@@ -6,6 +6,7 @@ import { motion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { SectionTitle } from '@/components/ui/Sectiontitle';
 
 
 export default function Programs() {
@@ -47,9 +48,11 @@ export default function Programs() {
       <div className="max-w-7xl mx-auto">
 
         {/* Title */}
-        <h2 className="text-center text-heading-xl font-bold text-[#1E293B] mb-10">
-          Программы <span className="text-primary-light">развития</span>
-        </h2>
+        <SectionTitle
+        primary={t('title1')}
+          secondary={t('title2')}
+          className="mb-8 text-center" 
+        />
 
      <div
         className="
@@ -134,7 +137,7 @@ export default function Programs() {
     withArrow
     className="text-lg md:text-[20px] lg:text-[22px]"
   >
-    Смотреть больше
+    {t('other')}
   </Button>
 </div>
 

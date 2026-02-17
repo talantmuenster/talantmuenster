@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from '../ui/Button';
+import { useTranslations } from 'next-intl';
+import Link from 'next/dist/client/link';
+import { LINKS } from '../../lib/links';
 
 type EventRegistrationModalProps = {
   isOpen: boolean;
@@ -39,6 +42,7 @@ export function EventRegistrationModal({
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const t = useTranslations('contactsus');
 
   useEffect(() => {
     if (eventId) {
@@ -163,11 +167,11 @@ export function EventRegistrationModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-      <div className="w-full max-w-xl bg-white rounded-2xl overflow-hidden shadow-xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4" onClick={handleClose}>
+      <div className="w-full max-w-xl bg-white rounded-2xl overflow-hidden shadow-xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between px-6 py-4 ">
           <h3 className="text-2xl font-semibold text-primary">
-            Записаться на мероприятие
+            {t('form.submitcourse')}
           </h3>
           <button
             onClick={handleClose}
@@ -182,7 +186,7 @@ export function EventRegistrationModal({
           {/* Event Select */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Мероприятие
+              {t('form.events')}
             </label>
             {events.length > 0 ? (
               <div className="relative">
@@ -239,11 +243,11 @@ export function EventRegistrationModal({
           {/* Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Имя
+              {t('form.name')}
             </label>
             <input
               type="text"
-              placeholder="Имя"
+              placeholder={t('form.name')}
               value={formData.name}
               onChange={(e) => handleChange('name', e.target.value)}
               onBlur={() => handleBlur('name')}
@@ -261,11 +265,11 @@ export function EventRegistrationModal({
           {/* Phone */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Номер телефона
+              {t('phone')}
             </label>
             <input
               type="tel"
-              placeholder="Номер телефона"
+              placeholder={t('phone')}
               value={formData.phone}
               onChange={(e) => handleChange('phone', e.target.value)}
               onBlur={() => handleBlur('phone')}
@@ -283,11 +287,11 @@ export function EventRegistrationModal({
           {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Электронная почта
+              {t('email')}
             </label>
             <input
               type="email"
-              placeholder="Электронная почта"
+              placeholder={t('email')}
               value={formData.email}
               onChange={(e) => handleChange('email', e.target.value)}
               onBlur={() => handleBlur('email')}
@@ -305,10 +309,10 @@ export function EventRegistrationModal({
           {/* Message */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Сообщение
+              {t('message')}
             </label>
             <textarea
-              placeholder="Сообщение"
+              placeholder={t('message')}
               value={formData.message}
               onChange={(e) => handleChange('message', e.target.value)}
               rows={4}
@@ -316,19 +320,24 @@ export function EventRegistrationModal({
             />
           </div>
 
-          {/* Consent Checkbox */}
-          <div className="flex items-start gap-3">
-            <input
-              type="checkbox"
-              id="consent"
-              checked={formData.consent}
-              onChange={(e) => handleChange('consent', e.target.checked)}
-              className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-            />
-            <label htmlFor="consent" className="text-sm text-gray-600">
-              Даю согласие на обработку данных
-            </label>
-          </div>
+           <label className="flex items-start gap-2 text-sm text-gray-600">
+                <input
+                  type="checkbox"
+                  className="mt-1 shrink-0 rounded border-gray-300"
+                />
+
+                <span className="leading-relaxed">
+                  {t("form.consentText")}{" "}
+                  <Link
+                    href={LINKS.privacy}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-primary hover:text-primary-dark transition"
+                  >
+                    {t("form.privacyPolicy")}
+                  </Link>
+                </span>
+              </label>
 
           {/* Submit Status Messages */}
           {submitStatus === 'success' && (

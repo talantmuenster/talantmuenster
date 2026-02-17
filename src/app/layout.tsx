@@ -22,6 +22,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Talant e.V",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default async function RootLayout({

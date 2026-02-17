@@ -17,6 +17,7 @@ export function FinalCTA({
   buttonText,
   onClick,
 }: FinalCTAProps) {
+  
   return (
     <section className="w-full py-16 lg:py-24 bg-white">
       <div className="max-w-3xl mx-auto px-4 text-center">
@@ -31,7 +32,7 @@ export function FinalCTA({
         )}
 
         <div className="mt-6 flex justify-center">
-          <Button withArrow href={LINKS.contact} size="md" onClick={onClick }
+          <Button withArrow href={LINKS.contact} size="sm" onClick={onClick }
           >
             {buttonText}
           </Button>

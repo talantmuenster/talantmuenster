@@ -1,9 +1,11 @@
 'use client';
+import { useTranslations } from 'next-intl';
 import { SectionTitle } from '../../../components/ui/Sectiontitle';
 import ImageSlider  from './OverlapSlider';
 
 
 export function SliderAbout() {
+		const t = useTranslations("courses"); 
   return (
 	<section className="relative bg-background-blue py-20 lg:overflow-hidden">
 	  {/* ARCS */}
@@ -17,7 +19,7 @@ export function SliderAbout() {
 	  />
 
 	  <div className="relative z-10 max-w-7xl mx-auto px-4">
-		  <SectionTitle primary="Наши программы направлены на образование, творческое развитие и" secondary="поддержку детей, подростков и семей в межкультурной среде" className="mb-8 text-center text-heading-xl" />
+		  <SectionTitle primary={t("SectionTitle")} secondary={t("SectionTitle2")} className="mb-8 text-center text-heading-xl" />
 		  <ImageSlider />
 	  </div>
 	</section>

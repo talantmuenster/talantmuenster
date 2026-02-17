@@ -515,7 +515,7 @@ export default function ProgramsAdminPage() {
                   <div className="flex flex-wrap gap-2 mb-2">
                     {(teacher.tags || []).map((tag, tagIdx) => (
                       <div key={tagIdx} className="flex items-center gap-1 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
-                        <span>{tag}</span>
+                        <span>{typeof tag === 'object' ? tag[selectedLanguage] : tag}</span>
                         <button
                           type="button"
                           onClick={() => {
@@ -543,7 +543,7 @@ export default function ProgramsAdminPage() {
                         const input = document.getElementById(`tag-${idx}`) as HTMLInputElement;
                         if (input.value.trim()) {
                           const upd = [...(editing.teachers || [])];
-                          upd[idx] = { ...teacher, tags: [...(teacher.tags || []), input.value.trim()] };
+                          upd[idx] = { ...teacher, tags: [...(teacher.tags || []), { ru: input.value.trim(), en: '', de: '' }] };
                           setEditing({ ...editing, teachers: upd });
                           input.value = '';
                         }

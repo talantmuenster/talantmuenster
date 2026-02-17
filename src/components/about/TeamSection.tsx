@@ -5,6 +5,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
 import { TeamCard } from '@/components/ui/TeamCard';
+import { useTranslations } from 'next-intl';
+import { SectionTitle } from '@/components/ui/Sectiontitle';
 
 type TeamMember = {
   name: string;
@@ -21,14 +23,15 @@ export function TeamSection({
   title = 'Наша команда',
   members,
 }: TeamSectionProps) {
+    const t = useTranslations("about");
+  
   return (
     <section className="w-full py-12 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
 
         {/* TITLE */}
-        <h2 className="text-xl sm:text-2xl font-bold text-center text-primary-dark">
-          Наша <span className="text-primary-light">команда</span>
-        </h2>
+        <SectionTitle className="text-center" primary={t("team.title1")} secondary={t("team.title2")} />
+        
 
         {/* MOBILE / TABLET — SLIDER */}
         <div className="mt-8 lg:hidden">

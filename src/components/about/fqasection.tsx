@@ -25,7 +25,8 @@ export default function FqaSection() {
 
       <div className="relative z-10 max-w-3xl mx-auto px-4">
         <SectionTitle
-          title="Часто задаваемые вопросы"
+          primary={t("title")}
+          secondary={t("title1")}
           align="center"
         />
 

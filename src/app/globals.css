@@ -90,3 +90,28 @@ body {
 }
 
 
+.swiper-button-prev,
+.swiper-button-next {
+  width: 52px;
+  height: 52px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: #6B7CFF;
+  backdrop-filter: blur(6px);
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.swiper-pagination-bullet {
+  background: #D1D5DB;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background: #6B7CFF;
+}

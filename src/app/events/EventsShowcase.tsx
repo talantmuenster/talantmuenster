@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '../../components/ui/Button';
 import { EventRegistrationModal } from '../../components/events/EventRegistrationModal';
+import { useLocale, useTranslations } from 'next-intl';
 
 type EventItem = {
   id: string;
@@ -44,7 +45,9 @@ export default function EventsShowcase() {
   const [loading, setLoading] = useState(true);
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
-
+  const t = useTranslations();
+  const locale = useLocale();
+  
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -57,7 +60,7 @@ export default function EventsShowcase() {
               const eventDate = new Date(e.date);
               const day = eventDate.getDate().toString().padStart(2, '0');
               const month = (eventDate.getMonth() + 1).toString().padStart(2, '0');
-              const weekday = eventDate.toLocaleDateString('ru-RU', { weekday: 'long' });
+              const weekday = eventDate.toLocaleDateString(locale, { weekday: 'long' });
               
               return {
                 id: e.id,
@@ -109,7 +112,7 @@ export default function EventsShowcase() {
             const date = new Date(event.date);
             const day = date.getDate().toString().padStart(2, '0');
             const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const weekday = date.toLocaleDateString('ru-RU', { weekday: 'long' }); 
+            const weekday = date.toLocaleDateString(locale, { weekday: 'long' });
  
             return ( 
               <button 
@@ -152,7 +155,7 @@ export default function EventsShowcase() {
                     size="sm"
                     className="pl-0"
                   >
-                    Подробнее
+                    {t("home.upcomingEvents.other1")}
                   </Button>
                 </div>
               </button>
@@ -196,7 +199,7 @@ export default function EventsShowcase() {
                 disabled={!active.startTime}
                 onClick={handleOpenRegistration}
               >
-                Регистрация
+                {t("home.upcomingEvents.registration")}
               </Button>
             </div>
           </div>

@@ -2,19 +2,29 @@
 
 import { Button } from '@/components/ui/Button';
 import type { CalendarEvent } from '@/type/type';
+import { useLocale, useTranslations } from 'next-intl';
 
 type Props = {
   events: CalendarEvent[];
 };
 
 export function EventsSchedule({ events }: Props) {
+     const t = useTranslations('home.upcomingEvents');
+     const locale = useLocale();
+  
+  const getText = (content: any) => {
+    if (!content) return '';
+    if (typeof content === 'string') return content;
+    return content[locale as keyof typeof content] || content.ru || '';
+  };
+
   return (
     <div className="flex flex-col gap-4">
       {events.map(event => {
         const date = new Date(event.date);
         const day = date.getDate().toString().padStart(2, '0');
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const weekday = date.toLocaleDateString('ru-RU', {
+        const weekday = date.toLocaleDateString(locale, {
           weekday: 'long',
         });
 
@@ -40,11 +50,11 @@ export function EventsSchedule({ events }: Props) {
               </div>
 
               <div className="font-medium text-heading-mdd mt-2 mb-2 text-primary-dark">
-                {event.title}
+                {getText(event.title)}
               </div>
 
               <div className="text-sm text-text-secondary mb-4">
-                {event.description}
+                {getText(event.description)}
               </div>
 
               <Button
@@ -53,7 +63,7 @@ export function EventsSchedule({ events }: Props) {
                 size="sm"
                 className="px-0"
               >
-                Подробнее
+                {t("other1")}
               </Button>
             </div>
 
@@ -64,7 +74,7 @@ export function EventsSchedule({ events }: Props) {
               className="ml-auto self-center"
               disabled={!event.registrationUrl}
             >
-              Регистрация
+              {t("registration")}
             </Button>
           </div>
         );

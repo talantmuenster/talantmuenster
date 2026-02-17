@@ -2,10 +2,13 @@ import type { Project } from "@/type/type";
 
 export const projects: Project[] = [
   {
-    slug: "youth-support",
-    title: "Заголовок проекта",
-    subtitle:
-      "Описание новости в коротком формате, чтобы немного ввести в курс дела.",
+    slug: { ru: "youth-support", en: "youth-support", de: "youth-support" },
+    title: { ru: "Заголовок проекта", en: "Project Title", de: "Projekttitel" },
+    subtitle: {
+      ru: "Описание новости в коротком формате, чтобы немного ввести в курс дела.",
+      en: "Short description to introduce the project",
+      de: "Kurzbeschreibung zum Einführen des Projekts"
+    },
     cover: "/projects/project-1.png",
     content: [
       {

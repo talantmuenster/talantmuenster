@@ -111,7 +111,7 @@ export default function HowWeHelp() {
             </div>
 
             <div className="mt-8 text-center lg:text-left">
-              <Button withArrow>Узнать больше</Button>
+              <Button withArrow>{t('ctaButton')}</Button>
             </div>
           </div>
 

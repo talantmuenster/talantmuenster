@@ -12,11 +12,14 @@ export default async function ProjectPage({ params }: Props) {
   const t = getTranslations("projects");
   const { slug } = await params;
 
-  const project = projects.find((p) => p.slug === slug);
+  const project = projects.find((p) => Object.values(p.slug).includes(slug));
 
   if (!project) {
     return <div className="py-20 text-center">Проект не найден</div>;
   }
+
+  const getTitle = (content: any) => typeof content === "string" ? content : content?.ru || "";
+  const getSubtitle = (content: any) => typeof content === "string" ? content : content?.ru || "";
 
   return (
     <>
@@ -26,10 +29,10 @@ export default async function ProjectPage({ params }: Props) {
             breadcrumbs={[
               { label: "Главная", href: "/" },
               { label: "Проекты", href: "/projects" },
-              { label: project.title },
+              { label: getTitle(project.title) },
             ]}
-            title={project.title}
-            subtitle={project.subtitle}
+            title={getTitle(project.title)}
+            subtitle={getSubtitle(project.subtitle)}
           />
 
           <article className="pb-20">
@@ -38,7 +41,7 @@ export default async function ProjectPage({ params }: Props) {
               <div className="relative max-w-6xl mx-auto aspect-[16/9] rounded-3xl overflow-hidden">
                 <Image
                   src={project.cover}
-                  alt={project.title}
+                  alt={getTitle(project.title)}
                   fill
                   className="object-cover"
                   priority

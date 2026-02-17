@@ -5,7 +5,9 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useState } from 'react';
 import CourseModal from './CourseModal';
+import { useTranslations } from "next-intl";
 export default function HowToParticipate() {
+      const t = useTranslations("courses"); 
 const [open, setOpen] = useState(false);
   return (
     <section className="py-6 lg:py-[120px]">
@@ -52,23 +54,23 @@ const [open, setOpen] = useState(false);
             "
           >
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">
-              Как принять участие?
+              {t("apple.title")}
             </h2>
 
             <ul className="space-y-4 text-gray-700 max-w-md">
               <li className="flex items-start gap-3">
                 <span className="text-accent text-lg leading-none">✦</span>
-                Выбрать интересующее направление
+                {t("apple.selection")}
               </li>
 
               <li className="flex items-start gap-3">
                 <span className="text-accent text-lg leading-none">✦</span>
-                Связаться с нами через форму обратной связи
+                {t("apple.selection1")}
               </li>
 
               <li className="flex items-start gap-3">
                 <span className="text-accent text-lg leading-none">✦</span>
-                Записаться на курс или мероприятие
+                {t("apple.selection2")}
               </li>
             </ul>
 
@@ -78,7 +80,7 @@ const [open, setOpen] = useState(false);
                 size="sm"
                 className="inline-flex items-center gap-3 rounded-full px-6"
               >
-                Выбрать курс
+                {t("apple.selectbtb")}
                 <ArrowRight size={18} />
               </Button>
                {/* <button

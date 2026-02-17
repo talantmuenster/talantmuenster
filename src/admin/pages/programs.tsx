@@ -85,7 +85,7 @@ type Teacher = {
   role: LocalizedContent;
   bio: LocalizedContent;
   avatar: string;
-  tags: string[];
+  tags?: LocalizedContent[];
 };
 
 export default function ProgramsPage() {
@@ -151,7 +151,6 @@ export default function ProgramsPage() {
       role: emptyLocalized,
       bio: emptyLocalized,
       avatar: '',
-      tags: [],
     };
     setEditing({
       ...editing,

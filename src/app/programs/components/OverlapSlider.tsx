@@ -19,95 +19,71 @@ export default function ImageSlider() {
   const next = () => setCurrent((c) => (c + 1) % total);
 
   return (
-    <section className="relative w-full bg-[#EEF2FF] py-24 overflow-hidden">
-      {/* arrows (как в макете) */}
-      <button
-        onClick={prev}
-        className="
-          absolute left-8 top-16 z-30
-          w-10 h-10 rounded-full
-          border border-[#CBD5FF]
-          bg-white text-[#6B7CFF]
-          flex items-center justify-center
-          hover:bg-[#F4F6FF] transition
-        "
-      >
-        ‹
-      </button>
+    <section className="relative w-full py-20 overflow-hidden flex flex-col items-center">
+      <div className="relative w-full max-w-6xl h-[450px] flex items-center justify-center">
+        
+        {/* Кнопка Влево — привязана к центру */}
+        <button
+          onClick={prev}
+          className="absolute left-[15%] md:left-[22%] top-12 z-50 w-11 h-11 rounded-full border border-blue-200 bg-white flex items-center justify-center shadow-sm hover:shadow-md transition-all group"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5D69F4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
 
-      <button
-        onClick={next}
-        className="
-          absolute right-8 top-16 z-30
-          w-10 h-10 rounded-full
-          border border-[#CBD5FF]
-          bg-white text-[#6B7CFF]
-          flex items-center justify-center
-          hover:bg-[#F4F6FF] transition
-        "
-      >
-        ›
-      </button>
+        {/* Кнопка Вправо — привязана к центру */}
+        <button
+          onClick={next}
+          className="absolute right-[15%] md:right-[22%] top-12 z-50 w-11 h-11 rounded-full border border-blue-200 bg-white flex items-center justify-center shadow-sm hover:shadow-md transition-all group"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5D69F4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
 
-      {/* slider */}
-      <div className="relative h-[320px] flex items-end justify-center">
-        {slides.map((slide, index) => {
-          let offset = index - current;
+        {/* Слайды */}
+        <div className="relative w-full h-full flex items-end justify-center">
+          {slides.map((slide, index) => {
+            let offset = index - current;
+            if (offset > total / 2) offset -= total;
+            if (offset < -total / 2) offset += total;
 
-          // 👇 зацикливание (ключевая часть)
-          if (offset > total / 2) offset -= total;
-          if (offset < -total / 2) offset += total;
+            const isActive = offset === 0;
+            const isNeighbor = Math.abs(offset) === 1;
+            const isEdge = Math.abs(offset) === 2;
 
-          let translateX = offset * 260;
-          let scale = 1;
-          let opacity = 1;
-          let zIndex = 10;
-          let width = 260;
-          let height = 190;
+            // Настройка позиционирования как на скрине
+            let translateX = offset * 320; // Базовый шаг
+            if (offset > 0) translateX += 60; // Раздвигаем, чтобы центр был виден лучше
+            if (offset < 0) translateX -= 60;
 
-          if (offset === 0) {
-            width = 420;
-            height = 300;
-            zIndex = 30;
-          } else if (Math.abs(offset) === 1) {
-            scale = 0.88;
-            opacity = 0.9;
-            zIndex = 20;
-          } else if (Math.abs(offset) === 2) {
-            scale = 0.75;
-            opacity = 0.6;
-            zIndex = 10;
-          } else {
-            opacity = 0;
-          }
-
-          return (
-            <div
-              key={slide.id}
-              className="absolute transition-all duration-700 ease-in-out"
-              style={{
-                transform: `translateX(${translateX}px) scale(${scale})`,
-                opacity,
-                zIndex,
-                pointerEvents: opacity === 0 ? 'none' : 'auto',
-              }}
-            >
+            return (
               <div
-                className="rounded-3xl overflow-hidden bg-white shadow-xl"
+                key={slide.id}
+                className="absolute transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 style={{
-                  width,
-                  height,
+                  transform: `translateX(${translateX}px) scale(${isActive ? 1 : 0.85})`,
+                  opacity: isActive ? 1 : isNeighbor ? 0.9 : isEdge ? 0.4 : 0,
+                  zIndex: isActive ? 40 : 30 - Math.abs(offset),
                 }}
               >
-                <img
-                  src={slide.image}
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
+                <div
+                  className={`
+                    ${isActive ? 'w-[480px] h-[340px]' : 'w-[360px] h-[260px]'}
+                    rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-700
+                  `}
+                >
+                  <img
+                    src={slide.image}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

@@ -20,6 +20,8 @@
       "stat3Subtitle": "for courses"
     },
     "programs":{
+      "title1": "Development",
+        "title2": "programmes",
       "music":"Music",
       "dance": "Dance",
       "art": "Art",
@@ -28,7 +30,7 @@
       "math": "Mathematics",
       "sports": "Sports",
       "social": "Social",
-      "other": "Other"
+      "other": "See more"
     },
     "whyChoose": {
       "title": "Why choose",
@@ -56,10 +58,22 @@
       "category3Item3": "Individual exam preparation sessions",
       "ctaButton": "Get support"
     },
+    "upcomingEvents": {
+      "title": "Upcoming",
+      "title1": "events",
+      "subtitle": "Join us and discover new opportunities for development and communication",
+      "registration": "Register now",
+      "other": "See more",
+      "other1": " More"
+    },
     "subscribe":{ 
       "title":"Subscribe and stay up to date",
     "subtitle":"all events",
-    "description":"Be the first to know about our new projects, workshops, and meetings"
+    "description":"Be the first to know about our new projects, workshops, and meetings",
+    "subscribe":"Subscribe",
+    "mail":"Enter your email",
+    "successMessage":"Thank you! You have subscribed.",
+    "errorMessage":"Subscription error. Please try again."
     }
   },
   "about": {
@@ -107,12 +121,15 @@
     },
 
     "team": {
+      "title1" : "Our",
+      "title2" : "team",
       "role": {
         "music": "Music teacher"
       }
     },
     "faq": {
-      "title": "Frequently Asked Questions",
+      "title": "Frequently ",
+      "title1": "asked questions",
       "items": {
         "1": {
           "title": "How can I register for a course?",
@@ -186,6 +203,8 @@
     }
   },
   "courses": {
+    "title": "Select",
+    "title2": "direction", 
     "breadcrumbs": {
       "home": "Home",
       "programs": "Programs",
@@ -197,7 +216,26 @@
       },
       "subtitle": "We offer a wide range of educational, creative and social programs for children, teenagers and families.",
       "register": "Register now"
+    },
+    "SectionTitle": "Our programmes focus on education, creative development and",
+    "SectionTitle2": "support for children, teenagers and families in an intercultural environment.",
+    "selectcr": "Select a course",
+    "address": "Address",
+    "schedule": "Schedule",
+    "duration": "Duration of the lesson",
+    "price": "Cost per session",
+    "ctaLabel": "Register for the course",
+    "teachers": "Teachers",
+    "relatprogtitl1": "See also other",
+    "relatprogtitl2": "programs",
+    "apple": {
+      "title": "How to participate?",
+      "selection": "Select the area of interest",
+      "selection1": "Contact us via the feedback form",
+      "selection2": "Register for a course or event ",
+      "selectbtb": "Select a course"
     }
+
   },
   "events":{
      "breadcrumbs": {
@@ -213,20 +251,49 @@
     
   }
 },
-  "footer": {
-    "address": "Heinrich-Ebel-Str. 48 48161 Münster",
-    "news": "Nachrichten",
-    "events": "Veranstaltungen",
-    "documents": "Dokumente und Publikationen",
-    "projects": "Projekte",
-    "about": "Über uns",
-    "email": "talantmuenster@gmail.com",
-    "phone": "+49 176 64217368",
-    "contactUs": "Kontaktieren Sie uns",
-    "copyright": "© 2025 Talant E.V.",
-    "privacy": "Datenschutzrichtlinie",
-    "cookies": "Cookie-Nutzung"
+"contactsus": {
+  "breadcrumbs": {
+    "home": "Home",
+    "contact": "Contact us"
   },
+  "title": "Contact us by ",
+  "title1": "any convenient way",
+  "description": "We are here to assist you! Whether you have a question about our services, need advice, or would like to leave feedback, our team is ready to help.",
+  "address": "Address",
+  "email": "Email",
+  "phone": "Phone",
+  "message": "Message",
+  "officeAddress": "Office and mailing address",
+  "coursesAndEvents": "Courses and events",
+   
+  "form": {
+    "name": "Your name",
+    "email": "Your email",
+    "message": "Your message",
+    "submit": "Send message",
+    "consentText": "I agree to the processing of my data in accordance with the",
+    "privacyPolicy": "Privacy Policy",
+    "registForEvent": "Register for the event",
+    "events": "Events",
+   "message1": "Message",
+    "submitcourse": "Register for the course"
+
+  }
+},
+"footer": {
+  "address": "Heinrich-Ebel-Str. 48, 48161 Münster",
+  "news": "News",
+  "events": "Events",
+  "documents": "Documents and Publications",
+  "projects": "Projects",
+  "about": "About Us",
+  "email": "talantmuenster@gmail.com",
+  "phone": "+49 176 64217368",
+  "contactUs": "Contact Us",
+  "copyright": "© 2025 Talant E.V.",
+  "privacy": "Privacy Policy",
+  "cookies": "Cookie Policy"
+},
   "notFound": {
     "title": "Page under construction",
     "description": "We are currently working on this section. Please check back soon.",

@@ -63,7 +63,7 @@ export type Teacher = {
   role: LocalizedContent;
   bio: LocalizedContent;
   avatar: string;
-  tags: string[];
+  tags?: LocalizedContent[];
 };
 
 export type ScheduleItem = {

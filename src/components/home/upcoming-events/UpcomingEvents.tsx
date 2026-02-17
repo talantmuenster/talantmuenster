@@ -7,12 +7,14 @@ import type { CalendarEvent } from '@/type/type';
 import { EventsSchedule } from './EventsSchedule';
 import MobileEventsSlider from './MobileEventsSlider.client';
 import { LINKS } from '../../../lib/links';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   CalendarEvent: CalendarEvent[];
 };
 
 export function UpcomingEvents({ CalendarEvent }: Props) {
+    const t = useTranslations('home.upcomingEvents');
   return (
     <section className="relative bg-background-blue py-20 lg:overflow-hidden">
       {/* ARCS */}
@@ -27,8 +29,8 @@ export function UpcomingEvents({ CalendarEvent }: Props) {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4">
         <SectionTitle
-          primary="Ближайшие"
-          secondary="мероприятия"
+          primary={t("title")}
+          secondary={t("title1")}
           align="center"
         />
 
@@ -49,7 +51,7 @@ export function UpcomingEvents({ CalendarEvent }: Props) {
 
           <div className="mt-8">
             <Button variant="text" withArrow>
-              Смотреть больше
+              {t("other")}
             </Button>
           </div>
         </div>
@@ -71,7 +73,7 @@ export function UpcomingEvents({ CalendarEvent }: Props) {
 
         <div className="hidden lg:flex mt-10 justify-end">
           <Button variant="text" withArrow href={LINKS.events}>
-            Смотреть больше
+            {t("other")}
           </Button>
         </div>
       </div>

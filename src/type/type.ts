@@ -40,10 +40,10 @@ export type Project = {
   title: LocalizedContent;
   subtitle: LocalizedContent;
   cover: string;
-  content: LocalizedContent;
-  published: boolean;
-  createdAt: string;
-  updatedAt: string;
+  content: ProjectContentBlock[];
+  published?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type Post = {

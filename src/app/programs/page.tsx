@@ -23,7 +23,7 @@ export default function Programs() {
 			  backgroundImage="/home/bg-hero.png"
 			/>
 			<Container>
-			  <SectionTitle primary="Выберите" secondary="направление" className="mb-8 text-center" />
+			  <SectionTitle primary={t("title")} secondary={t("title2")} className="mb-8 text-center" />
 			  <DirectionSelector />
 			</Container>
 			<SliderAbout />
