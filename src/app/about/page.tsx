@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import { HeroSection } from "@/components/main/HeroSection";
@@ -11,6 +11,84 @@ import { FinalCTA } from "@/components/about/FinalCTA";
 
 export default function About() {
   const t = useTranslations("about");
+  type TeamMember = {
+    name: { ru: string; en: string; de: string };
+    role: { ru: string; en: string; de: string };
+    image: string;
+    skills?: string[];
+  };
+  const fallbackMembers = useMemo(
+    (): TeamMember[] => [
+      {
+        name: { ru: 'Анна Фёдорова', en: 'Anna Fedorova', de: 'Anna Fedorowa' },
+        role: { ru: t("team.role.music"), en: "Music Teacher", de: "Musiklehrerin" },
+        image: "/team/anna-1.png",
+        skills: ['Музыка', 'Вокал'],
+      },
+      {
+        name: { ru: 'Анна Фёдорова', en: 'Anna Fedorova', de: 'Anna Fedorowa' },
+        role: { ru: t("team.role.music"), en: "Music Teacher", de: "Musiklehrerin" },
+        image: "/team/anna-2.png",
+        skills: ['Композиция'],
+      },
+      {
+        name: { ru: 'Анна Фёдорова', en: 'Anna Fedorova', de: 'Anna Fedorowa' },
+        role: { ru: t("team.role.music"), en: "Music Teacher", de: "Musiklehrerin" },
+        image: "/team/anna-3.png",
+        skills: ['Пианино', 'Теория'],
+      },
+      {
+        name: { ru: 'Анна Фёдорова', en: 'Anna Fedorova', de: 'Anna Fedorowa' },
+        role: { ru: t("team.role.music"), en: "Music Teacher", de: "Musiklehrerin" },
+        image: "/team/anna-4.png",
+        skills: ['Скрипка'],
+      },
+    ],
+    [t]
+  );
+  const [remoteTeam, setRemoteTeam] = useState<TeamMember[] | null>(null);
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        const res = await fetch("/api/team");
+        if (!res.ok) return;
+        
+        const data = await res.json();
+        
+        if (Array.isArray(data) && data.length > 0) {
+          const mapped = data
+            .filter((member: unknown): member is Record<string, unknown> =>
+              typeof member === "object" && member !== null
+            )
+            .map((member) => {
+              const name = typeof member.name === "object" && member.name 
+                ? member.name 
+                : { ru: '', en: '', de: '' };
+              const role = typeof member.role === "object" && member.role 
+                ? member.role 
+                : { ru: '', en: '', de: '' };
+              return {
+                name,
+                role,
+                image: typeof member.image === "string" ? member.image : "",
+                skills: Array.isArray(member.skills) ? member.skills : [],
+              };
+            });
+
+          if (mapped.length > 0) {
+            setRemoteTeam(mapped);
+          }
+        }
+      } catch {
+        // fallback stays in place
+      }
+    };
+
+    fetchTeam();
+  }, []);
+
+  const teamMembers = remoteTeam ?? fallbackMembers;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -78,30 +156,7 @@ export default function About() {
           text={<>{t("project.text")}</>}
         />
 
-        <TeamSection
-          members={[
-            {
-              name: "Анна Фёдорова",
-              role: t("team.role.music"),
-              image: "/team/anna-1.png",
-            },
-            {
-              name: "Анна Фёдорова",
-              role: t("team.role.music"),
-              image: "/team/anna-2.png",
-            },
-            {
-              name: "Анна Фёдорова",
-              role: t("team.role.music"),
-              image: "/team/anna-3.png",
-            },
-            {
-              name: "Анна Фёдорова",
-              role: t("team.role.music"),
-              image: "/team/anna-4.png",
-            },
-          ]}
-        />
+        {teamMembers.length > 0 && <TeamSection members={teamMembers} />}
 
         <FqaSection />
 

@@ -25,7 +25,10 @@ if (process.env.FIREBASE_ADMIN_KEY) {
 if (!getApps().length) {
   initializeApp({
     credential: cert(serviceAccount),
-    storageBucket: serviceAccount.project_id + ".appspot.com",
+    storageBucket:
+      process.env.FIREBASE_STORAGE_BUCKET ||
+      process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ||
+      serviceAccount.project_id + ".appspot.com",
   });
 }
 

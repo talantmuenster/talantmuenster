@@ -1,18 +1,64 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 
 import { HeroSection } from "@/components/main/HeroSection";
 import { Subscribe } from "@/components/home/Subscribe";
 import { ContentCard } from "@/components/ui/ContentCard";
 import { Container } from "@/components/ui/Container";
 import Pagination from "@/components/ui/Pagination";
-import { newss } from "@/data/news";
+import type { News as AdminNews, LocalizedContent } from "@/admin/types";
+
+type NewsItem = {
+  id: string;
+  image: string;
+  title: string;
+  description: string;
+  date: string;
+  href: string;
+};
+
+const getText = (content: LocalizedContent, locale: string) =>
+  content?.[locale as keyof LocalizedContent] || content?.ru || "";
+
 export default function Project() {
   const t = useTranslations("news");
+  const locale = useLocale();
+  const [items, setItems] = useState<AdminNews[]>([]);
 
-  const news = newss;
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await fetch("/api/admin/news", { credentials: "include" });
+        if (!res.ok) return;
+        const data = await res.json();
+        setItems(Array.isArray(data) ? data : []);
+      } catch {
+        setItems([]);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
+  const news = useMemo<NewsItem[]>(
+    () =>
+      items
+        .filter((item) => item.published)
+        .map((item) => ({
+          id: item.id || "",
+          image: item.imageUrl 
+            ? `/api/proxy-image?url=${encodeURIComponent(item.imageUrl)}`
+            : '/placeholder-image.png',
+          title: getText(item.title, locale),
+          description: getText(item.excerpt, locale),
+          date: item.date,
+          href: `/news/${item.id}`,
+        }))
+        .filter((item) => item.id),
+    [items, locale]
+  );
 
   /* ================= PAGINATION LOGIC ================= */
 
@@ -30,7 +76,7 @@ export default function Project() {
 
   const paginatedNews = paginatedSource.slice(
     (page - 1) * ITEMS_PER_PAGE,
-    page * ITEMS_PER_PAGE,
+    page * ITEMS_PER_PAGE
   );
 
   /* =================================================== */
@@ -51,19 +97,21 @@ export default function Project() {
         <Container>
           {/* 🔝 TOP GRID */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <ContentCard
-              {...staticNews[0]}
-              featured
-              className="lg:col-span-2"
-            />
-            <ContentCard {...staticNews[1]} />
-            <ContentCard {...staticNews[2]} />
+            {staticNews[0] && (
+              <ContentCard
+                {...staticNews[0]}
+                featured
+                className="lg:col-span-2"
+              />
+            )}
+            {staticNews[1] && <ContentCard {...staticNews[1]} />}
+            {staticNews[2] && <ContentCard {...staticNews[2]} />}
           </div>
 
           {/* 🔽 BOTTOM GRID */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {paginatedNews.map((item) => (
-              <ContentCard key={item.slug} {...item} />
+              <ContentCard key={item.id} {...item} />
             ))}
           </div>
 

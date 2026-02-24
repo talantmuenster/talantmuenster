@@ -4,15 +4,23 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 import { ContentCard } from "@/components/ui/ContentCard";
-import { News } from "../type/type";
 
-type Props = {
-  currentSlug: string;
-  news: News[];
+type RelatedNewsItem = {
+  id: string;
+  image: string;
+  title: string;
+  description: string;
+  date: string;
+  href: string;
 };
 
-export default function RelatedNews({ currentSlug, news }: Props) {
-  const related = news.filter((item) => item.slug !== currentSlug).slice(0, 8);
+type Props = {
+  currentId: string;
+  news: RelatedNewsItem[];
+};
+
+export default function RelatedNews({ currentId, news }: Props) {
+  const related = news.filter((item) => item.id !== currentId).slice(0, 8);
 
   if (related.length === 0) return null;
 
@@ -26,13 +34,13 @@ export default function RelatedNews({ currentSlug, news }: Props) {
       <div className="md:hidden -mx-4 px-4">
         <Swiper spaceBetween={16} slidesPerView={1.15}>
           {related.map((item) => (
-            <SwiperSlide key={item.slug}>
+            <SwiperSlide key={item.id}>
               <ContentCard
                 title={item.title}
                 description={item.description}
-                image={item.cover}
+                image={item.image}
                 date={item.date}
-                href={`/news/${item.slug}`}
+                href={item.href}
               />
             </SwiperSlide>
           ))}
@@ -43,12 +51,12 @@ export default function RelatedNews({ currentSlug, news }: Props) {
       <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-6">
         {related.map((item) => (
           <ContentCard
-            key={item.slug}
+            key={item.id}
             title={item.title}
             description={item.description}
-            image={item.cover}
+            image={item.image}
             date={item.date}
-            href={`/news/${item.slug}`}
+            href={item.href}
           />
         ))}
       </div>

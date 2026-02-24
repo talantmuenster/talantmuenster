@@ -23,13 +23,34 @@ export function ContentCard({
       {/* IMAGE */}
       <div
         className={clsx(
-          "relative w-full overflow-hidden",
+          "relative w-full overflow-hidden bg-gray-200",
           featured
             ? "aspect-[4/3] lg:aspect-[16/9] lg:rounded-b-3xl"
             : "aspect-[4/3]",
         )}
       >
-        <Image src={image} alt={title} fill className="object-cover" />
+        {image ? (
+          // Use regular img tag for proxy URLs (with query string)
+          image.includes('proxy-image') ? (
+            <img 
+              src={image} 
+              alt={title} 
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <Image 
+              src={image} 
+              alt={title} 
+              fill 
+              className="object-cover"
+              onError={() => console.warn('Image failed to load:', image)}
+            />
+          )
+        ) : (
+          <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">
+            Нет изображения
+          </div>
+        )}
 
         {/* градиент ТОЛЬКО на desktop */}
         {featured && (

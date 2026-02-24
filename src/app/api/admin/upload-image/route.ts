@@ -36,8 +36,16 @@ export async function POST(request: Request) {
       },
     });
 
-    // Get public URL (Firebase Storage public path)
-    const publicUrl = `https://storage.googleapis.com/${storage.name}/${filename}`;
+    // Construct public URL (Firebase Storage makes files publicly accessible by default)
+    const bucketName = storage.name;
+    const encodedPath = encodeURIComponent(filename).replace(/%2F/g, '/');
+    const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodedPath}?alt=media`;
+
+    console.log('Upload successful:', {
+      filename,
+      bucketName,
+      publicUrl,
+    });
 
     return NextResponse.json({
       success: true,

@@ -120,6 +120,18 @@ export type Project = {
   updatedAt: string;
 };
 
+// Team (Команда)
+export type TeamMember = {
+  id?: string;
+  name: LocalizedContent;
+  role: LocalizedContent;
+  image: string;
+  skills?: string[];
+  published: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
 // Organization Settings (Реквизиты организации)
 export type OrganizationSettings = {
   id?: string;

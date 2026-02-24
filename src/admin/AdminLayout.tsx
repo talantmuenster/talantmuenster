@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useIdleTimer } from '@/hooks/useIdleTimer';
 
-type Tab = 'dashboard' | 'events' | 'programs' | 'documents' | 'news' | 'projects' | 'clients' | 'settings';
+type Tab = 'dashboard' | 'events' | 'programs' | 'documents' | 'news' | 'projects' | 'team' | 'clients' | 'settings';
 
 interface NavItem {
   id: Tab;
@@ -23,6 +23,7 @@ const navItems: NavItem[] = [
   { id: 'documents', label: 'Документы', icon: '📄', href: '/admin/documents' },
   { id: 'news', label: 'Новости', icon: '📰', href: '/admin/news' },
   { id: 'projects', label: 'Проекты', icon: '🎨', href: '/admin/projects' },
+  { id: 'team', label: 'Команда', icon: '👥', href: '/admin/team' },
   { id: 'clients', label: 'Клиенты', icon: '👥', href: '/admin/clients' },
   { id: 'settings', label: 'Настройки', icon: '⚙️', href: '/admin/settings' },
 ];

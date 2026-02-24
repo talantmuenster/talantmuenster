@@ -9,9 +9,10 @@ import { useTranslations } from 'next-intl';
 import { SectionTitle } from '@/components/ui/Sectiontitle';
 
 type TeamMember = {
-  name: string;
-  role: string;
+  name: { ru: string; en: string; de: string } | string;
+  role: { ru: string; en: string; de: string } | string;
   image: string;
+  skills?: string[];
 };
 
 type TeamSectionProps = {
