@@ -10,6 +10,7 @@ export function Subscribe() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [agreed, setAgreed] = useState(false);
 
   const isEmailValid = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
 
@@ -107,12 +108,25 @@ export function Subscribe() {
                   border border-gray-200
                 "
               />
+              <div className="flex items-center gap-2 text-xs text-gray-600">
+                <input
+                  type="checkbox"
+                  id="privacy-agree"
+                  checked={agreed}
+                  onChange={e => setAgreed(e.target.checked)}
+                  className="w-4 h-4"
+                  required
+                />
+                <label htmlFor="privacy-agree">
+                  Я согласен(а) на обработку персональных данных и принимаю <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline text-blue-600">политику конфиденциальности</a>
+                </label>
+              </div>
               <div className="items-center w-full sm:w-auto">
                 <Button
                   variant="primary"
                   size="sm"
                   className=""
-                  disabled={isSubmitting || !isEmailValid(email)}
+                  disabled={isSubmitting || !isEmailValid(email) || !agreed}
                 >
                   {t('subscribe')}
                 </Button>

@@ -305,13 +305,14 @@ export default function EventsPage() {
               </div>
             </div>
 
-            {editing.imageUrl && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Изображение мероприятия</label>
               <ImageUpload
                 onUpload={(url) => setEditing({ ...editing, imageUrl: url })}
                 currentImageUrl={editing.imageUrl}
                 folder="events"
               />
-            )}
+            </div>
 
             <div className="flex items-center gap-2">
               <input

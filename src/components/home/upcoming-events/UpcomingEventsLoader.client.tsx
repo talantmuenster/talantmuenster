@@ -57,5 +57,5 @@ export default function UpcomingEventsLoader() {
     fetchEvents();
   }, []);
 
-  return <UpcomingEvents CalendarEvent={events} />;
+  return <UpcomingEvents calendarEvents={events} />;
 }

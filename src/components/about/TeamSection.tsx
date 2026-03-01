@@ -33,33 +33,37 @@ export function TeamSection({
         {/* TITLE */}
         <SectionTitle className="text-center" primary={t("team.title1")} secondary={t("team.title2")} />
         
+        {members.length === 0 ? (
+          <div className="text-center text-lg text-gray-500 my-12">{t("team.empty")}</div>
+        ) : (
+          <>
+            {/* MOBILE / TABLET — SLIDER */}
+            <div className="mt-8 lg:hidden">
+              <Swiper
+                spaceBetween={16}
+                grabCursor
+                breakpoints={{
+                  0: { slidesPerView: 1.2 },
+                  480: { slidesPerView: 1.5 },
+                  640: { slidesPerView: 2 },
+                }}
+              >
+                {members.map((member, index) => (
+                  <SwiperSlide key={index} className="h-auto">
+                    <TeamCard {...member} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
 
-        {/* MOBILE / TABLET — SLIDER */}
-        <div className="mt-8 lg:hidden">
-          <Swiper
-            spaceBetween={16}
-            grabCursor
-            breakpoints={{
-              0: { slidesPerView: 1.2 },
-              480: { slidesPerView: 1.5 },
-              640: { slidesPerView: 2 },
-            }}
-          >
-            {members.map((member, index) => (
-              <SwiperSlide key={index} className="h-auto">
-                <TeamCard {...member} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-
-        {/* DESKTOP — GRID */}
-        <div className="hidden lg:grid mt-10 grid-cols-4 gap-6">
-          {members.map((member, index) => (
-            <TeamCard key={index} {...member} />
-          ))}
-        </div>
-
+            {/* DESKTOP — GRID */}
+            <div className="hidden lg:grid mt-10 grid-cols-4 gap-6">
+              {members.map((member, index) => (
+                <TeamCard key={index} {...member} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

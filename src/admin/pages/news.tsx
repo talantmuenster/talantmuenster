@@ -147,9 +147,21 @@ export default function NewsPage() {
                     />
                   )}
                   <div className="flex-1">
-                    <h3 className="font-semibold text-lg">
-                      {item.title?.ru || item.title?.en || item.title?.de || 'Без названия'}
-                    </h3>
+                    <div className="flex items-center gap-3">
+                      <h3 className="font-semibold text-lg">
+                        {item.title?.ru || item.title?.en || item.title?.de || 'Без названия'}
+                      </h3>
+                      {item.id && (
+                        <a
+                          href={`/news/${item.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-2 py-1 text-xs rounded bg-blue-100 text-blue-700 hover:bg-blue-200 transition ml-2"
+                        >
+                          Открыть
+                        </a>
+                      )}
+                    </div>
                     <p className="text-sm text-gray-600 line-clamp-2">
                       {item.excerpt?.ru || item.excerpt?.en || item.excerpt?.de}
                     </p>
@@ -195,11 +207,13 @@ export default function NewsPage() {
 
             <LanguageTabs />
 
-            <ImageUpload
-              onUpload={(url) => setEditing({ ...editing, imageUrl: url })}
-              currentImageUrl={editing.imageUrl}
-              folder="news"
-            />
+      <ImageUpload
+  folder="news"
+  currentImageUrl={editing.imageUrl}
+  onUpload={(url) =>
+    setEditing({ ...editing, imageUrl: url })
+  }
+/>
 
             <LanguageEditor
               content={editing.title}

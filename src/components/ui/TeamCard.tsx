@@ -43,15 +43,15 @@ export function TeamCard({ name, role, image, skills }: TeamCardProps) {
         />
       </div>
 
-      <div className="mt-4 text-center">
+      <div className="mt-4 text-left">
         <div className="font-semibold text-primary-dark">
           {getName()}
         </div>
         <div className="text-sm text-gray-500">
           {getRole()}
         </div>
-        {skills && skills.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-1 justify-center">
+        {/* {skills && skills.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-1 justify-left">
             {skills.map((skill, idx) => (
               <span
                 key={idx}
@@ -61,7 +61,7 @@ export function TeamCard({ name, role, image, skills }: TeamCardProps) {
               </span>
             ))}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

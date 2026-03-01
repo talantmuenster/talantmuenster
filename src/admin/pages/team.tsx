@@ -234,12 +234,9 @@ export default function TeamPage() {
           </div>
 
           <ImageUpload
-            onUpload={(url) => setEditing({ ...editing, image: url })}
-            currentImageUrl={editing.image}
             folder="team"
-            previewSizeClass="w-[200px] h-[200px]"
-            onUploadStart={() => setUploading(true)}
-            onUploadEnd={() => setUploading(false)}
+            currentImageUrl={editing.image}
+            onUpload={(url) => setEditing({ ...editing, image: url })}
           />
 
           <div className="flex items-center gap-2">

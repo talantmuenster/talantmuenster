@@ -90,13 +90,22 @@ export default function ProjectPage() {
             {/* FULL-WIDTH IMAGE */}
             <div className="w-full px-4 mb-12">
               <div className="relative max-w-6xl mx-auto aspect-[16/9] rounded-3xl overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
+                {project.image.includes('proxy-image') ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                    style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                  />
+                ) : (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                )}
               </div>
             </div>
 

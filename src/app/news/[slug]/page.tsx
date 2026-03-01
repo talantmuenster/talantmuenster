@@ -16,6 +16,7 @@ type NewsItem = {
   image: string;
   title: string;
   subtitle: string;
+  description: string;
   content: string;
   date: string;
   href: string;
@@ -62,6 +63,7 @@ export default function NewsPage() {
             : '/placeholder-image.png',
           title: getText(item.title, locale),
           subtitle: getText(item.excerpt, locale),
+          description: getText(item.excerpt, locale),
           content: getText(item.content, locale),
           date: item.date,
           href: `/news/${item.id}`,
@@ -96,13 +98,22 @@ export default function NewsPage() {
             {/* FULL-WIDTH IMAGE */}
             <div className="w-full px-4 mb-12">
               <div className="relative max-w-6xl mx-auto aspect-[16/9] rounded-3xl overflow-hidden">
-                <Image
-                  src={active.image}
-                  alt={active.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
+                {active.image.includes('proxy-image') ? (
+                  <img
+                    src={active.image}
+                    alt={active.title}
+                    className="object-cover w-full h-full"
+                    style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                  />
+                ) : (
+                  <Image
+                    src={active.image}
+                    alt={active.title}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                )}
               </div>
             </div>
 

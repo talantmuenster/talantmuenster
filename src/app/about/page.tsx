@@ -17,35 +17,19 @@ export default function About() {
     image: string;
     skills?: string[];
   };
-  const fallbackMembers = useMemo(
-    (): TeamMember[] => [
+  // Fallback team members if remoteTeam is not loaded
+  const fallbackMembers = useMemo<TeamMember[]>(
+    () => [
       {
         name: { ru: 'Анна Фёдорова', en: 'Anna Fedorova', de: 'Anna Fedorowa' },
         role: { ru: t("team.role.music"), en: "Music Teacher", de: "Musiklehrerin" },
         image: "/team/anna-1.png",
         skills: ['Музыка', 'Вокал'],
       },
-      {
-        name: { ru: 'Анна Фёдорова', en: 'Anna Fedorova', de: 'Anna Fedorowa' },
-        role: { ru: t("team.role.music"), en: "Music Teacher", de: "Musiklehrerin" },
-        image: "/team/anna-2.png",
-        skills: ['Композиция'],
-      },
-      {
-        name: { ru: 'Анна Фёдорова', en: 'Anna Fedorova', de: 'Anna Fedorowa' },
-        role: { ru: t("team.role.music"), en: "Music Teacher", de: "Musiklehrerin" },
-        image: "/team/anna-3.png",
-        skills: ['Пианино', 'Теория'],
-      },
-      {
-        name: { ru: 'Анна Фёдорова', en: 'Anna Fedorova', de: 'Anna Fedorowa' },
-        role: { ru: t("team.role.music"), en: "Music Teacher", de: "Musiklehrerin" },
-        image: "/team/anna-4.png",
-        skills: ['Скрипка'],
-      },
     ],
     [t]
   );
+
   const [remoteTeam, setRemoteTeam] = useState<TeamMember[] | null>(null);
 
   useEffect(() => {
@@ -62,18 +46,15 @@ export default function About() {
               typeof member === "object" && member !== null
             )
             .map((member) => {
-              const name = typeof member.name === "object" && member.name 
-                ? member.name 
+              const name: { ru: string; en: string; de: string } = typeof member.name === "object" && member.name
+                ? (member.name as { ru: string; en: string; de: string })
                 : { ru: '', en: '', de: '' };
-              const role = typeof member.role === "object" && member.role 
-                ? member.role 
+              const role: { ru: string; en: string; de: string } = typeof member.role === "object" && member.role
+                ? (member.role as { ru: string; en: string; de: string })
                 : { ru: '', en: '', de: '' };
-              return {
-                name,
-                role,
-                image: typeof member.image === "string" ? member.image : "",
-                skills: Array.isArray(member.skills) ? member.skills : [],
-              };
+              const image = typeof member.image === "string" ? member.image : "";
+              const skills = Array.isArray(member.skills) ? member.skills : [];
+              return { name, role, image, skills } as TeamMember;
             });
 
           if (mapped.length > 0) {
@@ -88,10 +69,14 @@ export default function About() {
     fetchTeam();
   }, []);
 
-  const teamMembers = remoteTeam ?? fallbackMembers;
+
+
+  // Use remoteTeam if loaded, otherwise fallbackMembers
+  const teamMembers = remoteTeam && remoteTeam.length > 0 ? remoteTeam : fallbackMembers;
 
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Ссылка на публикацию в правом верхнем углу */}
       <main className="flex-1">
         <HeroSection
           breadcrumbs={[
