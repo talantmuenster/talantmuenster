@@ -1,193 +1,233 @@
 'use client';
 
-import React, { useState } from "react";
-
-type Lang = 'ru' | 'en' | 'de';
-
-const policies: Record<Lang, string> = {
-  ru: `# Политика конфиденциальности
-
-Дата вступления в силу: 01.03.2026
-
-## 1. Общие положения
-Настоящая Политика конфиденциальности определяет порядок обработки и защиты персональных данных пользователей сайта talantmuenster.ru (далее — «Сайт»), а также права пользователей в соответствии с Федеральным законом РФ №152-ФЗ «О персональных данных» и Общим регламентом по защите данных (GDPR).
-
-## 2. Какие данные мы собираем
-Мы собираем только те данные, которые вы добровольно предоставляете через формы на сайте:
-- Адрес электронной почты (для подписки на новости)
-- Имя, e-mail, сообщение (при отправке через форму обратной связи)
-- Техническая информация: IP-адрес, cookies, данные о браузере и устройстве (автоматически, для аналитики и безопасности)
-
-## 3. Цели обработки данных
-Ваши персональные данные используются исключительно для:
-- Отправки новостных и информационных рассылок (с вашего согласия)
-- Ответа на ваши обращения через форму обратной связи
-- Улучшения работы сайта и пользовательского опыта (аналитика)
-- Соблюдения требований законодательства
-
-## 4. Правовые основания обработки
-- Ваше согласие (ст. 6 ФЗ-152, ст. 6 GDPR)
-- Выполнение договора (например, предоставление услуги подписки)
-- Законные интересы (например, обеспечение безопасности сайта)
-
-## 5. Хранение и защита данных
-- Данные хранятся на защищённых серверах, доступ к которым имеют только уполномоченные лица.
-- Мы принимаем все разумные меры для защиты ваших данных от несанкционированного доступа, изменения, раскрытия или уничтожения.
-
-## 6. Передача данных третьим лицам
-- Мы не передаём ваши персональные данные третьим лицам, за исключением случаев, предусмотренных законом или необходимых для выполнения сервиса (например, сервисы рассылки, хостинг-провайдеры).
-- Все такие сервисы соответствуют требованиям GDPR и ФЗ-152.
-
-## 7. Cookies и аналитика
-- Сайт может использовать cookies и сторонние сервисы аналитики (например, Google Analytics) для сбора обезличенных данных о посещениях.
-- Вы можете отключить cookies в настройках вашего браузера.
-
-## 8. Права пользователя
-Вы имеете право:
-- Запросить доступ к своим персональным данным
-- Требовать их исправления, удаления или ограничения обработки
-- Отозвать согласие на обработку данных в любой момент
-- Подать жалобу в надзорный орган (Роскомнадзор или соответствующий орган ЕС)
-
-Для реализации своих прав вы можете связаться с нами по адресу: [ваш e-mail или форма обратной связи на сайте].
-
-## 9. Согласие
-Отправляя свои данные через формы на сайте, вы подтверждаете согласие с данной Политикой и разрешаете обработку ваших персональных данных.
-
-## 10. Изменения политики
-Мы можем время от времени обновлять настоящую Политику. Актуальная версия всегда доступна на этой странице.
-`,
-  en: `# Privacy Policy
-
-Effective date: 01.03.2026
-
-## 1. General Provisions
-This Privacy Policy describes how personal data of users of talantmuenster.ru (the "Site") is processed and protected, and outlines your rights in accordance with Russian Federal Law No. 152-FZ "On Personal Data" and the General Data Protection Regulation (GDPR).
-
-## 2. What Data We Collect
-We only collect data you voluntarily provide via forms on the site:
-- Email address (for newsletter subscription)
-- Name, e-mail, message (when using the contact form)
-- Technical information: IP address, cookies, browser and device data (automatically, for analytics and security)
-
-## 3. Purposes of Data Processing
-Your personal data is used exclusively for:
-- Sending newsletters and informational mailings (with your consent)
-- Responding to your inquiries via the contact form
-- Improving the website and user experience (analytics)
-- Compliance with legal requirements
-
-## 4. Legal Basis for Processing
-- Your consent (Art. 6 of 152-FZ, Art. 6 GDPR)
-- Performance of a contract (e.g., providing subscription services)
-- Legitimate interests (e.g., ensuring website security)
-
-## 5. Data Storage and Protection
-- Data is stored on secure servers accessible only to authorized personnel.
-- We take all reasonable measures to protect your data from unauthorized access, alteration, disclosure, or destruction.
-
-## 6. Data Transfer to Third Parties
-- We do not transfer your personal data to third parties, except as required by law or necessary for service provision (e.g., mailing services, hosting providers).
-- All such services comply with GDPR and 152-FZ requirements.
-
-## 7. Cookies and Analytics
-- The site may use cookies and third-party analytics services (e.g., Google Analytics) to collect anonymized visit data.
-- You can disable cookies in your browser settings.
-
-## 8. User Rights
-You have the right to:
-- Request access to your personal data
-- Request correction, deletion, or restriction of processing
-- Withdraw consent to data processing at any time
-- File a complaint with a supervisory authority (Roskomnadzor or the relevant EU authority)
-
-To exercise your rights, contact us at: [your e-mail or contact form on the site].
-
-## 9. Consent
-By submitting your data via forms on the site, you confirm your consent to this Policy and authorize the processing of your personal data.
-
-## 10. Policy Changes
-We may update this Policy from time to time. The current version is always available on this page.
-`,
-  de: `# Datenschutzrichtlinie
-
-Gültig ab: 01.03.2026
-
-## 1. Allgemeine Bestimmungen
-Diese Datenschutzrichtlinie beschreibt, wie personenbezogene Daten der Nutzer von talantmuenster.ru (im Folgenden "Website") verarbeitet und geschützt werden und erläutert Ihre Rechte gemäß dem russischen Bundesgesetz Nr. 152-FZ "Über personenbezogene Daten" sowie der Datenschutz-Grundverordnung (DSGVO).
-
-## 2. Welche Daten wir erheben
-Wir erheben nur die Daten, die Sie freiwillig über Formulare auf der Website bereitstellen:
-- E-Mail-Adresse (für den Newsletter)
-- Name, E-Mail, Nachricht (bei Nutzung des Kontaktformulars)
-- Technische Informationen: IP-Adresse, Cookies, Browser- und Gerätedaten (automatisch, für Analyse und Sicherheit)
-
-## 3. Zwecke der Datenverarbeitung
-Ihre personenbezogenen Daten werden ausschließlich verwendet für:
-- Versand von Newslettern und Informationsmaterial (mit Ihrer Einwilligung)
-- Beantwortung Ihrer Anfragen über das Kontaktformular
-- Verbesserung der Website und Nutzererfahrung (Analyse)
-- Einhaltung gesetzlicher Anforderungen
-
-## 4. Rechtsgrundlagen der Verarbeitung
-- Ihre Einwilligung (Art. 6 des 152-FZ, Art. 6 DSGVO)
-- Vertragserfüllung (z.B. Bereitstellung von Abonnementdiensten)
-- Berechtigte Interessen (z.B. Gewährleistung der Sicherheit der Website)
-
-## 5. Speicherung und Schutz der Daten
-- Die Daten werden auf sicheren Servern gespeichert, auf die nur autorisiertes Personal Zugriff hat.
-- Wir ergreifen alle angemessenen Maßnahmen, um Ihre Daten vor unbefugtem Zugriff, Änderung, Offenlegung oder Zerstörung zu schützen.
-
-## 6. Weitergabe von Daten an Dritte
-- Wir geben Ihre personenbezogenen Daten nicht an Dritte weiter, außer wenn dies gesetzlich vorgeschrieben ist oder zur Erbringung von Dienstleistungen erforderlich ist (z.B. Newsletter-Dienste, Hosting-Anbieter).
-- Alle diese Dienste entsprechen den Anforderungen der DSGVO und des 152-FZ.
-
-## 7. Cookies und Analyse
-- Die Website kann Cookies und Dienste von Drittanbietern (z.B. Google Analytics) verwenden, um anonymisierte Besucherdaten zu erfassen.
-- Sie können Cookies in den Einstellungen Ihres Browsers deaktivieren.
-
-## 8. Rechte der Nutzer
-Sie haben das Recht:
-- Zugang zu Ihren personenbezogenen Daten zu verlangen
-- Berichtigung, Löschung oder Einschränkung der Verarbeitung zu verlangen
-- Ihre Einwilligung zur Datenverarbeitung jederzeit zu widerrufen
-- Eine Beschwerde bei der Aufsichtsbehörde (Roskomnadzor oder der zuständigen EU-Behörde) einzureichen
-
-Zur Ausübung Ihrer Rechte kontaktieren Sie uns bitte unter: [Ihre E-Mail-Adresse oder Kontaktformular auf der Website].
-
-## 9. Einwilligung
-Durch das Absenden Ihrer Daten über Formulare auf der Website bestätigen Sie Ihr Einverständnis mit dieser Richtlinie und erlauben die Verarbeitung Ihrer personenbezogenen Daten.
-
-## 10. Änderungen der Richtlinie
-Wir können diese Richtlinie von Zeit zu Zeit aktualisieren. Die aktuelle Version ist immer auf dieser Seite verfügbar.
-`,
-};
-
-const langs: { code: Lang; label: string }[] = [
-  { code: "ru", label: "Русский" },
-  { code: "en", label: "English" },
-  { code: "de", label: "Deutsch" },
-];
+import React from 'react';
 
 export default function PrivacyPolicyPage() {
-  const [lang, setLang] = useState<Lang>("ru");
   return (
-    <div className="max-w-3xl mx-auto py-12 px-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">Политика конфиденциальности / Privacy Policy / Datenschutz</h1>
-      <div className="flex gap-2 justify-center mb-6">
-        {langs.map(l => (
-          <button
-            key={l.code}
-            className={`px-4 py-2 rounded border ${lang === l.code ? 'bg-blue-600 text-white' : 'bg-white text-blue-600 border-blue-600'}`}
-            onClick={() => setLang(l.code)}
-          >
-            {l.label}
-          </button>
-        ))}
-      </div>
-      <div className="prose max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: policies[lang].replace(/\n/g, '<br/>' ) }} />
-      </div>
-    </div>
+    <main style={{ maxWidth: 900, margin: '0 auto', padding: '40px 20px' }}>
+      <h1 style={{ fontSize: '28px', fontWeight: 700, marginBottom: 24 }}>
+        Политика конфиденциальности конкурса «Конкурс новогодних игрушек-2025»
+      </h1>
+
+      <p>
+        Настоящая Политика конфиденциальности описывает, какие персональные данные мы
+        собираем и обрабатываем в рамках участия в конкурсе «Конкурс новогодних игрушек-2025»,
+        а также как мы защищаем эти данные и какие права есть у участников.
+      </p>
+
+      <h2>1. Ответственный за обработку данных</h2>
+      <p>
+        Ответственным (Controller) в смысле Общего регламента ЕС по защите данных (GDPR) и
+        Федерального закона Германии о защите данных (BDSG) является:
+      </p>
+      <p>
+        <strong>[Название организации / физическое лицо]</strong><br />
+        [Юридический адрес / почтовый адрес]<br />
+        Эл. почта: <a href="mailto:[email@example.com]">[email@example.com]</a><br />
+        Телефон: [номер телефона]
+      </p>
+
+      <h2>2. Какие данные мы обрабатываем</h2>
+      <p>В рамках подачи заявки через форму конкурса мы обрабатываем следующие данные:</p>
+      <ul>
+        <li>ФИО участника</li>
+        <li>Возраст</li>
+        <li>Населённый пункт и страна</li>
+        <li>Номинация конкурса</li>
+        <li>Название работы</li>
+        <li>Адрес электронной почты</li>
+        <li>Загруженные файлы (фотографии/изображения конкурсной работы)</li>
+        <li>Технические данные при использовании сайта (IP-адрес, дата и время запроса,
+          данные об устройстве и браузере, файлы cookie — в объёме, необходимом для
+          отображения сайта и защиты от злоупотреблений)</li>
+      </ul>
+
+      <h2>3. Цели обработки данных</h2>
+      <p>Мы обрабатываем ваши данные для следующих целей:</p>
+      <ul>
+        <li>приём и регистрация заявок на конкурс;</li>
+        <li>связь с вами по вопросам участия, уточнения информации и результатов конкурса;</li>
+        <li>организация и проведение конкурса, оценка работ жюри;</li>
+        <li>публикация информации о победителях (см. ниже);</li>
+        <li>обеспечение работы сайта и информационной безопасности.</li>
+      </ul>
+
+      <h2>4. Правовые основания обработки</h2>
+      <p>Обработка ваших персональных данных осуществляется на следующих правовых основаниях:</p>
+      <ul>
+        <li>
+          <strong>Статья 6 (1) (a) GDPR – согласие</strong>: вы добровольно предоставляете данные
+          при заполнении формы и подтверждаете согласие с данной Политикой конфиденциальности.
+        </li>
+        <li>
+          <strong>Статья 6 (1) (b) GDPR – исполнение договора</strong>: обработка данных
+          необходима для выполнения условий участия в конкурсе.
+        </li>
+        <li>
+          <strong>Статья 6 (1) (f) GDPR – законный интерес</strong>: обеспечение работы сайта,
+          предотвращение злоупотреблений и защита наших прав.
+        </li>
+      </ul>
+
+      <h2>5. Передача данных третьим лицам и обработчики</h2>
+      <p>
+        Для технической обработки и хранения данных мы можем привлекать сторонних
+        поставщиков услуг (например, хостинг-провайдеров, почтовые сервисы, сервисы
+        отправки уведомлений / мессенджеры).
+      </p>
+      <p>
+        Такие поставщики действуют как <em>обработчики данных</em> (processors) по договору в
+        соответствии со статьёй 28 GDPR и обязуются обрабатывать данные только по нашим
+        инструкциям и с соблюдением требований по защите данных.
+      </p>
+      <p>
+        В частности, данные заявки могут передаваться:
+      </p>
+      <ul>
+        <li>хостинг-провайдеру для хранения и обработки форм;</li>
+        <li>почтовому сервису для отправки уведомлений;</li>
+        <li>членам жюри/организаторам конкурса для оценки работ;</li>
+        <li>
+          при использовании мессенджера (например, Telegram) – в соответствующий сервис для
+          доставки сообщения организатору. Обратите внимание, что такие сервисы могут
+          находиться за пределами ЕС/ЕЭЗ.
+        </li>
+      </ul>
+
+      <h2>6. Передача данных в третьи страны</h2>
+      <p>
+        Если обработка или хранение данных осуществляется с использованием сервисов, расположенных
+        за пределами Европейского союза или Европейской экономической зоны (например, облачные
+        сервисы или мессенджеры), мы обеспечиваем соблюдение требований GDPR, в частности:
+      </p>
+      <ul>
+        <li>
+          обработка происходит в странах с надлежащим уровнем защиты данных, признанным
+          Европейской комиссией, или
+        </li>
+        <li>
+          заключены стандартные договорные положения ЕС (Standard Contractual Clauses) или
+          предусмотрены другие соответствующие гарантии.
+        </li>
+      </ul>
+      <p>
+        Тем не менее, мы обращаем внимание, что при использовании некоторых международных
+        сервисов (например, отдельных мессенджеров) может существовать повышенный риск доступа
+        к данным со стороны государственных органов третьих стран.
+      </p>
+
+      <h2>7. Сроки хранения</h2>
+      <p>
+        Мы храним ваши персональные данные только столько, сколько это необходимо для достижения
+        указанных выше целей:
+      </p>
+      <ul>
+        <li>
+          данные, связанные с участием в конкурсе (заявки, контактные данные, файлы работ),
+          обычно хранятся до завершения конкурса и периода возможных претензий/отчётности
+          (как правило, до <strong>[указать срок, например 12 месяцев]</strong> после окончания конкурса),
+        </li>
+        <li>
+          данные, связанные с бухгалтерским учётом/отчётностью, хранятся в соответствии с
+          законодательством (например, до 10 лет по правилам налогового учёта Германии),
+        </li>
+        <li>
+          лог-файлы и технические данные сайта хранятся в течение короткого срока, необходимого
+          для обеспечения безопасности и функционирования (обычно до 30 дней), если более длительное
+          хранение не требуется для расследования инцидентов.
+        </li>
+      </ul>
+      <p>
+        После истечения соответствующих сроков хранения данные удаляются или обезличиваются.
+      </p>
+
+      <h2>8. Публикация информации о победителях</h2>
+      <p>
+        При необходимости мы можем публиковать информацию о победителях конкурса (например, имя,
+        возраст/возрастную категорию, населённый пункт, название работы и изображение работы)
+        на нашем сайте и/или в социальных сетях.
+      </p>
+      <p>
+        Объём публикуемых данных будет ограничен минимально необходимым и, по возможности,
+        согласован с участником или его законным представителем.
+      </p>
+
+      <h2>9. Обработка данных детей и несовершеннолетних</h2>
+      <p>
+        Если участник конкурса является несовершеннолетним по законодательству своей страны
+        или по законодательству Германии, подача заявки должна осуществляться с согласия
+        родителей или законных представителей. Предоставляя данные, вы подтверждаете, что
+        обладаете соответствующими правами и согласием.
+      </p>
+
+      <h2>10. Ваши права как субъекта данных</h2>
+      <p>В соответствии с GDPR у вас есть следующие права в отношении ваших персональных данных:</p>
+      <ul>
+        <li>право на доступ к своим данным (ст. 15 GDPR);</li>
+        <li>право на исправление неточных данных (ст. 16 GDPR);</li>
+        <li>право на удаление данных («право быть забытым», ст. 17 GDPR);</li>
+        <li>право на ограничение обработки (ст. 18 GDPR);</li>
+        <li>право на переносимость данных (ст. 20 GDPR);</li>
+        <li>
+          право возражать против обработки данных (ст. 21 GDPR), в том числе против обработки,
+          основанной на законных интересах;
+        </li>
+        <li>
+          право отозвать своё согласие в любое время с действием на будущее (ст. 7 GDPR).
+          Отзыв согласия не затрагивает законность обработки, осуществлённой до отзыва.
+        </li>
+      </ul>
+      <p>
+        Для реализации этих прав вы можете связаться с нами по контактам, указанным в разделе 1.
+      </p>
+
+      <h2>11. Право подать жалобу в надзорный орган</h2>
+      <p>
+        Если вы считаете, что обработка ваших персональных данных нарушает действующее
+        законодательство о защите данных, вы имеете право подать жалобу в надзорный орган
+        по защите данных в стране вашего проживания или по месту нахождения ответственного.
+      </p>
+      <p>
+        В Германии компетентным органом является, в частности, местный Landesbeauftragte
+        für den Datenschutz соответствующей федеральной земли, а также:
+      </p>
+      <p>
+        <strong>Der Bundesbeauftragte für den Datenschutz und die Informationsfreiheit (BfDI)</strong><br />
+        Graurheindorfer Straße 153<br />
+        53117 Bonn, Deutschland<br />
+        Веб-сайт: <a href="https://www.bfdi.bund.de" target="_blank" rel="noreferrer">
+          https://www.bfdi.bund.de
+        </a>
+      </p>
+
+      <h2>12. Файлы cookie и лог-файлы</h2>
+      <p>
+        При посещении нашего сайта могут использоваться файлы cookie и формироваться лог-файлы
+        сервера. Это необходимо для корректного отображения сайта, обеспечения безопасности и
+        статистического анализа посещаемости. При необходимости мы предоставим отдельное
+        уведомление/баннер о cookie с подробной информацией и возможностью выбора.
+      </p>
+
+      <h2>13. Обязанность предоставлять данные</h2>
+      <p>
+        Предоставление персональных данных, отмеченных как обязательные поля в форме (ФИО,
+        возраст, населённый пункт, номинация, название работы, электронная почта и файлы работы)
+        является необходимым для участия в конкурсе. Без этих данных участие, к сожалению,
+        невозможно.
+      </p>
+
+      <h2>14. Обновление настоящей Политики</h2>
+      <p>
+        Мы можем время от времени обновлять данную Политику конфиденциальности, чтобы
+        отражать изменения законодательства или процессов обработки данных. Актуальная версия
+        всегда доступна на этой странице.
+      </p>
+
+      <p style={{ marginTop: 40, fontSize: 14, opacity: 0.8 }}>
+        Последнее обновление: [дата]
+        <br />
+        Важно: данный текст является образцом и не заменяет индивидуальную юридическую консультацию.
+      </p>
+    </main>
   );
 }
