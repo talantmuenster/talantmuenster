@@ -4,55 +4,55 @@
     "news": "NEWS",
     "events": "EVENTS",
     "about": "ABOUT US",
-    "contact": "Contact",
-    "langchange": "Change language"
+    "contact": "Contacts",
+    "langchange": "Change Language"
   },
-  "home":{
+  "home": {
     "hero": {
       "title": "Intercultural Center for Children, Youth, and Families",
       "description": "We foster creativity, communication, and cultural diversity, because every talent deserves to be discovered",
       "learnMore": "Learn more",
-      "stat1Title": "9 Programs",
+      "stat1Title": "9 programs",
       "stat1Subtitle": "for education",
-      "stat2Title": "5 Events",
+      "stat2Title": "5 events",
       "stat2Subtitle": "per month",
       "stat3Title": "Online registration",
       "stat3Subtitle": "for courses"
     },
-    "programs":{
+    "programs": {
       "title1": "Development",
-        "title2": "programmes",
-      "music":"Music",
+      "title2": "programs",
+      "music": "Music",
       "dance": "Dance",
       "art": "Art",
-      "language": "Language",
-      "it": "Computer Science",
+      "language": "Languages",
+      "it": "IT",
       "math": "Mathematics",
       "sports": "Sports",
       "social": "Social",
-      "other": "See more"
+      "other": "See all"
     },
     "whyChoose": {
       "title": "Why choose",
       "titleBrand": "TALANT E.V?",
-      "subtitle": "Officially recognized support, a professional approach, and openness",
+      "subtitle": "Officially recognized support, professional approach, and openness",
       "feature1": "We are an open space for people of all generations and cultures",
-      "feature2": "We are a recognized organization in the field of child and youth support in accordance with § 75 SGB VIII",
-      "feature3": "We bring people together, discover talents, and promote personal development",
+      "feature2": "We are a recognized organization in the field of child and youth support according to § 75 SGB VIII",
+      "feature3": "We bring people together, unlock talents, and promote personal development",
       "feature4": "We strive to help people find their place in a new culture and integrate into society without losing their roots and spiritual heritage"
     },
     "howWeHelp": {
       "title": "How we can",
       "titleHighlight": "help",
       "subtitle": "You can rely on our support and experience",
-      "category1Title": "Documents and consultations",
-      "category1Item1": "Support with official documents",
-      "category1Item2": "Explanation of procedures and requirements",
-      "category1Item3": "Assistance in communication with institutions",
-      "category2Title": "Translation and communication",
+      "category1Title": "Documents and Consultations",
+      "category1Item1": "Assistance with official documents",
+      "category1Item2": "Clarification of procedures and requirements",
+      "category1Item3": "Support in communicating with institutions",
+      "category2Title": "Translation and Communication",
       "category2Item1": "Translation of documents and business correspondence",
       "category2Item2": "Support with speech and language difficulties",
-      "category3Title": "Educational support",
+      "category3Title": "Educational Support",
       "category3Item1": "Tutoring in all school subjects",
       "category3Item2": "Consultations for parents and students",
       "category3Item3": "Individual exam preparation sessions",
@@ -61,19 +61,23 @@
     "upcomingEvents": {
       "title": "Upcoming",
       "title1": "events",
-      "subtitle": "Join us and discover new opportunities for development and communication",
-      "registration": "Register now",
-      "other": "See more",
-      "other1": " More"
+      "subtitle": "Join us and discover new opportunities for growth and communication",
+      "registration": "Register",
+      "other": "See all",
+      "other1": "More",
+      "empty": "Events coming soon",
+      "loading": "Loading events..."
     },
-    "subscribe":{ 
-      "title":"Subscribe and stay up to date",
-    "subtitle":"all events",
-    "description":"Be the first to know about our new projects, workshops, and meetings",
-    "subscribe":"Subscribe",
-    "mail":"Enter your email",
-    "successMessage":"Thank you! You have subscribed.",
-    "errorMessage":"Subscription error. Please try again."
+    "subscribe": {
+      "title": "Subscribe to stay informed",
+      "subtitle": "all events",
+      "description": "Be the first to know about our new projects, workshops, and meetings",
+      "subscribe": "Subscribe",
+      "mail": "Enter your email",
+      "successMessage": "Thank you! You have successfully subscribed.",
+      "errorMessage": "Subscription error. Please try again.",
+      "policyText": "I agree to the processing of my data in accordance with the",
+      "privacyPolicy": "Privacy Policy"
     }
   },
   "about": {
@@ -81,78 +85,74 @@
       "home": "Home",
       "about": "About us"
     },
-
     "hero": {
       "title": {
-        "before": "For more than ten years TALANT E.V has been helping children and adults",
+        "before": "For over ten years, TALANT E.V has been helping children and adults",
         "highlight": "develop",
         "after": "their abilities"
       },
-      "subtitle": "Our motto “Awaken your talent!” is a call to discover, develop and share your abilities."
+      "subtitle": "Our motto \"Awaken your talent!\" is a call to discover, develop, and share your abilities."
     },
-
     "programs": {
       "title": {
         "before": "Diverse programs for",
         "highlight": "development and support"
       },
-      "text": "We offer a wide range of educational, creative and social programs for children, teenagers and families.",
+      "text": "We offer a wide range of educational, creative, and social programs for children, teenagers, and families.",
       "stats": {
-        "directions": "directions",
+        "directions": "fields",
         "courses": "courses",
         "students": "students"
       }
     },
-
     "cooperation": {
       "title": {
-        "highlight": "We develop cooperation",
+        "highlight": "We expand cooperation",
         "after": "beyond Münster"
       },
-      "text": "We promote intercultural meetings, exchange and cooperation between young people from different countries."
+      "text": "We promote intercultural meetings, exchange, and cooperation between young people from different countries."
     },
-
     "project": {
       "title": {
         "before": "Our project —",
-        "highlight": "the “Bridge” newspaper"
+        "highlight": "the \"Bridge\" newspaper"
       },
-      "text": "The project supports dialogue and cultural exchange among young people."
+      "text": "The project supports dialogue and cultural exchange among youth."
     },
-
     "team": {
-      "title1" : "Our",
-      "title2" : "team",
+      "title1": "Our",
+      "title2": "team",
       "role": {
-        "music": "Music teacher"
-      }
+        "music": "Music Teacher"
+      },
+      "empty": "Team list is being updated",
+      "loading": "Loading team..."
     },
     "faq": {
-      "title": "Frequently ",
-      "title1": "asked questions",
+      "title": "Frequently asked",
+      "title1": "questions",
       "items": {
         "1": {
-          "title": "How can I register for a course?",
+          "title": "How can I sign up for a course?",
           "answer": "You can register via the form on our website or by contacting us directly."
         },
         "2": {
-          "title": "Where do the courses take place?",
-          "answer": "Courses are held on-site and online, including outside of Münster."
+          "title": "Where do the classes take place?",
+          "answer": "Courses are held both in-person and online, including locations outside of Münster."
         },
         "3": {
-          "title": "What kind of support can I receive?",
-          "answer": "We provide educational, creative and social support."
+          "title": "What kind of help can I receive?",
+          "answer": "We provide educational, creative, and social support."
         },
         "4": {
-          "title": "How does support with official documents work?",
-          "answer": "We provide consultation and assistance with the preparation of official documents."
+          "title": "How does the official document assistance work?",
+          "answer": "We provide consultations and help with the preparation of official paperwork."
         }
       }
     },
-
     "cta": {
-      "title": "Would you like to participate, cooperate or support us?",
-      "subtitle": "We are open to new ideas, teams and creative partners.",
+      "title": "Want to participate, collaborate, or support us?",
+      "subtitle": "We are open to new ideas, teams, and creative partners.",
       "button": "Contact us"
     }
   },
@@ -166,7 +166,7 @@
         "before": "Our",
         "highlight": "project"
       },
-      "subtitle": "We actively participate in international partnerships outside Münster and promote intercultural encounters, exchange, and cooperation between young people from different countries—through culture, education, art, and sports."
+      "subtitle": "We actively participate in international partnerships beyond Münster and promote intercultural meetings, exchange, and youth cooperation from different countries through culture, education, art, and sports."
     }
   },
   "news": {
@@ -174,13 +174,12 @@
       "home": "Home",
       "news": "News"
     },
-
     "hero": {
       "title": {
-        "before": "News",
+        "before": "Latest",
         "highlight": "news"
       },
-      "subtitle": "A brief description of the news to give a little background on what happened there. A brief description of the news to give a little background on what happened there."
+      "subtitle": "A brief overview of news to give a small insight into what has happened. Short descriptions for context."
     }
   },
   "document": {
@@ -188,23 +187,22 @@
       "home": "Home",
       "documents": "Documents and Publications"
     },
-
     "hero": {
       "title": {
         "before": "Documents and",
         "highlight": "publications"
       },
-      "subtitle": "At our center, children, teenagers, and families can express themselves, learn new things, and develop in various ways.",
+      "subtitle": "In our center, children, teenagers, and families can express themselves, learn something new, and grow in various directions.",
       "certificate": "Certificate",
       "publication": "Publication",
       "download": "Download",
       "view": "View",
-      "empty": "Documents will be available soon"
+      "empty": "Documents coming soon"
     }
   },
   "courses": {
-    "title": "Select",
-    "title2": "direction", 
+    "title": "Choose a",
+    "title2": "direction",
     "breadcrumbs": {
       "home": "Home",
       "programs": "Programs",
@@ -214,31 +212,43 @@
       "title": {
         "before": "Programs"
       },
-      "subtitle": "We offer a wide range of educational, creative and social programs for children, teenagers and families.",
+      "subtitle": "We offer a wide range of educational, creative, and social programs for children, teenagers, and families.",
       "register": "Register now"
     },
-    "SectionTitle": "Our programmes focus on education, creative development and",
-    "SectionTitle2": "support for children, teenagers and families in an intercultural environment.",
+    "SectionTitle": "Our programs are aimed at education, creative development, and",
+    "SectionTitle2": "support for children, teenagers, and families in an intercultural environment.",
+    "schedule": {
+      "title": "Schedule"
+    },
+    "days": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    },
     "selectcr": "Select a course",
     "address": "Address",
-    "schedule": "Schedule",
-    "duration": "Duration of the lesson",
-    "price": "Cost per session",
-    "ctaLabel": "Register for the course",
+    "duration": "Lesson duration",
+    "price": "Price per lesson",
+    "ctaLabel": "Enroll in the course",
     "teachers": "Teachers",
     "relatprogtitl1": "See also other",
     "relatprogtitl2": "programs",
     "apple": {
       "title": "How to participate?",
-      "selection": "Select the area of interest",
+      "selection": "Choose the direction you are interested in",
       "selection1": "Contact us via the feedback form",
-      "selection2": "Register for a course or event ",
-      "selectbtb": "Select a course"
-    }
-
+      "selection2": "Register for a course or event",
+      "selectbtb": "Select course"
+    },
+          "hours": "hours",
+      "euro": "euro"
   },
-  "events":{
-     "breadcrumbs": {
+  "events": {
+    "breadcrumbs": {
       "home": "Home",
       "events": "Events",
       "course": "Course"
@@ -247,57 +257,64 @@
       "title": {
         "before": "Events"
       },
-      "subtitle": "We offer a wide range of educational, creative and social programs for children, teenagers and families."
-    
-  }
-},
-"contactsus": {
-  "breadcrumbs": {
-    "home": "Home",
-    "contact": "Contact us"
+      "subtitle": "We offer a wide selection of educational, creative, and social programs for children, teenagers, and families."
+    },
+    "upcomingEvents": {
+      "title": "Upcoming",
+      "title1": "events",
+      "subtitle": "Join us and discover new opportunities for development and communication",
+      "registration": "Register",
+      "other": "See all",
+      "other1": "More",
+      "empty": "Events coming soon",
+      "loading": "Loading events..."
+    }
   },
-  "title": "Contact us by ",
-  "title1": "any convenient way",
-  "description": "We are here to assist you! Whether you have a question about our services, need advice, or would like to leave feedback, our team is ready to help.",
-  "address": "Address",
-  "email": "Email",
-  "phone": "Phone",
-  "message": "Message",
-  "officeAddress": "Office and mailing address",
-  "coursesAndEvents": "Courses and events",
-   
-  "form": {
-    "name": "Your name",
-    "email": "Your email",
-    "message": "Your message",
-    "submit": "Send message",
-    "consentText": "I agree to the processing of my data in accordance with the",
-    "privacyPolicy": "Privacy Policy",
-    "registForEvent": "Register for the event",
+  "contactsus": {
+    "breadcrumbs": {
+      "home": "Home",
+      "contact": "Contact us"
+    },
+    "title": "Contact us",
+    "title1": "in any convenient way",
+    "description": "We are here to help you! If you have questions about our services, need advice, or want to leave feedback, our team is ready to assist.",
+    "address": "Address",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "officeAddress": "Office and mailing address",
+    "coursesAndEvents": "Courses and Events",
+    "form": {
+      "name": "Your name",
+      "email": "Your email",
+      "message": "Your message",
+      "submit": "Send message",
+      "consentText": "I agree to the processing of my data in accordance with the",
+      "privacyPolicy": "Privacy Policy",
+      "registForEvent": "Register for an event",
+      "events": "Events",
+      "message1": "Message",
+      "submitcourse": "Enroll in the course"
+    }
+  },
+  "footer": {
+    "address": "Heinrich-Ebel-Str. 48, 48161 Münster",
+    "news": "News",
     "events": "Events",
-   "message1": "Message",
-    "submitcourse": "Register for the course"
-
-  }
-},
-"footer": {
-  "address": "Heinrich-Ebel-Str. 48, 48161 Münster",
-  "news": "News",
-  "events": "Events",
-  "documents": "Documents and Publications",
-  "projects": "Projects",
-  "about": "About Us",
-  "email": "talantmuenster@gmail.com",
-  "phone": "+49 176 64217368",
-  "contactUs": "Contact Us",
-  "copyright": "© 2025 Talant E.V.",
-  "privacy": "Privacy Policy",
-  "cookies": "Cookie Policy"
-},
+    "documents": "Documents & Publications",
+    "projects": "Projects",
+    "about": "About us",
+    "email": "talantmuenster@gmail.com",
+    "phone": "+49 176 64217368",
+    "contactUs": "Contact us",
+    "copyright": "© 2025 Talant E.V.",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy"
+  },
   "notFound": {
     "title": "Page under construction",
-    "description": "We are currently working on this section. Please check back soon.",
-    "home": "Go to home",
-    "back": "Go back"
+    "description": "We are working on this section. Please check back later.",
+    "home": "To Home",
+    "back": "Back"
   }
 }

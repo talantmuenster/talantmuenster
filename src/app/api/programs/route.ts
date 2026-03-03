@@ -13,13 +13,20 @@ export async function GET(request: Request) {
     }
 
     const snapshot = await query.get();
+    console.log('📚 Programs API - Documents found:', snapshot.size);
+    
     const programs = snapshot.docs
       .map((doc) => ({ id: doc.id, ...doc.data() }))
-      .filter((program: any) =>
-        program.published === true || program.published === 'true' || program.published === 1
-      );
+      .filter((program: any) => {
+        const isPublished = program.published === true || program.published === 'true' || program.published === 1;
+        console.log(`Program ${program.slug}: published=${program.published}, isPublished=${isPublished}`);
+        return isPublished;
+      });
+    
+    console.log('📚 Programs API - Returning programs:', programs.length);
     return NextResponse.json(programs);
   } catch (err: any) {
+    console.error('❌ Programs API error:', err.message);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }

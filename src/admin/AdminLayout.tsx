@@ -51,7 +51,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       } catch (err) {
         console.error('Logout failed', err);
       } finally {
-        window.location.href = '/admin/login';
+        window.location.href = '/login';
       }
     },
     enabled: true,
@@ -207,10 +207,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             onClick={async () => {
               try {
                 await fetch('/api/admin/logout', { method: 'POST', credentials: 'include' });
-                window.location.href = '/admin/login';
+                window.location.href = '/login';
               } catch (err) {
                 console.error('Logout failed', err);
-                window.location.href = '/admin/login';
+                window.location.href = '/login';
               }
             }}
             style={{

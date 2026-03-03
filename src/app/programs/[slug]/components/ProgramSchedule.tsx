@@ -3,63 +3,71 @@
 import { useMemo, useState } from 'react';
 import { Container } from '@/components/ui/Container';
 import type { Locale, ProgramSchedule } from '@/lib/programs';
+import { useTranslations } from 'next-intl';
 
 type ProgramScheduleProps = {
   locale: Locale;
   schedule?: ProgramSchedule;
 };
 
-const dayLabels: Record<ProgramSchedule['items'][number]['day'], string> = {
-  mon: 'ПН',
-  tue: 'ВТ',
-  wed: 'СР',
-  thu: 'ЧТ',
-  fri: 'ПТ',
-  sat: 'СБ',
-  sun: 'ВС',
-};
 
 export function ProgramSchedule({ locale, schedule }: ProgramScheduleProps) {
-  if (!schedule || schedule.items.length === 0) return null;
+  const t = useTranslations("courses");
+  const dayLabels: Record<ProgramSchedule['items'][number]['day'], string> = {
+    mon: t('days.mon'),
+    tue: t('days.tue'),
+    wed: t('days.wed'),
+    thu: t('days.thu'),
+    fri: t('days.fri'),
+    sat: t('days.sat'),
+    sun: t('days.sun'),
+  };
 
   const getText = (value: { ru: string; en: string; de: string }) => value[locale] || value.ru;
   
   // Динамически вычислять timeSlots из items
   const timeSlots = useMemo(() => {
+    if (!schedule) return [];
     const times = new Set(schedule.items.map(item => item.time));
     return Array.from(times).sort();
-  }, [schedule.items]);
+  }, [schedule]);
   
   const days = useMemo(() => {
+    if (!schedule) return [];
     const allDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const;
     const uniqueDays = Array.from(new Set(schedule.items.map(item => item.day)));
     return allDays.filter(day => uniqueDays.includes(day));
-  }, [schedule.items]);
-  const [activeDay, setActiveDay] = useState<string>('');
+  }, [schedule]);
+  
+  // Инициализировать activeDay первым доступным днем
+  const [activeDay, setActiveDay] = useState<string>(() => {
+    if (!schedule) return '';
+    const allDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const;
+    const uniqueDays = Array.from(new Set(schedule.items.map(item => item.day)));
+    const availableDays = allDays.filter(day => uniqueDays.includes(day));
+    return availableDays.length > 0 ? availableDays[0] : '';
+  });
 
-  // Установить первый доступный день при загрузке
-  useMemo(() => {
-    if (days.length > 0 && !days.includes(activeDay as any)) {
-      setActiveDay(days[0] as string);
-    }
-  }, [days]);
+  if (!schedule || schedule.items.length === 0) return null;
 
   return (
     <section className="py-12 lg:py-16">
       <Container>
-        <h2 className="text-2xl sm:text-3xl font-semibold text-[#0A123A] text-center">Календарь занятий</h2>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-[#0A123A] text-center">{t('schedule.title')}</h2>
 
         <div className="mt-6 sm:mt-8">
           {/* Mobile */}
           <div className="sm:hidden">
-            <div className="rounded-[16px] bg-[#0A123A] text-white text-xs font-medium flex overflow-hidden">
+            <div className="rounded-t-[12px] bg-[#0A123A] text-white text-sm font-medium flex overflow-hidden">
               {days.map((day) => (
                 <button
                   key={day}
                   type="button"
                   onClick={() => setActiveDay(day)}
-                  className={`flex-1 px-3 py-2 transition ${
-                    activeDay === day ? 'bg-white text-[#0A123A]' : 'bg-[#0A123A]'
+                  className={`flex-1 px-4 py-3 transition-all ${
+                    activeDay === day 
+                      ? 'bg-primary-light text-white font-bold shadow-lg' 
+                      : 'bg-[#0A123A] hover:bg-[#1a2350]'
                   }`}
                 >
                   {dayLabels[day]}

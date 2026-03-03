@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useMemo } from 'react';
 import { Container } from '@/components/ui/Container';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -128,7 +128,7 @@ const swiperRef = useRef<SwiperType | null>(null);
       items-center justify-center
       hover:bg-white/20 transition"
     >
-      <FaArrowLeft className="text-white text-lg" />
+      <ChevronLeft className="text-white text-lg" />
     </button>
   )}
 
@@ -143,7 +143,7 @@ const swiperRef = useRef<SwiperType | null>(null);
       items-center justify-center
       hover:bg-white/20 transition"
     >
-      <FaArrowRight className="text-white text-lg" />
+      <ChevronRight className="text-white text-lg" />
     </button>
   )}
 </div>

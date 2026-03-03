@@ -7,6 +7,7 @@ import type { Locale, ProgramCourseTab } from '@/lib/programs';
 import { SectionTitle } from '@/components/ui/Sectiontitle';
 import { Button } from '../../../../components/ui/Button';
 import CourseModal from '../../components/CourseModal';
+import { useTranslations } from 'next-intl';
 
 type ProgramDirectionsTabsProps = {
   locale: Locale;
@@ -25,6 +26,7 @@ export function ProgramDirectionsTabs({ locale, tabs, translations }: ProgramDir
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const active = items[activeIndex];
+  const t = useTranslations("courses");
   if (!items.length) return null;
 
   const getText = (value: { ru: string; en: string; de: string }) => value[locale] || value.ru;
@@ -107,7 +109,7 @@ export function ProgramDirectionsTabs({ locale, tabs, translations }: ProgramDir
                     </div>
                     <div>
                       <div className="text-lgg text-gray-600 mb-1">{translations.duration}</div>
-                      <div className="text-text-base font-medium text-primary ">{active.duration}</div>
+                      <div className="text-text-base font-medium text-primary ">{active.duration} {t('hours')}</div>
                     </div>
                   </div>
                 )}
@@ -117,8 +119,8 @@ export function ProgramDirectionsTabs({ locale, tabs, translations }: ProgramDir
                       <Euro className="w-8 h-8" />
                     </div>
                     <div>
-                      <div className="text-lgg text-gray-600 mb-1">{translations.price}</div>
-                      <div className="text-text-base font-medium text-primary">{active.price}</div>
+                      <div className="text-lgg text-gray-600 mb-1">{translations.price} </div>
+                      <div className="text-text-base font-medium text-primary">{active.price} {t('euro')}</div>
                     </div>
                   </div>
                 )}

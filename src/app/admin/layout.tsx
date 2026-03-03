@@ -13,7 +13,7 @@ export default function AdminPagesLayout({
   login?: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isLoginPage = pathname === '/admin/login' || pathname === '/en/admin/login' || pathname === '/de/admin/login' || pathname === '/ru/admin/login';
+  const isLoginPage = pathname === '/login' || pathname === '/en/login' || pathname === '/de/login' || pathname === '/ru/login';
 
   // Show only login page without AdminLayout
   if (login && isLoginPage) {

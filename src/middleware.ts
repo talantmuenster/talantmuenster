@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-// Protect /admin routes: redirect to /admin/login when session cookie missing
+// Protect /admin routes: redirect to /login when session cookie missing
 export function middleware(request: Request) {
   const url = new URL(request.url);
   const pathname = url.pathname;
@@ -10,7 +10,10 @@ export function middleware(request: Request) {
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api/admin/session') ||
     pathname.startsWith('/api/admin/logout') ||
-    pathname === '/admin/login' ||
+    pathname === '/login' ||
+    pathname === '/en/login' ||
+    pathname === '/de/login' ||
+    pathname === '/ru/login' ||
     pathname.startsWith('/public')
   ) {
     return NextResponse.next();
@@ -21,7 +24,7 @@ export function middleware(request: Request) {
     const hasSession = cookie.split(';').some((c) => c.trim().startsWith('session='));
 
     if (!hasSession) {
-      const loginUrl = new URL('/admin/login', request.url);
+      const loginUrl = new URL('/login', request.url);
       return NextResponse.redirect(loginUrl);
     }
   }

@@ -45,12 +45,14 @@ export function ProgramTeachers({
         <div className="relative mt-14 flex items-center justify-center lg:px-20 ">
 
           {/* DESKTOP LEFT ARROW */}
-          <button
-            onClick={prev}
-            className="hidden lg:flex absolute left-0 w-14 h-14 rounded-full border border-[#F9A352] text-[#F9A352] items-center justify-center hover:bg-[#F9A352] hover:text-white transition-all duration-300"
-          >
-            <ChevronLeft size={22} />
-          </button>
+          {total > 1 && (
+            <button
+              onClick={prev}
+              className="hidden lg:flex absolute left-0 w-14 h-14 rounded-full border border-[#F9A352] text-[#F9A352] items-center justify-center hover:bg-[#F9A352] hover:text-white transition-all duration-300"
+            >
+              <ChevronLeft size={22} />
+            </button>
+          )}
 
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 max-w-6xl mx-auto w-full">
 
@@ -86,12 +88,14 @@ export function ProgramTeachers({
               <div className="flex items-center justify-center lg:justify-start gap-6">
 
                 {/* MOBILE LEFT */}
-                <button
-                  onClick={prev}
-                  className="lg:hidden w-12 h-12 rounded-full border border-[#F9A352] text-[#F9A352] flex items-center justify-center hover:bg-[#F9A352] hover:text-white transition"
-                >
-                  <ChevronLeft size={20} />
-                </button>
+                {total > 1 && (
+                  <button
+                    onClick={prev}
+                    className="lg:hidden w-12 h-12 rounded-full border border-[#F9A352] text-[#F9A352] flex items-center justify-center hover:bg-[#F9A352] hover:text-white transition"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                )}
                 <div className="flex flex-col items-center lg:items-start">
 
                 <h3 className="text-xl lg:text-3xl font-semibold text-[#1C2B59]">
@@ -107,12 +111,14 @@ export function ProgramTeachers({
                               )}
                 </div>
                 {/* MOBILE RIGHT */}
-                <button
-                  onClick={next}
-                  className="lg:hidden w-12 h-12 rounded-full border border-[#F9A352] text-[#F9A352] flex items-center justify-center hover:bg-[#F9A352] hover:text-white transition"
-                >
-                  <ChevronRight size={20} />
-                </button>
+                {total > 1 && (
+                  <button
+                    onClick={next}
+                    className="lg:hidden w-12 h-12 rounded-full border border-[#F9A352] text-[#F9A352] flex items-center justify-center hover:bg-[#F9A352] hover:text-white transition"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                )}
 
               </div>
 
@@ -141,12 +147,14 @@ export function ProgramTeachers({
           </div>
 
           {/* DESKTOP RIGHT ARROW */}
-          <button
-            onClick={next}
-            className="hidden lg:flex absolute right-0 w-14 h-14 rounded-full border border-[#F9A352] text-[#F9A352] items-center justify-center hover:bg-[#F9A352] hover:text-white transition-all duration-300"
-          >
-            <ChevronRight size={22} />
-          </button>
+          {total > 1 && (
+            <button
+              onClick={next}
+              className="hidden lg:flex absolute right-0 w-14 h-14 rounded-full border border-[#F9A352] text-[#F9A352] items-center justify-center hover:bg-[#F9A352] hover:text-white transition-all duration-300"
+            >
+              <ChevronRight size={22} />
+            </button>
+          )}
 
         </div>
       </Container>

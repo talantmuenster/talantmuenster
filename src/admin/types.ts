@@ -64,6 +64,8 @@ export type Teacher = {
   bio: LocalizedContent;
   avatar: string;
   tags?: LocalizedContent[];
+  isNew?: boolean;
+  teamMemberId?: string;
 };
 
 export type ScheduleItem = {

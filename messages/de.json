@@ -4,7 +4,7 @@
     "news": "AKTUELLES",
     "events": "VERANSTALTUNGEN",
     "about": "ÜBER UNS",
-    "contact": "Kontakt",
+    "contact": "Kontakte",
     "langchange": "Sprache ändern"
   },
   "home": {
@@ -20,7 +20,7 @@
       "stat3Subtitle": "für Kurse"
     },
     "programs": {
-      "title1": "Förder-",
+      "title1": "Entwicklungs-",
       "title2": "programme",
       "music": "Musik",
       "dance": "Tanz",
@@ -30,28 +30,28 @@
       "math": "Mathematik",
       "sports": "Sport",
       "social": "Soziales",
-      "other": "Mehr sehen"
+      "other": "Alle ansehen"
     },
     "whyChoose": {
       "title": "Warum",
       "titleBrand": "TALANT E.V.?",
-      "subtitle": "Staatlich anerkannte Unterstützung, professioneller Ansatz und Offenheit",
+      "subtitle": "Offiziell anerkannte Unterstützung, professioneller Ansatz und Offenheit",
       "feature1": "Wir sind ein offener Raum für Menschen aller Generationen und Kulturen",
       "feature2": "Wir sind ein anerkannter Träger der freien Jugendhilfe gemäß § 75 SGB VIII",
-      "feature3": "Wir bringen Menschen zusammen, entdecken Talente und fördern die persönliche Entwicklung",
-      "feature4": "Wir unterstützen Menschen dabei, ihren Platz in einer neuen Kultur zu finden und sich zu integrieren, ohne ihre Wurzeln und ihr geistiges Erbe zu verlieren"
+      "feature3": "Wir bringen Menschen zusammen, entfalten Talente und fördern die persönliche Entwicklung",
+      "feature4": "Wir unterstützen Menschen dabei, ihren Platz in einer neuen Kultur zu finden und sich zu integrieren, ohne ihre Wurzeln zu verlieren"
     },
     "howWeHelp": {
       "title": "Wie wir",
       "titleHighlight": "helfen",
       "subtitle": "Sie können sich auf unsere Unterstützung und Erfahrung verlassen",
       "category1Title": "Dokumente und Beratung",
-      "category1Item1": "Unterstützung bei offiziellen Dokumenten",
+      "category1Item1": "Hilfe bei offiziellen Dokumenten",
       "category1Item2": "Erklärung von Verfahren und Anforderungen",
       "category1Item3": "Unterstützung bei der Kommunikation mit Behörden",
       "category2Title": "Übersetzung und Kommunikation",
-      "category2Item1": "Übersetzung von Dokumenten und Geschäftskorrespondenz",
-      "category2Item2": "Unterstützung bei Sprech- und Sprachschwierigkeiten",
+      "category2Item1": "Übersetzung von Dokumenten und Korrespondenz",
+      "category2Item2": "Unterstützung bei Sprach- und Sprechschwierigkeiten",
       "category3Title": "Bildungsunterstützung",
       "category3Item1": "Nachhilfe in allen Schulfächern",
       "category3Item2": "Beratung für Eltern und Schüler",
@@ -59,21 +59,25 @@
       "ctaButton": "Unterstützung erhalten"
     },
     "upcomingEvents": {
-      "title": "Anstehende",
+      "title": "Kommende",
       "title1": "Events",
       "subtitle": "Machen Sie mit und entdecken Sie neue Möglichkeiten für Entwicklung und Austausch",
-      "registration": "Jetzt anmelden",
-      "other": "Mehr sehen",
-      "other1": " Mehr"
+      "registration": "Anmelden",
+      "other": "Alle ansehen",
+      "other1": "Mehr",
+      "empty": "Veranstaltungen erscheinen bald",
+      "loading": "Events werden geladen..."
     },
     "subscribe": {
-      "title": "Abonnieren und auf dem Laufenden bleiben",
+      "title": "Abonnieren Sie unseren Newsletter",
       "subtitle": "alle Events",
       "description": "Erfahren Sie als Erster von unseren neuen Projekten, Workshops und Treffen",
       "subscribe": "Abonnieren",
-      "mail": "E-Mail eingeben",
+      "mail": "Ihre E-Mail eingeben",
       "successMessage": "Vielen Dank! Sie haben sich erfolgreich angemeldet.",
-      "errorMessage": "Fehler beim Abonnement. Bitte versuchen Sie es erneut."
+      "errorMessage": "Fehler beim Abonnement. Bitte versuchen Sie es erneut.",
+      "policyText": "Ich stimme der Verarbeitung meiner Daten zu gemäß der",
+      "privacyPolicy": "Datenschutzerklärung"
     }
   },
   "about": {
@@ -83,7 +87,7 @@
     },
     "hero": {
       "title": {
-        "before": "Seit mehr als zehn Jahren hilft TALANT E.V. Kindern und Erwachsenen,",
+        "before": "Seit über zehn Jahren hilft TALANT E.V. Kindern und Erwachsenen,",
         "highlight": "ihre Fähigkeiten",
         "after": "zu entfalten"
       },
@@ -103,24 +107,26 @@
     },
     "cooperation": {
       "title": {
-        "highlight": "Wir bauen Kooperationen",
-        "after": "über Münster hinaus aus"
+        "highlight": "Wir fördern Kooperationen",
+        "after": "über Münster hinaus"
       },
-      "text": "Wir fördern interkulturelle Begegnungen, Austausch und Zusammenarbeit zwischen jungen Menschen aus verschiedenen Ländern."
+      "text": "Wir fördern interkulturelle Begegnungen und den Austausch zwischen jungen Menschen aus verschiedenen Ländern."
     },
     "project": {
       "title": {
         "before": "Unser Projekt —",
-        "highlight": "die Zeitung „Brücke“"
+        "highlight": "Zeitung „Die Brücke“"
       },
-      "text": "Das Projekt fördert den Dialog und den kulturellen Austausch unter jungen Menschen."
+      "text": "Das Projekt unterstützt den Dialog und den kulturellen Austausch unter Jugendlichen."
     },
     "team": {
       "title1": "Unser",
       "title2": "Team",
       "role": {
-        "music": "Musiklehrer/in"
-      }
+        "music": "Musiklehrer"
+      },
+      "empty": "Teamliste wird aktualisiert",
+      "loading": "Wird geladen..."
     },
     "faq": {
       "title": "Häufig gestellte",
@@ -128,19 +134,19 @@
       "items": {
         "1": {
           "title": "Wie kann ich mich für einen Kurs anmelden?",
-          "answer": "Sie können sich über das Formular auf unserer Website anmelden oder uns direkt kontaktieren."
+          "answer": "Sie können sich über das Formular auf unserer Website oder direkt bei uns anmelden."
         },
         "2": {
-          "title": "Wo finden die Kurse statt?",
-          "answer": "Die Kurse finden vor Ort und online statt, auch außerhalb von Münster."
+          "title": "Wo findet der Unterricht statt?",
+          "answer": "Die Kurse finden sowohl in Präsenz als auch online statt, auch außerhalb von Münster."
         },
         "3": {
-          "title": "Welche Art von Unterstützung kann ich erhalten?",
+          "title": "Welche Hilfe kann ich erhalten?",
           "answer": "Wir bieten pädagogische, kreative und soziale Unterstützung an."
         },
         "4": {
-          "title": "Wie funktioniert die Hilfe bei offiziellen Dokumenten?",
-          "answer": "Wir bieten Beratung und Unterstützung bei der Vorbereitung offizieller Dokumente an."
+          "title": "Wie funktioniert die Hilfe bei Behördengängen?",
+          "answer": "Wir beraten Sie und helfen bei der Vorbereitung offizieller Unterlagen."
         }
       }
     },
@@ -160,7 +166,7 @@
         "before": "Unser",
         "highlight": "Projekt"
       },
-      "subtitle": "Wir beteiligen uns aktiv an internationalen Partnerschaften außerhalb von Münster und fördern interkulturelle Begegnungen, Austausch und Zusammenarbeit zwischen jungen Menschen aus verschiedenen Ländern – durch Kultur, Bildung, Kunst und Sport."
+      "subtitle": "Wir beteiligen uns aktiv an internationalen Partnerschaften und fördern den interkulturellen Austausch durch Kultur, Bildung, Kunst und Sport."
     }
   },
   "news": {
@@ -170,10 +176,10 @@
     },
     "hero": {
       "title": {
-        "before": "Neuigkeiten &",
-        "highlight": "Aktuelles"
+        "before": "Aktuelle",
+        "highlight": "Neuigkeiten"
       },
-      "subtitle": "Hier finden Sie Informationen über unsere neuesten Aktivitäten und Entwicklungen im Zentrum."
+      "subtitle": "Kurze Beschreibungen aktueller Ereignisse, um einen Einblick in unsere Arbeit zu geben."
     }
   },
   "document": {
@@ -186,17 +192,17 @@
         "before": "Dokumente und",
         "highlight": "Publikationen"
       },
-      "subtitle": "In unserem Zentrum können sich Kinder, Jugendliche und Familien entfalten, Neues lernen und sich vielseitig weiterentwickeln.",
+      "subtitle": "Hier finden Sie Zertifikate, Veröffentlichungen und wichtige Unterlagen unseres Zentrums.",
       "certificate": "Zertifikat",
       "publication": "Publikation",
       "download": "Herunterladen",
       "view": "Ansehen",
-      "empty": "Dokumente werden bald verfügbar sein"
+      "empty": "Dokumente erscheinen bald"
     }
   },
   "courses": {
-    "title": "Bereich",
-    "title2": "auswählen",
+    "title": "Wählen Sie einen",
+    "title2": "Bereich",
     "breadcrumbs": {
       "home": "Startseite",
       "programs": "Programme",
@@ -206,27 +212,42 @@
       "title": {
         "before": "Programme"
       },
-      "subtitle": "Wir bieten ein breites Spektrum an Bildungs-, Kreativ- und Sozialprogrammen für Kinder, Jugendliche und Familien.",
+      "subtitle": "Wir bieten ein breites Spektrum an Programmen für Kinder, Jugendliche und Familien.",
       "register": "Jetzt anmelden"
     },
-    "SectionTitle": "Unsere Programme konzentrieren sich auf Bildung, kreative Entwicklung und",
-    "SectionTitle2": "Unterstützung für Familien in einem interkulturellen Umfeld.",
-    "selectcr": "Kurs wählen",
+    "SectionTitle": "Unsere Programme zielen auf Bildung, kreative Entfaltung und",
+    "SectionTitle2": "Unterstützung im interkulturellen Umfeld ab.",
+    "days": {
+      "mon": "Mon",
+      "tue": "Die",
+      "wed": "Mit",
+      "thu": "Don",
+      "fri": "Fre",
+      "sat": "Sam",
+      "sun": "Son"
+    },
+    "schedule": {
+      "title": "Zeitplan"
+    },
+    "selectcr": "Kurs auswählen",
     "address": "Adresse",
-    "schedule": "Termine",
     "duration": "Dauer der Einheit",
-    "price": "Kosten pro Einheit",
-    "ctaLabel": "Für den Kurs anmelden",
+    "price": "Preis pro Einheit",
+    "ctaLabel": "Zum Kurs anmelden",
     "teachers": "Lehrkräfte",
-    "relatprogtitl1": "Siehe auch andere",
+    "relatprogtitl1": "Weitere interessante",
     "relatprogtitl2": "Programme",
     "apple": {
       "title": "Wie kann ich teilnehmen?",
       "selection": "Wählen Sie den gewünschten Bereich",
       "selection1": "Kontaktieren Sie uns über das Formular",
-      "selection2": "Melden Sie sich für einen Kurs oder ein Event an",
-      "selectbtb": "Kurs auswählen"
-    }
+      "selection2": "Melden Sie sich für den Kurs an",
+      "selectbtb": "Kurs wählen"
+    },
+      "empty": "Kurse erscheinen bald",
+        "loading": "Kurse werden geladen...",
+        "hours": "Stunden",
+        "euro": "Euro"
   },
   "events": {
     "breadcrumbs": {
@@ -238,7 +259,17 @@
       "title": {
         "before": "Veranstaltungen"
       },
-      "subtitle": "Wir bieten ein breites Spektrum an Bildungs-, Kreativ- und Sozialprogrammen für Kinder, Jugendliche und Familien."
+      "subtitle": "Entdecken Sie unsere Bildungs- und Freizeitangebote für die ganze Familie."
+    },
+    "upcomingEvents": {
+      "title": "Kommende",
+      "title1": "Events",
+      "subtitle": "Machen Sie mit und entdecken Sie neue Möglichkeiten für Austausch und Entwicklung",
+      "registration": "Anmelden",
+      "other": "Alle ansehen",
+      "other1": "Mehr",
+      "empty": "Events erscheinen bald",
+      "loading": "Wird geladen..."
     }
   },
   "contactsus": {
@@ -246,9 +277,9 @@
       "home": "Startseite",
       "contact": "Kontakt"
     },
-    "title": "Kontaktieren Sie uns auf",
-    "title1": "beliebigem Weg",
-    "description": "Wir sind für Sie da! Ob Sie Fragen zu unseren Angeboten haben, Beratung benötigen oder Feedback geben möchten – unser Team hilft Ihnen gerne weiter.",
+    "title": "Kontaktieren Sie uns",
+    "title1": "auf Ihrem bevorzugten Weg",
+    "description": "Wir sind für Sie da! Wenn Sie Fragen haben oder Beratung benötigen, hilft Ihnen unser Team gerne weiter.",
     "address": "Adresse",
     "email": "E-Mail",
     "phone": "Telefon",
@@ -260,7 +291,7 @@
       "email": "Ihre E-Mail",
       "message": "Ihre Nachricht",
       "submit": "Nachricht senden",
-      "consentText": "Ich stimme der Verarbeitung meiner Daten gemäß der",
+      "consentText": "Ich stimme der Datenverarbeitung zu gemäß der",
       "privacyPolicy": "Datenschutzerklärung",
       "registForEvent": "Für Event anmelden",
       "events": "Veranstaltungen",
@@ -279,12 +310,12 @@
     "phone": "+49 176 64217368",
     "contactUs": "Kontakt",
     "copyright": "© 2025 Talant E.V.",
-    "privacy": "Datenschutzerklärung",
+    "privacy": "Datenschutz",
     "cookies": "Cookie-Richtlinie"
   },
   "notFound": {
-    "title": "Seite im Aufbau",
-    "description": "Wir arbeiten derzeit an diesem Bereich. Bitte schauen Sie bald wieder vorbei.",
+    "title": "Seite in Arbeit",
+    "description": "Wir arbeiten gerade an diesem Bereich. Bitte schauen Sie später wieder vorbei.",
     "home": "Zur Startseite",
     "back": "Zurück"
   }

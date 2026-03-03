@@ -5,11 +5,28 @@ import { ProgramDirectionsTabs } from './components/ProgramDirectionsTabs';
 import { ProgramTeachers } from './components/ProgramTeachers';
 import { ProgramSchedule } from './components/ProgramSchedule';
 import { RelatedPrograms } from './components/RelatedPrograms';
-import { programs } from '@/data/programs';
-import type { Locale } from '@/lib/programs';
+import type { Locale, ProgramHeroData } from '@/lib/programs';
 import { LINKS } from '../../../lib/links';
 
 export const dynamic = 'force-dynamic';
+
+async function getPrograms(): Promise<ProgramHeroData[]> {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/programs`, { 
+      cache: 'no-store',
+      next: { revalidate: 0 }
+    });
+    if (!res.ok) {
+      console.error('Failed to fetch programs, status:', res.status);
+      return [];
+    }
+    const data = await res.json();
+    return data || [];
+  } catch (err) {
+    console.error('Failed to fetch programs:', err);
+    return [];
+  }
+}
 
 export default async function ProgramSlugPage({
   params,
@@ -26,7 +43,9 @@ export default async function ProgramSlugPage({
   }
 
   const normalizedSlug = decodeURIComponent(slug).trim().toLowerCase();
-  const program = programs.find((item) => item.slug.toLowerCase() === normalizedSlug) || programs[0];
+  const programs = await getPrograms();
+  const program = programs.find((item) => item.slug.toLowerCase() === normalizedSlug);
+  
   if (!program || program.published === false) {
     return notFound();
   }

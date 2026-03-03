@@ -118,7 +118,7 @@ export function Subscribe() {
                   required
                 />
                 <label htmlFor="privacy-agree">
-                  Я согласен(а) на обработку персональных данных и принимаю <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline text-blue-600">политику конфиденциальности</a>
+                  {t('policyText')} <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline text-blue-600">{t('privacyPolicy')}</a>
                 </label>
               </div>
               <div className="items-center w-full sm:w-auto">

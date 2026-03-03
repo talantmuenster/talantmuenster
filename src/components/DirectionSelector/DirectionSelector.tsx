@@ -19,10 +19,22 @@ export function DirectionSelector() {
   useEffect(() => {
     const fetchDirections = async () => {
       try {
+        console.log('🔍 DirectionSelector: Fetching programs from API...');
         const res = await fetch('/api/programs');
-        if (!res.ok) return;
+        console.log('🔍 DirectionSelector: API response status:', res.status);
+        
+        if (!res.ok) {
+          console.warn('🔍 DirectionSelector: API request failed');
+          return;
+        }
+        
         const data = await res.json();
-        if (!Array.isArray(data)) return;
+        console.log('🔍 DirectionSelector: API returned data:', data);
+        
+        if (!Array.isArray(data)) {
+          console.warn('🔍 DirectionSelector: Data is not an array');
+          return;
+        }
 
         const mapped = data
           .filter((item: any) => item?.slug && item?.title)
@@ -32,10 +44,15 @@ export function DirectionSelector() {
             title: item.title,
           }));
 
+        console.log('🔍 DirectionSelector: Mapped directions:', mapped.length);
+        
         if (mapped.length > 0) {
           setDirections(mapped);
+        } else {
+          console.log('🔍 DirectionSelector: No programs found, using fallback DIRECTIONS');
         }
       } catch (err) {
+        console.error('🔍 DirectionSelector: Error fetching programs:', err);
         // fallback to static
       }
     };
