@@ -8,7 +8,7 @@ import clsx from 'clsx';
 /* ================= TYPES ================= */
 
 type ButtonVariant = 'primary' | 'secondary' | 'text';
-type ButtonSize = 'sm' | 'md' | 'ld'| 'lg';
+type ButtonSize = 'sx' | 'sm' | 'md' | 'ld'| 'lg';
 
 export type ButtonProps = {
   children: React.ReactNode;
@@ -49,6 +49,7 @@ const VARIANT_STYLES: Record<ButtonVariant, string> = {
 };
 
 const SIZE_STYLES: Record<ButtonSize, string> = {
+  sx: 'px-0 py-2 text-[16px]',
   sm: 'px-6 py-2 text-[16px]',
   md: 'px-6 py-3 text-[18px]',
   ld: 'px-6 py-3 text-[23px]',
@@ -64,7 +65,7 @@ const ARROW_STYLES = `
 `;
 /* ================= COMPONENT ================= */
 
-export function Button({
+export function  Button({
   href,
   children,
   variant = 'primary',

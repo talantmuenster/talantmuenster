@@ -6,8 +6,9 @@ import { Button } from '@/components/ui/Button';
 import type { CalendarEvent } from '@/type/type';
 import { useLocale } from 'next-intl';
 
+type MobileEvent = CalendarEvent & { onRegister?: () => void };
 type Props = {
-  events: CalendarEvent[];
+  events: MobileEvent[];
 };
 
 export default function MobileEventsSlider({ events }: Props) {
@@ -29,7 +30,7 @@ export default function MobileEventsSlider({ events }: Props) {
   );
 }
 
-function MobileEventCard({ event }: { event: CalendarEvent }) {
+function MobileEventCard({ event }: { event: MobileEvent }) {
   const locale = useLocale();
   
   const getText = (content: any) => {
@@ -71,7 +72,7 @@ function MobileEventCard({ event }: { event: CalendarEvent }) {
       </button>
 
       {event.registrationUrl && (
-        <Button size="sm" className="w-full">
+        <Button size="sm" className="w-full" onClick={event.onRegister}>
           Регистрация
         </Button>
       )}

@@ -55,28 +55,22 @@ export default function EventsShowcase() {
         const res = await fetch('/api/admin/events');
         if (res.ok) {
           const data = await res.json();
-const now = new Date();
-
-const published = (data || [])
-  .filter((e: any) => {
-    if (!e.published) return false;
-
-    // если нет даты — не показываем
-    if (!e.date) return false;
-
-    const eventDate = new Date(e.date);
-
-    // если есть время окончания — учитываем его
-    if (e.endTime) {
-      const [hours, minutes] = e.endTime.split(':');
-      eventDate.setHours(Number(hours));
-      eventDate.setMinutes(Number(minutes));
-      eventDate.setSeconds(0);
-    }
-
-    return eventDate >= now; // показываем только будущие
-  })
-  .map((e: any) => {
+          console.log('Fetched events:', data);
+          const now = new Date();
+          const published = (data || [])
+            .filter((e: any) => {
+              if (!e.published) return false;
+              if (!e.date) return false;
+              const eventDate = new Date(e.date);
+              if (e.endTime) {
+                const [hours, minutes] = e.endTime.split(':');
+                eventDate.setHours(Number(hours));
+                eventDate.setMinutes(Number(minutes));
+                eventDate.setSeconds(0);
+              }
+              return eventDate >= now;
+            })
+            .map((e: any) => {
               const eventDate = new Date(e.date);
               const day = eventDate.getDate().toString().padStart(2, '0');
               const month = (eventDate.getMonth() + 1)
@@ -85,7 +79,6 @@ const published = (data || [])
               const weekday = eventDate.toLocaleDateString(locale, {
                 weekday: 'long',
               });
-
               return {
                 id: e.id,
                 date: `${day}.${month}`,
@@ -120,7 +113,7 @@ const published = (data || [])
                         : e.description?.ru || ''),
               };
             });
-
+          console.log('Published events:', published);
           setEvents(published);
         }
       } catch (err) {

@@ -7,6 +7,7 @@ import { SectionTitle } from '../ui/Sectiontitle';
 import { Button } from '../ui/Button';
 import { motion } from 'motion/react';
 import styles from './style/home.module.scss'; // ✅ ВАЖНО
+import { LINKS } from '../../lib/links';
 
 export default function HowWeHelp() {
   const t = useTranslations('home.howWeHelp');
@@ -111,7 +112,7 @@ export default function HowWeHelp() {
             </div>
 
             <div className="mt-8 text-center lg:text-left">
-              <Button withArrow>{t('ctaButton')}</Button>
+              <Button withArrow href={LINKS.about}>{t('ctaButton')}</Button>
             </div>
           </div>
 

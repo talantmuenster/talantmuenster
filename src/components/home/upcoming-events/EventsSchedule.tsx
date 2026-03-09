@@ -3,19 +3,26 @@
 import { Button } from '@/components/ui/Button';
 import type { CalendarEvent } from '@/type/type';
 import { useLocale, useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 
+type ScheduleEvent = CalendarEvent & { onRegister?: () => void };
 type Props = {
-  events: CalendarEvent[];
+  events: ScheduleEvent[];
 };
 
 export function EventsSchedule({ events }: Props) {
-     const t = useTranslations('home.upcomingEvents');
-     const locale = useLocale();
-  
+  const t = useTranslations('home.upcomingEvents');
+  const locale = useLocale();
+  const router = useRouter();
+
   const getText = (content: any) => {
     if (!content) return '';
     if (typeof content === 'string') return content;
     return content[locale as keyof typeof content] || content.ru || '';
+  };
+
+  const handleMore = (eventId: string) => {
+    router.push(`/events?eventId=${eventId}`);
   };
 
   return (
@@ -60,8 +67,8 @@ export function EventsSchedule({ events }: Props) {
               <Button
                 variant="text"
                 withArrow
-                size="sm"
-                className="px-0"
+                size="sx"
+                onClick={() => handleMore(event.id)}
               >
                 {t("other1")}
               </Button>
@@ -73,6 +80,7 @@ export function EventsSchedule({ events }: Props) {
               variant="secondary"
               className="ml-auto self-center"
               disabled={!event.registrationUrl}
+              onClick={event.onRegister}
             >
               {t("registration")}
             </Button>

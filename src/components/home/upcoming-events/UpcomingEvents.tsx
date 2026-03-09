@@ -6,6 +6,8 @@ import { SectionTitle } from '../../ui/Sectiontitle';
 import type { CalendarEvent } from '@/type/type';
 import { EventsSchedule } from './EventsSchedule';
 import MobileEventsSlider from './MobileEventsSlider.client';
+import { useState } from 'react';
+import { EventRegistrationModal } from '@/components/events/EventRegistrationModal';
 import { LINKS } from '../../../lib/links';
 import { useTranslations } from 'next-intl';
 
@@ -15,6 +17,8 @@ type Props = {
 
 export function UpcomingEvents({ calendarEvents }: Props) {
     const t = useTranslations('home.upcomingEvents');
+    const [isRegModalOpen, setIsRegModalOpen] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
     // Фильтрация событий по дате (оставляем только будущие и сегодняшние)
     const now = new Date();
     const upcomingEvents = calendarEvents.filter(ev => {
@@ -23,6 +27,27 @@ export function UpcomingEvents({ calendarEvents }: Props) {
       // Событие показывается, если оно сегодня или в будущем
       return eventDate.setHours(0,0,0,0) >= now.setHours(0,0,0,0);
     });
+
+    // Открытие модалки регистрации
+    const handleOpenRegModal = (event: CalendarEvent) => {
+      setSelectedEvent(event);
+      setIsRegModalOpen(true);
+    };
+    const handleCloseRegModal = () => {
+      setIsRegModalOpen(false);
+      setSelectedEvent(null);
+    };
+
+    // Обертки для передачи в дочерние компоненты
+    const mobileSliderEvents = upcomingEvents.map(ev => ({
+      ...ev,
+      onRegister: () => handleOpenRegModal(ev),
+    }));
+    const scheduleEvents = upcomingEvents.map(ev => ({
+      ...ev,
+      onRegister: () => handleOpenRegModal(ev),
+    }));
+
     return (
       <section className="relative bg-background-blue py-20 lg:overflow-hidden">
         {/* ARCS */}
@@ -58,7 +83,7 @@ export function UpcomingEvents({ calendarEvents }: Props) {
             {upcomingEvents.length === 0 ? (
               <div className="text-center text-lg text-gray-500 mt-6">{t("empty")}</div>
             ) : (
-              <MobileEventsSlider events={upcomingEvents} />
+              <MobileEventsSlider events={mobileSliderEvents} />
             )}
 
             <div className="mt-8">
@@ -83,7 +108,7 @@ export function UpcomingEvents({ calendarEvents }: Props) {
             {upcomingEvents.length === 0 ? (
               <div className="flex items-center justify-center text-2xl text-gray-500">{t("empty")}</div>
             ) : (
-              <EventsSchedule events={upcomingEvents} />
+              <EventsSchedule events={scheduleEvents} />
             )}
           </div>
 
@@ -93,6 +118,16 @@ export function UpcomingEvents({ calendarEvents }: Props) {
             </Button>
           </div>
         </div>
+        {/* Модалка регистрации */}
+        {selectedEvent && (
+          <EventRegistrationModal
+            isOpen={isRegModalOpen}
+            onClose={handleCloseRegModal}
+            eventTitle={typeof selectedEvent.title === 'string' ? selectedEvent.title : (selectedEvent.title?.ru || '')}
+            eventId={selectedEvent.id}
+            events={upcomingEvents.map(ev => ({ id: ev.id, title: typeof ev.title === 'string' ? ev.title : (ev.title?.ru || '') }))}
+          />
+        )}
       </section>
     );
 }
