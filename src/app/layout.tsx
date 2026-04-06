@@ -40,7 +40,7 @@ export default async function RootLayout({
   return (
         <html lang={locale}>
           <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-    		<ConsentManager>
+    		<ConsentManager locale={locale}>
     			
             <NextIntlClientProvider locale={locale} messages={mergedMessages}>
               <MenuProvider>
