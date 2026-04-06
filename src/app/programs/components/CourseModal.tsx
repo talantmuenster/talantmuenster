@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { X, ChevronDown } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 type CourseOption = {
   title: { ru: string; en: string; de: string };
@@ -19,9 +20,10 @@ export default function CourseModal({
   open, 
   onClose, 
   courses = [], 
-  courseTitle = 'Курс',
+  courseTitle = '',
   locale = 'ru'
 }: Props) {
+  const t = useTranslations('courseModal');
   const [selectedCourse, setSelectedCourse] = useState<string>('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -77,12 +79,12 @@ export default function CourseModal({
     e.preventDefault();
     
     if (!formData.name.trim() || !formData.phone.trim() || !formData.email.trim()) {
-      alert('Пожалуйста, заполните все обязательные поля');
+      alert(t('alertFillRequired'));
       return;
     }
 
     if (!formData.consent) {
-      alert('Пожалуйста, согласитесь с обработкой данных');
+      alert(t('alertConsent'));
       return;
     }
 
@@ -141,7 +143,7 @@ export default function CourseModal({
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold text-gray-900">
-            Записаться на курс
+            {t('title')}
           </h2>
           <button onClick={onClose} className="flex-shrink-0">
             <X className="w-5 h-5 text-gray-400 hover:text-gray-600" />
@@ -152,7 +154,7 @@ export default function CourseModal({
           {/* Course Select with Dropdown */}
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-700">
-              Курс
+              {t('courseLabel')}
             </label>
             <div className="relative">
               <button
@@ -191,9 +193,9 @@ export default function CourseModal({
             </div>
           </div>
 
-          <Field label="Имя">
+          <Field label={t('nameLabel')}>
             <Input 
-              placeholder="Имя" 
+              placeholder={t('namePlaceholder')} 
               name="name"
               value={formData.name}
               onChange={handleInputChange}
@@ -201,9 +203,9 @@ export default function CourseModal({
             />
           </Field>
 
-          <Field label="Номер телефона">
+          <Field label={t('phoneLabel')}>
             <Input 
-              placeholder="Номер телефона" 
+              placeholder={t('phonePlaceholder')} 
               name="phone"
               value={formData.phone}
               onChange={handleInputChange}
@@ -211,9 +213,9 @@ export default function CourseModal({
             />
           </Field>
 
-          <Field label="Электронная почта">
+          <Field label={t('emailLabel')}>
             <Input 
-              placeholder="Электронная почта" 
+              placeholder={t('emailPlaceholder')} 
               name="email"
               type="email"
               value={formData.email}
@@ -222,9 +224,9 @@ export default function CourseModal({
             />
           </Field>
 
-          <Field label="Сообщение">
+          <Field label={t('messageLabel')}>
             <textarea
-              placeholder="Сообщение"
+              placeholder={t('messagePlaceholder')}
               name="message"
               value={formData.message}
               onChange={handleInputChange}
@@ -241,9 +243,9 @@ export default function CourseModal({
               className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />
             <span>
-              Я согласен(на) на обработку моих данных в соответствии с{' '}
+              {t('consentText')}{' '}
               <a href="/privacy-policy" className="text-blue-600 underline">
-                Политикой конфиденциальности
+                {t('privacyLink')}
               </a>
             </span>
           </label>
@@ -251,12 +253,12 @@ export default function CourseModal({
           {/* Status Message */}
           {submitStatus === 'success' && (
             <div className="p-3 rounded-lg bg-green-50 text-green-700 text-sm">
-              ✓ Спасибо! Ваша заявка принята
+              {t('success')}
             </div>
           )}
           {submitStatus === 'error' && (
             <div className="p-3 rounded-lg bg-red-50 text-red-700 text-sm">
-              ✗ Ошибка при отправке. Попробуйте позже
+              {t('error')}
             </div>
           )}
 
@@ -266,7 +268,7 @@ export default function CourseModal({
             disabled={isSubmitting}
             className="w-full mt-2 rounded-full bg-blue-900 py-3 text-white font-medium hover:bg-blue-800 transition disabled:opacity-50"
           >
-            {isSubmitting ? 'Отправка...' : 'Записаться на курс'}
+            {isSubmitting ? t('submitting') : t('submit')}
           </button>
         </form>
       </div>

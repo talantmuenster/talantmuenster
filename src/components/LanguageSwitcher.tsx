@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { Locale, locales } from '../../i18n/config';
 import { useTranslations } from 'next-intl';
 import { Globe } from 'lucide-react';
@@ -16,6 +17,7 @@ export default function LanguageSwitcher({
   const [open, setOpen] = useState(false);        // desktop dropdown
   const [mobileOpen, setMobileOpen] = useState(false); // mobile select
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
   const LANGS = [
   { code: 'ru', label: 'Русский' },
   { code: 'de', label: 'Deutsch' },
@@ -34,7 +36,7 @@ export default function LanguageSwitcher({
   const changeLanguage = (locale: Locale) => {
     startTransition(() => {
       document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000`;
-      window.location.reload();
+      router.refresh();
     });
   };
 

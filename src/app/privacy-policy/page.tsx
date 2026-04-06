@@ -187,6 +187,28 @@ export default function PrivacyPolicyPage() {
             <h2 className="mb-3 text-xl font-semibold">{t('s13Title')}</h2>
             <p className="mb-3">{t('s13t1')}</p>
             <p className="mb-3">{t('s13t2')}</p>
+            <p className="mb-3">{t('s13t3')}</p>
+            <ul className="list-disc space-y-2 pl-6">
+              <li>{t('s13ai1')}</li>
+              <li>{t('s13ai2')}</li>
+              <li>{t('s13ai3')}</li>
+              <li>{t('s13ai4')}</li>
+            </ul>
+            <p className="mt-3 mb-3">{t('s13t4')}</p>
+            <ul className="list-disc space-y-3 pl-6">
+              <li><strong>{t('s13bi1title')}</strong>{t('s13bi1text')}</li>
+              <li><strong>{t('s13bi2title')}</strong>{t('s13bi2text')}</li>
+              <li><strong>{t('s13bi3title')}</strong>{t('s13bi3text')}</li>
+              <li><strong>{t('s13bi4title')}</strong>{t('s13bi4text')}</li>
+            </ul>
+            <p className="mt-3 mb-3">{t('s13t5')}</p>
+            <p className="mb-3">{t('s13t6')}</p>
+            <ul className="list-disc space-y-2 pl-6">
+              <li>{t('s13ci1')}</li>
+              <li>{t('s13ci2')}</li>
+              <li>{t('s13ci3')}</li>
+            </ul>
+            <p className="mt-3">{t('s13t7')}</p>
           </section>
 
           <section>
