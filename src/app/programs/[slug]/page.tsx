@@ -7,23 +7,18 @@ import { ProgramSchedule } from './components/ProgramSchedule';
 import { RelatedPrograms } from './components/RelatedPrograms';
 import type { Locale, ProgramHeroData } from '@/lib/programs';
 import { LINKS } from '../../../lib/links';
+import { db } from '@/lib/firebase';
 
 export const dynamic = 'force-dynamic';
 
 async function getPrograms(): Promise<ProgramHeroData[]> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/programs`, { 
-      cache: 'no-store',
-      next: { revalidate: 0 }
-    });
-    if (!res.ok) {
-      console.error('Failed to fetch programs, status:', res.status);
-      return [];
-    }
-    const data = await res.json();
-    return data || [];
+    const snapshot = await db.collection('programs').get();
+    return snapshot.docs
+      .map((doc) => ({ id: doc.id, ...doc.data() } as ProgramHeroData & { id: string }))
+      .filter((p: any) => p.published === true || p.published === 'true' || p.published === 1);
   } catch (err) {
-    console.error('Failed to fetch programs:', err);
+    console.error('Failed to fetch programs from Firestore:', err);
     return [];
   }
 }
