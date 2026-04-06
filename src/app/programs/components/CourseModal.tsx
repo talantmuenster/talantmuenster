@@ -94,12 +94,12 @@ export default function CourseModal({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          eventId: selectedCourse,
+          eventTitle: selectedCourse,
           name: formData.name,
           phone: formData.phone,
           email: formData.email,
           message: formData.message,
-          courseTitle: selectedCourse,
-          type: 'course'
         }),
       });
 

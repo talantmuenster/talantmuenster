@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@c15t/nextjs": "^1.8.6",
     "@radix-ui/react-accordion": "^1.2.12",
     "@supabase/supabase-js": "^2.87.1",
     "class-variance-authority": "^0.7.1",

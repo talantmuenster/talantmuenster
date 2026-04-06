@@ -9,6 +9,7 @@ import { MenuProvider } from "@/utils/MenuProvider";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getLocale } from "next-intl/server";
 import { messagesWithDefault } from "@/lib/i18n";
+import { ConsentManager } from "./consent-manager";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,14 +38,18 @@ export default async function RootLayout({
   const mergedMessages = await messagesWithDefault(messages, locale);
 
   return (
-    <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextIntlClientProvider locale={locale} messages={mergedMessages}>
-          <MenuProvider>
-            <RootLayoutWrapper>{children}</RootLayoutWrapper>
-          </MenuProvider>
-        </NextIntlClientProvider>
-      </body>
-    </html>
-  );
+        <html lang={locale}>
+          <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    		<ConsentManager>
+    			
+            <NextIntlClientProvider locale={locale} messages={mergedMessages}>
+              <MenuProvider>
+                <RootLayoutWrapper>{children}</RootLayoutWrapper>
+              </MenuProvider>
+            </NextIntlClientProvider>
+          
+    		</ConsentManager>
+    	</body>
+        </html>
+      )
 }
