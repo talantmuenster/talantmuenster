@@ -245,7 +245,8 @@
       "selectbtb": "Select course"
     },
           "hours": "hours",
-      "euro": "euro"
+      "euro": "euro",
+      "empty": "Programs coming soon"
   },
   "events": {
     "breadcrumbs": {

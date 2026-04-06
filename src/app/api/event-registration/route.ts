@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/firebase';
 import { FieldValue, Timestamp } from 'firebase-admin/firestore';
 import { upsertClient } from '@/lib/clients';
+import { verifyAdminSession } from '@/lib/adminAuth';
 
 // POST - Create new registration
 export async function POST(req: NextRequest) {
@@ -69,8 +70,14 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// GET - Get registrations (optionally filtered by eventId)
+// GET - Get registrations (admin only)
 export async function GET(req: NextRequest) {
+  try {
+    await verifyAdminSession(req);
+  } catch {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const { searchParams } = new URL(req.url);
     const eventId = searchParams.get('eventId');

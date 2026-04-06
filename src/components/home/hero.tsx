@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { BookOpen, Calendar, Laptop } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { LINKS } from '../../lib/links';
 
 export default function Hero() {
   const t = useTranslations('home.hero');
@@ -76,6 +77,7 @@ export default function Hero() {
 
               {/* BUTTON — BOTTOM */}
               <Button
+                href={LINKS.about}
                 variant="primary"
                 className="mt-8 mx-auto lg:mx-0 w-max"
               >

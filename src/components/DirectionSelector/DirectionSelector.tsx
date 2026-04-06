@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { DIRECTIONS } from '@/data/direction';
 import { DirectionChip } from './DirectionChip';
 import type { LocalizedContent } from '@/type/type';
@@ -14,7 +14,9 @@ type ProgramDirection = {
 
 export function DirectionSelector() {
   const locale = useLocale();
+  const t = useTranslations('courses');
   const [directions, setDirections] = useState<ProgramDirection[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const fetchDirections = async () => {
@@ -54,6 +56,8 @@ export function DirectionSelector() {
       } catch (err) {
         console.error('🔍 DirectionSelector: Error fetching programs:', err);
         // fallback to static
+      } finally {
+        setLoaded(true);
       }
     };
 
@@ -65,15 +69,19 @@ export function DirectionSelector() {
       
 
       {/* Ссылки */}
-      <div className="flex flex-wrap mb-20 justify-center gap-3 max-w-3xl mx-auto">
-        {(directions.length > 0 ? directions : DIRECTIONS).map((item: any) => (
-          <DirectionChip
-            key={item.id}
-            label={item.title ? (item.title?.[locale as keyof LocalizedContent] || item.title?.ru) : item.label}
-            href={item.slug ? `/programs/${item.slug}` : item.href}
-          />
-        ))}
-      </div>
+      {!loaded ? null : directions.length === 0 ? (
+        <p className="text-center text-gray-500 mb-20 text-lg">{t('empty')}</p>
+      ) : (
+        <div className="flex flex-wrap mb-20 justify-center gap-3 max-w-3xl mx-auto">
+          {directions.map((item: any) => (
+            <DirectionChip
+              key={item.id}
+              label={item.title ? (item.title?.[locale as keyof LocalizedContent] || item.title?.ru) : item.label}
+              href={item.slug ? `/programs/${item.slug}` : item.href}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
