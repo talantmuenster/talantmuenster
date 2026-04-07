@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
+import ExternalLink from '../../components/ui/ExternalLink';
 
 export default function PrivacyPolicyPage() {
   const t = useTranslations('privacyPage');
@@ -57,7 +58,7 @@ export default function PrivacyPolicyPage() {
               <li>{t('s4i4')}</li>
               <li>{t('s4i5')}</li>
             </ul>
-            <p className="mt-3">{t('s4legal1')}</p>
+            <p className="mt-3">{t('s4legal1')} <ExternalLink href="https://gdpr-text.com/ru/read/article-6/?__cf_chl_tk=OzuiVQZuqDS4Vx86a7UqkFk5PJqSfmqyNeBBB7n75pI-1775596507-1.0.1.1-frl1UMil_u6or0GE7Z3jvenu9cLp_eKEIKPRVO5ljjU"  /></p>
             <p>{t('s4legal2')}</p>
             <p className="mt-3">{t('s4t3')}</p>
           </section>
@@ -74,8 +75,8 @@ export default function PrivacyPolicyPage() {
             </ul>
             <p className="mt-3 mb-2">{t('s5legal')}</p>
             <ul className="list-disc space-y-2 pl-6">
-              <li>{t('s5li1')}</li>
-              <li>{t('s5li2')}</li>
+              <li>{t('s5li1')} <ExternalLink href="https://gdpr-text.com/ru/read/article-6/?__cf_chl_tk=OzuiVQZuqDS4Vx86a7UqkFk5PJqSfmqyNeBBB7n75pI-1775596507-1.0.1.1-frl1UMil_u6or0GE7Z3jvenu9cLp_eKEIKPRVO5ljjU"  /></li>
+              <li>{t('s5li2')} <ExternalLink href="https://gdpr-text.com/ru/read/article-6/?__cf_chl_tk=OzuiVQZuqDS4Vx86a7UqkFk5PJqSfmqyNeBBB7n75pI-1775596507-1.0.1.1-frl1UMil_u6or0GE7Z3jvenu9cLp_eKEIKPRVO5ljjU"  /></li>
             </ul>
             <p className="mt-3">{t('s5t3')}</p>
           </section>
@@ -92,8 +93,8 @@ export default function PrivacyPolicyPage() {
             <p className="mt-3">{t('s6t1')}</p>
             <p className="mt-3 mb-2">{t('s6legal')}</p>
             <ul className="list-disc space-y-2 pl-6">
-              <li>{t('s6li1')}</li>
-              <li>{t('s6li2')}</li>
+              <li>{t('s6li1')} <ExternalLink href="https://gdpr-text.com/ru/read/article-6/?__cf_chl_tk=OzuiVQZuqDS4Vx86a7UqkFk5PJqSfmqyNeBBB7n75pI-1775596507-1.0.1.1-frl1UMil_u6or0GE7Z3jvenu9cLp_eKEIKPRVO5ljjU"  /></li>
+              <li>{t('s6li2')} <ExternalLink href="https://gdpr-text.com/ru/read/article-6/?__cf_chl_tk=OzuiVQZuqDS4Vx86a7UqkFk5PJqSfmqyNeBBB7n75pI-1775596507-1.0.1.1-frl1UMil_u6or0GE7Z3jvenu9cLp_eKEIKPRVO5ljjU"  /></li>
             </ul>
           </section>
 
@@ -110,8 +111,8 @@ export default function PrivacyPolicyPage() {
             <p className="mt-3">{t('s7t3')}</p>
             <p className="mt-3 mb-2">{t('s7legal')}</p>
             <ul className="list-disc space-y-2 pl-6">
-              <li>{t('s7li1')}</li>
-              <li>{t('s7li2')}</li>
+              <li>{t('s7li1')} <ExternalLink href="https://gdpr-text.com/ru/read/article-6/?__cf_chl_tk=OzuiVQZuqDS4Vx86a7UqkFk5PJqSfmqyNeBBB7n75pI-1775596507-1.0.1.1-frl1UMil_u6or0GE7Z3jvenu9cLp_eKEIKPRVO5ljjU"  /></li>
+              <li>{t('s7li2')} <ExternalLink href="https://gdpr-text.com/ru/read/article-6/?__cf_chl_tk=OzuiVQZuqDS4Vx86a7UqkFk5PJqSfmqyNeBBB7n75pI-1775596507-1.0.1.1-frl1UMil_u6or0GE7Z3jvenu9cLp_eKEIKPRVO5ljjU"  /></li>
             </ul>
             <p className="mt-3">{t('s7t4')}</p>
           </section>
@@ -129,7 +130,7 @@ export default function PrivacyPolicyPage() {
               <li>{t('s8i7')}</li>
             </ul>
             <p className="mt-3">{t('s8t1')}</p>
-            <p className="mt-3">{t('s8legal')}</p>
+            <p className="mt-3">{t('s8legal')} <ExternalLink href="https://gdpr-text.com/ru/read/article-6/?__cf_chl_tk=OzuiVQZuqDS4Vx86a7UqkFk5PJqSfmqyNeBBB7n75pI-1775596507-1.0.1.1-frl1UMil_u6or0GE7Z3jvenu9cLp_eKEIKPRVO5ljjU"  /> </p>
           </section>
 
           <section>
@@ -147,8 +148,8 @@ export default function PrivacyPolicyPage() {
             <p className="mt-3">{t('s9t2')}</p>
             <p className="mt-3 mb-2">{t('s9legal')}</p>
             <ul className="list-disc space-y-2 pl-6">
-              <li>{t('s9li1')}</li>
-              <li>{t('s9li2')}</li>
+              <li>{t('s9li1')} <ExternalLink href="https://gdpr-text.com/ru/read/article-6/?__cf_chl_tk=OzuiVQZuqDS4Vx86a7UqkFk5PJqSfmqyNeBBB7n75pI-1775596507-1.0.1.1-frl1UMil_u6or0GE7Z3jvenu9cLp_eKEIKPRVO5ljjU"  /></li>
+              <li>{t('s9li2')} <ExternalLink href="https://gdpr-text.com/ru/read/article-6/?__cf_chl_tk=OzuiVQZuqDS4Vx86a7UqkFk5PJqSfmqyNeBBB7n75pI-1775596507-1.0.1.1-frl1UMil_u6or0GE7Z3jvenu9cLp_eKEIKPRVO5ljjU"  /></li>
             </ul>
           </section>
 
@@ -161,7 +162,7 @@ export default function PrivacyPolicyPage() {
               <li>{t('s10i3')}</li>
               <li>{t('s10i4')}</li>
             </ul>
-            <p className="mt-3">{t('s10t2')}</p>
+            <p className="mt-3">{t('s10t2')} <ExternalLink href="https://gdpr-text.com/ru/read/article-28/"  /></p>
           </section>
 
           <section>
