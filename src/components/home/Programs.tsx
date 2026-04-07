@@ -29,7 +29,7 @@ export default function Programs() {
    },
   };
   
-  const cardVariants = {
+  const cardVariants = { 
    hidden: {
      opacity: 0,
      y: 24,
