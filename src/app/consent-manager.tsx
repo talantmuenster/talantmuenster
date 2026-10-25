@@ -105,8 +105,9 @@ export function ConsentManager({ children, locale }: { children: ReactNode; loca
 	return (
 		<ConsentManagerProvider
 			options={{
-					mode: 'c15t',
-					backendURL: '/api/c15t',
+					// The project has no c15t backend configured. Offline mode stores
+					// the visitor's choice locally and must not poll a missing API.
+					mode: 'offline',
 					consentCategories: ['necessary', 'marketing'],
 					ignoreGeoLocation: true,
 					// Forces the SSR pre-fetch to use the site locale instead of Accept-Language header

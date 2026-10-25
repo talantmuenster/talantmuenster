@@ -7,9 +7,11 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Button } from "../../components/ui/Button";
 import { useState } from "react";
+import { useOrganizationSettings } from "@/hooks/useOrganizationSettings";
 
 export default function ContactUsPage() {
   const t = useTranslations("contactsus");
+  const settings = useOrganizationSettings();
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -63,9 +65,9 @@ export default function ContactUsPage() {
               </p>
               {/* Info box */}
               <div className="grid sm:grid-cols-2 gap-6 bg-white lg:border lg:border-secondary rounded-3xl p-8 lg:shadow-sm">
-                <Info icon={<Phone className="w-7 h-7" />} title={t("phone")}>+49 176 64217368</Info>
-                <Info icon={<Mail className="w-7 h-7" />} title={t("email")}>talantmuenster@gmail.com</Info>
-                <Info icon={<MapPin className="w-7 h-7" />} title={t("officeAddress")}>Heinrich-Ebel-Str. 48<br />48161 Münster</Info>
+                <Info icon={<Phone className="w-7 h-7" />} title={t("phone")}>{settings.phone}</Info>
+                <Info icon={<Mail className="w-7 h-7" />} title={t("email")}>{settings.email}</Info>
+                <Info icon={<MapPin className="w-7 h-7" />} title={t("officeAddress")}>{settings.address}</Info>
                 <Info icon={<MapPin className="w-7 h-7" />} title={t("coursesAndEvents")}>Im La Vie, Dieckmannstr. 127<br />48161 Münster</Info>
               </div>
             </div>

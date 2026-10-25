@@ -309,7 +309,7 @@
     "email": "talantmuenster@gmail.com",
     "phone": "+49 176 64217368",
     "contactUs": "Kontakt",
-    "copyright": "© 2025 Talant E.V.",
+    "copyright": "© {year} Talant E.V.",
     "privacy": "Datenschutz",
     "cookies": "Cookie-Richtlinie"
   },

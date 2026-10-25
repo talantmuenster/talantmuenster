@@ -2,13 +2,25 @@
 
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { Facebook, Instagram, Youtube, Mail, Phone } from 'lucide-react';
+import { Facebook, Instagram, Youtube, Mail, Phone, Globe, Twitter } from 'lucide-react';
 import { Logo } from './ui/Logo';
 import { Button } from './ui/Button';
 import { LINKS } from '../lib/links';
+import { useOrganizationSettings } from '@/hooks/useOrganizationSettings';
 
 export default function Footer() {
   const t = useTranslations('footer');
+  const currentYear = new Date().getFullYear();
+  const settings = useOrganizationSettings();
+  const socialLinks = settings.socialLinks ?? {};
+  const socialItems = [
+    { label: 'Facebook', href: socialLinks.facebook, icon: Facebook },
+    { label: 'Instagram', href: socialLinks.instagram, icon: Instagram },
+    { label: 'YouTube', href: socialLinks.youtube, icon: Youtube },
+    { label: 'X', href: socialLinks.twitter, icon: Twitter },
+  ].filter((item): item is { label: string; href: string; icon: typeof Facebook } => Boolean(item.href));
+  const phoneHref = settings.phone ? `tel:${settings.phone.replace(/[^+\d]/g, '')}` : undefined;
+  const emailHref = settings.email ? `mailto:${settings.email}` : undefined;
 
   return (
     <footer className="relative bg-gray-950 text-white overflow-hidden">
@@ -24,7 +36,7 @@ export default function Footer() {
           <div className="space-y-4 flex flex-col items-center md:items-start">
             <Logo variant="secondary" size={180} />
             <p className="text-gray-400 text-sm max-w-xs">
-              {t('address')}
+              {settings.address || t('address')}
             </p>
           </div>
 
@@ -54,49 +66,46 @@ export default function Footer() {
             
             {/* Social Icons */}
             <div className="flex gap-4 justify-center md:justify-start">
-              <a
-                href={LINKS.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition"
-              >
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a
-                href={LINKS.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition"
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a
-                href={LINKS.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition"
-              >
-                <Youtube className="w-5 h-5" />
-              </a>
+              {socialItems.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition"
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              ))}
             </div>
 
             {/* Contact Info */}
             <div className="space-y-3 flex flex-col items-center md:items-start">
-              <a
-                href={LINKS.email}
+              {settings.email && <a
+                href={emailHref}
                 className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition"
               >
                 <Mail className="w-4 h-4" />
-                {t('email')}
-              </a>
+                {settings.email}
+              </a>}
 
-              <a
-                href={LINKS.phone}
+              {settings.phone && <a
+                href={phoneHref}
                 className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition"
               >
                 <Phone className="w-4 h-4" />
-                {t('phone')}
-              </a>
+                {settings.phone}
+              </a>}
+              {settings.website && <a
+                href={settings.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition"
+              >
+                <Globe className="w-4 h-4" />
+                {settings.website.replace(/^https?:\/\//, '')}
+              </a>}
             </div>
 
             {/* Contact Button */}
@@ -114,7 +123,7 @@ export default function Footer() {
                      md:flex-row md:justify-between"
         >
           <p className="text-gray-500 text-sm text-center">
-            {t('copyright')}
+            {t('copyright', { year: currentYear })}
           </p>
 
           <div className="flex flex-col md:flex-row gap-4 md:gap-6 text-sm items-center">

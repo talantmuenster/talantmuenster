@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 type LogoVariant = 'primary' | 'secondary';
@@ -23,12 +22,12 @@ export function Logo({
 }: LogoProps) {
   return (
     <Link href={href} className={`inline-flex items-center ${className}`}>
-      <Image
+      <img
         src={LOGOS[variant]}
         alt="TALANT e.V."
         width={size}
         height={size}
-        priority
+        className="h-auto"
       />
     </Link>
   );
